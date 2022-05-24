@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="作品練習 :Movie Seat Booking 本練習作品學習要點為:將轉換成array的資料轉換進localStorage本地端，並使其保留在返還回介面UI上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作品練習-Movie Seat Booking">
+<meta property="og:url" content="https://shawn.github.io/2021/06/16/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Movie-Seat-Booking/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="作品練習 :Movie Seat Booking 本練習作品學習要點為:將轉換成array的資料轉換進localStorage本地端，並使其保留在返還回介面UI上">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/e1eYOcz.png">
+<meta property="og:image" content="https://i.imgur.com/jbTkeTN.png">
+<meta property="og:image" content="https://i.imgur.com/9chg3na.png">
+<meta property="og:image" content="https://i.imgur.com/qaChKnD.png">
+<meta property="og:image" content="https://i.imgur.com/6LcQiom.png">
+<meta property="og:image" content="https://i.imgur.com/bJwxY8l.png">
+<meta property="og:image" content="https://i.imgur.com/tdIuCHh.png">
+<meta property="og:image" content="https://i.imgur.com/mTbju8A.png">
+<meta property="og:image" content="https://i.imgur.com/OyWp1hb.png">
+<meta property="og:image" content="https://i.imgur.com/u6Js7FX.png">
+<meta property="og:image" content="https://i.imgur.com/x2PTfOl.png">
+<meta property="article:published_time" content="2021-06-16T15:47:42.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:04.946Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/e1eYOcz.png">
+
+<link rel="canonical" href="https://shawn.github.io/2021/06/16/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Movie-Seat-Booking/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>作品練習-Movie Seat Booking | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2021/06/16/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Movie-Seat-Booking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          作品練習-Movie Seat Booking
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-06-16 23:47:42" itemprop="dateCreated datePublished" datetime="2021-06-16T23:47:42+08:00">2021-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:04" itemprop="dateModified" datetime="2022-05-24T17:41:04+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="作品練習-Movie-Seat-Booking"><a href="#作品練習-Movie-Seat-Booking" class="headerlink" title="作品練習 :Movie Seat Booking"></a>作品練習 :Movie Seat Booking</h1><blockquote>
+<p>本練習作品學習要點為:將轉換成array的資料轉換進localStorage本地端，並使其保留在返還回介面UI上</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><h3 id="簡單的快捷輸入法"><a href="#簡單的快捷輸入法" class="headerlink" title="簡單的快捷輸入法"></a>簡單的快捷輸入法</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--左側為縮寫輸入法/右側為輸入後顯示  --&gt;</span></span><br><span class="line">.row=       <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">.seat*8=    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">p.text=     <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">span#count= <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;count&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="關於label的用法"><a href="#關於label的用法" class="headerlink" title="關於label的用法"></a>關於label的用法</h3><p>label<strong>本身為表達語意的標籤</strong>，在表單上，用法常見為<code>&lt;label for&gt;</code>，以及與<code>&lt;select&gt;</code>連結的典型用法，於下方練習的code之後說明。</p>
+<h4 id="練習作品中的code呈現如下"><a href="#練習作品中的code呈現如下" class="headerlink" title="練習作品中的code呈現如下:"></a>練習作品中的code呈現如下:</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;movie-container&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 此為label典型用法 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span>&gt;</span>Pick a movie:<span class="tag">&lt;/<span class="name">label</span>&gt;</span> </span><br><span class="line">       <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;movie&quot;</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span>&gt;</span>Avengers: Endgame ($10)<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;12&quot;</span>&gt;</span>Joker ($12)<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;8&quot;</span>&gt;</span>Toy Story 4 ($8)<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;9&quot;</span>&gt;</span>The Lion King ($9)<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="關於用法"><a href="#關於用法" class="headerlink" title="關於用法"></a>關於<label for>用法</h4><p>舉例:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;male&quot;</span>&gt;</span>Male<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">id</span>=<span class="string">&quot;male&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;female&quot;</span>&gt;</span>Female<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">id</span>=<span class="string">&quot;female&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;other&quot;</span>&gt;</span>Other<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">id</span>=<span class="string">&quot;other&quot;</span> <span class="attr">value</span>=<span class="string">&quot;other&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>呈現如右:<img src="https://i.imgur.com/e1eYOcz.png"></p>
+<h4 id="關於select用法-典型與label結合的用法"><a href="#關於select用法-典型與label結合的用法" class="headerlink" title="關於select用法(典型與label結合的用法)"></a>關於select用法(典型與label結合的用法)</h4><p>舉例:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;cars&quot;</span>&gt;</span>Choose a car:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;cars&quot;</span> <span class="attr">id</span>=<span class="string">&quot;cars&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;volvo&quot;</span>&gt;</span>Volvo<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;saab&quot;</span>&gt;</span>Saab<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;mercedes&quot;</span>&gt;</span>Mercedes<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;audi&quot;</span>&gt;</span>Audi<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>呈現如右:<img src="https://i.imgur.com/jbTkeTN.png"></p>
+<p>參考自:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/tags/tag_label.asp">W3school-label</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3schools.com/tags/tag_select.asp">W3school-select</a></li>
+</ul>
+<h3 id="建立座位狀態"><a href="#建立座位狀態" class="headerlink" title="建立座位狀態"></a>建立座位狀態</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--建立座位狀態 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;showcase&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">small</span>&gt;</span>N/A<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat selected&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">small</span>&gt;</span>Selected<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">small</span>&gt;</span>Occupied<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="建立電影螢幕及建立座位"><a href="#建立電影螢幕及建立座位" class="headerlink" title="建立電影螢幕及建立座位"></a>建立電影螢幕及建立座位</h3><p>藉由class命名來隨機標示座位狀態。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--建立電影螢幕  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;screen&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--建立座位  --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--seat occupied為滿座  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat occupied&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;seat&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="總價格顯示"><a href="#總價格顯示" class="headerlink" title="總價格顯示:"></a>總價格顯示:</h3><p>span做id命名，作為後續計算座位及價格</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--總價格顯示  --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--下面兩個span標籤皆有命名id，為了後續操作幾個座位及總價格  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text&quot;</span>&gt;</span>You have Selected <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;count&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span> seats for a price of $<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;total&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="html完成圖如下"><a href="#html完成圖如下" class="headerlink" title="html完成圖如下"></a>html完成圖如下</h3><p><img src="https://i.imgur.com/9chg3na.png"></p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="字型套用與通用選取器"><a href="#字型套用與通用選取器" class="headerlink" title="字型套用與通用選取器"></a>字型套用與通用選取器</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="attr">--import</span> css字型  --&gt;</span><br><span class="line"><span class="keyword">@import</span> url(<span class="string">&#x27;https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap&#x27;</span>);</span><br><span class="line"></span><br><span class="line">&lt;!--通用選取器:套用在全部元素標籤內  --&gt;</span><br><span class="line">*&#123;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="body-CSS樣式設定"><a href="#body-CSS樣式設定" class="headerlink" title="body CSS樣式設定"></a>body CSS樣式設定</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">     <span class="attribute">background-color</span>: <span class="number">#242333</span>;</span><br><span class="line">     <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">     <span class="attribute">display</span>: flex;</span><br><span class="line">     <span class="attribute">flex-direction</span>: column;</span><br><span class="line">     <span class="attribute">align-items</span>: center;</span><br><span class="line">     <span class="attribute">justify-content</span>: center;</span><br><span class="line">     <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line"><span class="comment">/* 套用上方import的字型 */</span></span><br><span class="line">     <span class="attribute">font-family</span>: <span class="string">&#x27;Lato&#x27;</span>, sans-serif;</span><br><span class="line">     <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="設定下拉式選單-select-樣式"><a href="#設定下拉式選單-select-樣式" class="headerlink" title="設定下拉式選單(select)樣式"></a>設定下拉式選單(select)樣式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.movie-container</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.movie-container</span> select &#123;</span><br><span class="line">    <span class="comment">/* 背景 */</span></span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="comment">/* 比較border: 0與none的差別 */</span></span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/* 圓角 */</span></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="comment">/* 字體 */</span></span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">    <span class="comment">/* 距離左側間隔 */</span></span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="comment">/* 格子的長寬 */</span></span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">15px</span> <span class="number">5px</span> <span class="number">15px</span>;</span><br><span class="line">    <span class="comment">/* appearance屬性改變元素的外觀 */</span></span><br><span class="line">    <span class="comment">/*此處為取消瀏覽器預設效果 */</span></span><br><span class="line">    -moz-appearance: none;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">    appearance: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="比較border-0-與-border-none"><a href="#比較border-0-與-border-none" class="headerlink" title="比較border:0 與 border: none"></a>比較border:0 與 border: none</h4><ul>
+<li><code>border:0;</code> 瀏覽器對border-width、border-color進行渲染，佔用記憶體。</li>
+<li><code>border:none;</code> 瀏覽器不進行渲染，不佔用記憶體。</li>
+</ul>
+<p>請始終把<code>border-style</code>屬性宣告到<code>border-color</code>屬性之前，元素必須在改變顏色之前獲得邊框。</p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://www.itread01.com/hkpypll.html">border：none和border:0px區別？</a></p>
+<h3 id="appearance屬性改變元素的外觀"><a href="#appearance屬性改變元素的外觀" class="headerlink" title="appearance屬性改變元素的外觀"></a>appearance屬性改變元素的外觀</h3><p>此屬性能對任何元素的渲染風格改變，但因為目前這個功能各瀏覽器<strong>沒有統一</strong>，有些使用<code>-moz-appearance</code>或者使用<code>-webkit-appearance</code>，因此在設定上會兩者都設置，好讓各瀏覽器皆可運作，可運用於select選單、input輸入框、button按鈕等等。</p>
+<p>可參考<a target="_blank" rel="noopener" href="http://help.dottoro.com/lcglsvea.php">-moz-appearance property | -webkit-appearance property</a>得知各瀏覽器支援的部分及appearance value。</p>
+<p>以下列出幾個可能比較常使用的value:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">-moz-appearance: none;</span><br><span class="line">-moz-appearance: button;</span><br><span class="line">-moz-appearance: checkbox;</span><br><span class="line">-moz-appearance: scrollbarbutton-up;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-webkit-appearance: none;</span><br><span class="line">-webkit-appearance: button;</span><br><span class="line">-webkit-appearance: checkbox;</span><br><span class="line">-webkit-appearance: scrollbarbutton-up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://www.itread01.com/p/691277.html">使用CSS3的appearance屬性改變元素的外觀</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/appearance">MDN:-moz-appearance (-webkit-appearance)</a><br><a target="_blank" rel="noopener" href="https://css-tricks.com/almanac/properties/a/appearance/">appearance</a></p>
+<h3 id="transform與3D三維變化"><a href="#transform與3D三維變化" class="headerlink" title="transform與3D三維變化"></a>transform與3D三維變化</h3><p>以下分別介紹transform的rotateX()功能及<br>perspective功能。</p>
+<h4 id="transform的perspective效果"><a href="#transform的perspective效果" class="headerlink" title="transform的perspective效果"></a>transform的perspective效果</h4><p>perspective是transform 3D轉換效果</p>
+<blockquote>
+<p>在撰寫程式碼的時候，一度很疑惑，在<code>container</code>設定<code>perspective 三維效果</code>，但為何座位圖不會跟著有效果呢?(見下圖，座位<code>row</code>也是包在container裡面的)<br><img src="https://i.imgur.com/qaChKnD.png"><br>A: 原來是因為screen<strong>設定了transform</strong>! 設定了transform三維效果才會有效!(此處特地將<code>screen的css code</code>放在一起一同說明)</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="comment">/* 三維變化 3D效果變化*/</span></span><br><span class="line">    <span class="attribute">perspective</span>: <span class="number">1000px</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*.screen &#123;</span></span><br><span class="line"><span class="comment">    background: #fff;</span></span><br><span class="line"><span class="comment">    height: 70px;</span></span><br><span class="line"><span class="comment">    width: 100%;</span></span><br><span class="line"><span class="comment">    margin: 15px 0;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment"> *此處設定了transform:</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">    transform: rotateX(-45deg);</span></span><br><span class="line"><span class="comment">    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);  */</span></span><br></pre></td></tr></table></figure>
+<p>參考自:<br><a target="_blank" rel="noopener" href="https://www.itread01.com/p/654136.html">例項講解CSS3中Transform的perspective屬性的用法</a></p>
+<h4 id="transform的rotateX-效果"><a href="#transform的rotateX-效果" class="headerlink" title="transform的rotateX()效果"></a>transform的rotateX()效果</h4><p>是transform 3D轉換效果，<code>rotate X()</code>為控制水平(X)軸，去進行變形。</p>
+<p>參考自:<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function/rotateX()">MDN-rotateX()</a></p>
+<p>關於transform更多2D、3D效果請參考:<br><a target="_blank" rel="noopener" href="https://www.w3schools.com/css/css3_2dtransforms.asp">CSS 2D Transforms</a><br><a target="_blank" rel="noopener" href="https://www.w3schools.com/css/css3_3dtransforms.asp">CSS 3D Transforms</a></p>
+<h3 id="座位樣式設定"><a href="#座位樣式設定" class="headerlink" title="座位樣式設定"></a>座位樣式設定</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 原來的.seat並無文字撐開，所以無寬度高度，</span></span><br><span class="line"><span class="comment"> * 使用heigh所以無寬度高度，使用height、width、margin設定 */</span></span><br><span class="line"><span class="selector-class">.seat</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#444451</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="comment">/* 左右各圓角 */</span></span><br><span class="line">    <span class="attribute">border-top-left-radius</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border-top-right-radius</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*設定座位狀態的顏色  */</span></span><br><span class="line"><span class="selector-class">.seat</span><span class="selector-class">.selected</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#6feaf6</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.seat</span><span class="selector-class">.occupied</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*設定為橫排*/</span></span><br><span class="line"><span class="comment">/* .row &#123;</span></span><br><span class="line"><span class="comment">    display: flex;</span></span><br><span class="line"><span class="comment">&#125; */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="製作走道-nth-of-type及-nth-last-of-type"><a href="#製作走道-nth-of-type及-nth-last-of-type" class="headerlink" title="製作走道 :nth-of-type及:nth-last-of-type"></a>製作走道 :nth-of-type及:nth-last-of-type</h3><p>使用<code>:nth-of-type()</code>及<code>:nth-last-of-type()</code>選擇器 ，目的是分類其中兩行座位產生間距，製造電影院走道的效果。<br><img src="https://i.imgur.com/6LcQiom.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.seat</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="attribute">margin-right</span>: <span class="number">18px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.seat</span><span class="selector-pseudo">:nth-last-of-type</span>(<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">18px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考自:<br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10227242">:nth-of-type() &amp; :nth-last-of-type() - 你覺得燒腦但其實根本不燒腦的選取器趴兔</a><br>比較<code>:ntn-child</code>與<code>:nth-of-type</code>的大同小異:<br><a target="_blank" rel="noopener" href="https://www.webdesigns.com.tw/CSS3-nth-of-type.asp">CSS3:nth-of-type(n)</a></p>
+<h3 id="製作座位效果-not選擇器與-hover選擇器"><a href="#製作座位效果-not選擇器與-hover選擇器" class="headerlink" title="製作座位效果 :not選擇器與:hover選擇器"></a>製作座位效果 :not選擇器與:hover選擇器</h3><p>我們希望做座位圖稍微放大並有點選圖標效果，讓使用者體驗優化。<br><img src="https://i.imgur.com/bJwxY8l.png"></p>
+<p>此處我們使用了兩個選擇器，分別是<code>:not</code>選擇器與<code>:hover</code>選擇器，</p>
+<ul>
+<li>透過:not選擇器，加入:not(類別名稱)，可用來當成搜尋器的關鍵字排除器，會自動的略過該類別名稱，不套用樣式。</li>
+<li>:hover 選擇器用於滑鼠箭頭滑到指定元素所顯現的效果，可用於所有元素，不限於link鏈接元素。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*not與hover選擇器  */</span></span><br><span class="line"><span class="selector-class">.seat</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.occupied</span>)<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="comment">/* 更改圖標 */</span></span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="comment">/* 座位圖形做放大 */</span></span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1.2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考自:<br><a target="_blank" rel="noopener" href="https://www.minwt.com/webdesign-dev/css/17780.html">CSS3選擇器 :not() 讓CSS也支援判斷的機制</a><br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/cssref/selector_hover.asp">CSS :hover 选择器</a></p>
+<h3 id="showcase範例圖式移除hover效果"><a href="#showcase範例圖式移除hover效果" class="headerlink" title="showcase範例圖式移除hover效果"></a>showcase範例圖式移除hover效果</h3><p>此處設定不讓hover設定的變化在shwcase版發生<br><img src="https://i.imgur.com/tdIuCHh.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 不讓hover設定的變化在shwcase版發生 */</span></span><br><span class="line"><span class="selector-class">.showcase</span> <span class="selector-class">.seat</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.occupied</span>)<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">cursor</span>: default;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="showcase座位狀態顯示樣式設定"><a href="#showcase座位狀態顯示樣式設定" class="headerlink" title="showcase座位狀態顯示樣式設定"></a>showcase座位狀態顯示樣式設定</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.showcase</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.1</span>);</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#777</span>;</span><br><span class="line">    <span class="comment">/* 文字前的標記(這裡是將它去除標記) */</span></span><br><span class="line">    <span class="attribute">list-style-type</span>: none;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.showcase</span> <span class="selector-tag">li</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* showcase 圖案與字之間的間隔(以字的左側去調整) */</span></span><br><span class="line"><span class="selector-class">.showcase</span> <span class="selector-tag">li</span> small &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*於上方座位樣式已說明  */</span></span><br><span class="line"><span class="selector-class">.row</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*於上方transform的perspective效果已說明  */</span></span><br><span class="line"><span class="selector-class">.screen</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">15px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateX</span>(-<span class="number">45deg</span>);</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">3px</span> <span class="number">10px</span> <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>, <span class="number">0.7</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="設定選取電影座位總數及總票價文字樣式"><a href="#設定選取電影座位總數及總票價文字樣式" class="headerlink" title="設定選取電影座位總數及總票價文字樣式"></a>設定選取電影座位總數及總票價文字樣式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.text</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">5px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.text</span>  <span class="selector-tag">span</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#6feaf6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="完整Javascript"><a href="#完整Javascript" class="headerlink" title="完整Javascript"></a>完整Javascript</h2><h3 id="DOM元素宣告"><a href="#DOM元素宣告" class="headerlink" title="DOM元素宣告"></a>DOM元素宣告</h3><ul>
+<li>ticketPrice，從const改成let，因value會更動(隨電影票價等更動)</li>
+<li>parseInt函式為轉換語法，加了+號可將回傳值由字串轉換為數字</li>
+<li>querySelector只返回匹配的第一個元素，如果沒有匹配項，返回null</li>
+<li>querySelectorAll返回匹配的元素集合，如果沒有匹配項，返回空的nodelist(節點陣列)ex.返回”[]”。</li>
+<li>(‘.row .seat:not(.occupied)’)同css選擇器，querySelectorAll也可以這樣使用排除不要的元素。</li>
+<li>將函式呼叫populateUI()’放置於前面，其一重點為:因函式提升的特性，函式呼叫放前放後沒有影響，其二重點為:放置於”Save Selected movie index and price”的function前面，目的是讓票價及位置在先前的紀錄中能被回傳，讓其資料持續保持在瀏覽器介面(UI)上。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// querySelector回傳匹配指定選擇器的第一個元素</span></span><br><span class="line"><span class="keyword">const</span> container = </span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.container&#x27;</span>);</span><br><span class="line"><span class="comment">// 有很多的seat，所以選擇querySelectorAll回傳所有的元</span></span><br><span class="line"><span class="comment">// (&#x27;.row .seat:not(.occupied)&#x27;)同css選擇器，querySelectorAll也可以這樣使用排除不要的元素</span></span><br><span class="line"><span class="keyword">const</span> seats = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.row .seat:not(.occupied)&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> count = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;count&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> total = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;total&#x27;</span>);</span><br><span class="line"><span class="comment">// 先行說明movieSelect之HTML id=movie為字串，作為後續說明時更能幫助理解</span></span><br><span class="line"><span class="keyword">const</span> movieSelect = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;movie&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 呼叫下方 populateUI function，目的讓get到的本地端的資料放入(因為函式提升的特性，函式呼叫放前放後沒有影響)</span></span><br><span class="line"><span class="title function_">populateUI</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小撇步:加了+號可將回傳值由字串轉換為數字(HTML id(movie)及value皆為字串)</span></span><br><span class="line"><span class="comment">// 因Movie select event事件監聽中更換電影，票價會改變</span></span><br><span class="line"><span class="comment">//所以從const改成let，因value(票價值)會更動</span></span><br><span class="line"><span class="keyword">let</span> ticketPrice = +movieSelect.<span class="property">value</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="設定seat事件監聽，再設定seat-toggle-切換-狀態"><a href="#設定seat事件監聽，再設定seat-toggle-切換-狀態" class="headerlink" title="設定seat事件監聽，再設定seat toggle(切換)狀態"></a>設定seat事件監聽，再設定seat toggle(切換)狀態</h3></li>
+<li>使用if判斷，點擊空座位切換為selected，再點擊一次切換回未點擊狀態。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Seat click event</span></span><br><span class="line"><span class="comment">// 未設定if之前，點擊任何元素皆會回傳值</span></span><br><span class="line">container.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line"><span class="comment">//  設定只有點擊seat，並且不是(語法:&amp;&amp;!)occupied才會返值 </span></span><br><span class="line">        e.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&#x27;seat&#x27;</span>) &amp;&amp;</span><br><span class="line">        !e.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">contains</span>(<span class="string">&#x27;occupied&#x27;</span>)</span><br><span class="line">    ) &#123;</span><br><span class="line"><span class="comment">//     classList.toggle，切換類設定，設定點擊空座位轉換為selected的css設定(turn blue color)，再點擊時&quot;切換&quot;為未點擊時狀態，</span></span><br><span class="line">        e.<span class="property">target</span>.<span class="property">classList</span>.<span class="title function_">toggle</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">updateSelectedCount</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>補充關於function(e)的部分:<br>e&#x3D;Event，Event對象代表事件的狀態，比如事件在其中發生的元素、鍵盤按鍵的狀態、滑鼠的位置、滑鼠按鈕(click)的狀態。</p>
+<p>事件通常與函數結合使用，函數不會在事件發生前被執行！</p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://codertw.com/%E5%89%8D%E7%AB%AF%E9%96%8B%E7%99%BC/27430/">JS基礎篇–HTML DOM classList 屬性</a></p>
+<h3 id="設定總票價的數字變化"><a href="#設定總票價的數字變化" class="headerlink" title="設定總票價的數字變化"></a>設定總票價的數字變化</h3><p>繼設定事件監聽來讀取座位數後，我們可以進一步去設定總票價的變化。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Update total and count</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updateSelectedCount</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="comment">// 選擇row底下含有seat.selected的物件，設定此會回傳nodlist(見下圖1)</span></span><br><span class="line">    <span class="keyword">const</span> selectedSeats = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.row .seat.selected&#x27;</span>);</span><br><span class="line"><span class="comment">// 將nodlist轉換成數字(見下圖2)</span></span><br><span class="line">    <span class="keyword">const</span> selectedSeatsCount = selectedSeats.<span class="property">length</span>;</span><br><span class="line"><span class="comment">// 設定顯示座位數及票價(見下圖3)</span></span><br><span class="line">    count.<span class="property">innerText</span> = selectedSeatsCount;</span><br><span class="line">    total.<span class="property">innerText</span> = selectedSeatsCount * ticketPrice;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>圖1.點選座位，顯示nodlist<br><img src="https://i.imgur.com/mTbju8A.png"></p>
+<p>圖2.設定length，轉換成數字<br><img src="https://i.imgur.com/OyWp1hb.png"></p>
+<p>圖3.設定點選座位就會顯示座位數及票價<br><img src="https://i.imgur.com/u6Js7FX.png"></p>
+<h3 id="設定選擇不同電影跳出不同票價"><a href="#設定選擇不同電影跳出不同票價" class="headerlink" title="設定選擇不同電影跳出不同票價"></a>設定選擇不同電影跳出不同票價</h3><p>這裡在movieSelect(電影選擇列)上再設定一個監聽事件，觸發的點是’change’，使選擇不同電影可以同步更新到總票價區。</p>
+<blockquote>
+<p>change&#x3D;&gt;物件內容改變時<br>target&#x3D;&gt;指向觸發事件的 DOM element<br>引用自<a target="_blank" rel="noopener" href="https://www.fooish.com/javascript/dom/event.html">JavaScript DOM Event (事件處理)</a></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Movie select event</span></span><br><span class="line"><span class="comment">//這裡因value會變化，所以上方宣告使用let</span></span><br><span class="line">movieSelect.<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    ticketPrice = +e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line">    <span class="title function_">updateSelectedCount</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://www.fooish.com/javascript/dom/event.html">JavaScript DOM Event (事件處理)</a><br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10249271?sc=rss.iron">JavaScript 從零開始 - Day34- e.target 與 nodeName</a></p>
+<h3 id="將點選的座位儲存在本地空間"><a href="#將點選的座位儲存在本地空間" class="headerlink" title="將點選的座位儲存在本地空間"></a>將點選的座位儲存在本地空間</h3><p>這裡描述的部分，主要是在頁面重新整理之後仍可以保留資料，我們希望將資料保存在本地儲存空間。</p>
+<h4 id="於updateSelectedCount函式內寫入"><a href="#於updateSelectedCount函式內寫入" class="headerlink" title="於updateSelectedCount函式內寫入"></a>於updateSelectedCount函式內寫入</h4><p>因解說方式關係，先附上完整code，因函式內有部分已於前段說明，因此以註解方式提醒讀者注意片段，將於下方一一拆解說明。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Update total and count</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updateSelectedCount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> selectedSeats = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.row .seat.selected&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 此處為本次說明要點1:如何點選座位位置(為每個座位定上順序位置(索引位置))</span></span><br><span class="line">    <span class="keyword">const</span> seatsIndex = [...selectedSeats].<span class="title function_">map</span>(<span class="function"><span class="params">seat</span> =&gt;</span> [...seats].<span class="title function_">indexOf</span>(seat));</span><br><span class="line"><span class="comment">// 說明要點2:儲存於本地空間(瀏覽器)</span></span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;selectedSeats&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(seatsIndex));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> selectedSeatsCount = selectedSeats.<span class="property">length</span>;</span><br><span class="line"></span><br><span class="line">    count.<span class="property">innerText</span> = selectedSeatsCount;</span><br><span class="line">    total.<span class="property">innerText</span> = selectedSeatsCount * ticketPrice;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="如何點選座位位置-為每個座位定上順序位置-索引位置"><a href="#如何點選座位位置-為每個座位定上順序位置-索引位置" class="headerlink" title="如何點選座位位置(為每個座位定上順序位置(索引位置))"></a>如何點選座位位置(為每個座位定上順序位置(索引位置))</h4><p>我們將思路拆解為:<br>1.Copy selected seats into array  將已選擇的座位轉換成陣列。<br>2.Map through array 對陣列元素進行處理<br>3.return a new array indexs 回傳陣列第幾個位置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此函式為es6簡化 另種寫法為const seatsIndex = [...selectedSeats].map(function(seat) &#123; return [...seats].indexOf(seat)&#125;);</span></span><br><span class="line">    <span class="keyword">const</span> seatsIndex = </span><br><span class="line"><span class="comment">// 稱為展開運算符，下方做詳細介紹</span></span><br><span class="line"><span class="comment">// 使用map()對陣列做處理，下方介紹</span></span><br><span class="line"><span class="comment">// indexOf()取締幾個位子的方法，下方介紹</span></span><br><span class="line">[...selectedSeats].<span class="title function_">map</span>(<span class="function"><span class="params">seat</span> =&gt;</span> [...seats].<span class="title function_">indexOf</span>(seat));</span><br></pre></td></tr></table></figure>
+
+<h4 id="Copy-selected-seats-into-array-展開運算符介紹"><a href="#Copy-selected-seats-into-array-展開運算符介紹" class="headerlink" title="Copy selected seats into array-展開運算符介紹"></a>Copy selected seats into array-展開運算符介紹</h4><blockquote>
+<p>這個運算符後面必定接著一個陣列。最常見的是用來組合(連接)陣列，對應的陣列方法是concat。</p>
+</blockquote>
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="keyword">const</span> arr2 = [...arr,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr2) </span><br><span class="line"><span class="comment">// arr2為1,2,3,4,5</span></span><br></pre></td></tr></table></figure>
+<p>資料參考:<br><a target="_blank" rel="noopener" href="https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/rest_spread.html">展開運算符與其餘運算符</a></p>
+<h4 id="Map-through-array-處理陣列元素-map"><a href="#Map-through-array-處理陣列元素-map" class="headerlink" title="Map through array- 處理陣列元素 map()"></a>Map through array- 處理陣列元素 map()</h4><blockquote>
+<p>陣列 (arrray) 的 map() 方法用來遍歷一個陣列中的每個元素，將元素分別傳入你指定的函數，最後將所有函數的返回值組成一個新的陣列。</p>
+</blockquote>
+<p>語法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArr = arr.<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params">value, index, array</span>)&#123;</span><br><span class="line">  <span class="comment">//do something...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> doubles = numbers.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">num</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> num * <span class="number">2</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 輸出 [2, 8, 18]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(doubles);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 輸出 [1, 4, 9]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(numbers);</span><br></pre></td></tr></table></figure>
+<p>資料參考:<br><a target="_blank" rel="noopener" href="https://www.fooish.com/javascript/array/map.html">JavaScript Array map()</a></p>
+<h4 id="return-a-new-array-indexs-回傳第幾個位子-indexOf"><a href="#return-a-new-array-indexs-回傳第幾個位子-indexOf" class="headerlink" title="return a new array indexs -回傳第幾個位子: indexOf()"></a>return a new array indexs -回傳第幾個位子: indexOf()</h4><blockquote>
+<p><code>indexOf()</code> 方法會找出第一個(第幾個)陣列中元素的索引位置，若不存在於陣列中則回傳 -1。</p>
+</blockquote>
+<p>語法:<code>ary.indexOf(searchElement)</code>、<code>ary.indexOf(searchElement, fromIndex)</code></p>
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">indexOf</span>(<span class="number">1</span>));</span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">indexOf</span>(<span class="number">2</span>));</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 重複的元素，會以第一個為主，除非指定</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">indexOf</span>(<span class="number">4</span>,<span class="number">2</span>));</span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf">Array.prototype.indexOf()</a></p>
+<h4 id="設定localStorge-儲存於本地儲存空間-瀏覽器"><a href="#設定localStorge-儲存於本地儲存空間-瀏覽器" class="headerlink" title="設定localStorge 儲存於本地儲存空間(瀏覽器)"></a>設定localStorge 儲存於本地儲存空間(瀏覽器)</h4><blockquote>
+<p>可以跨瀏覽器分頁做使用、使用者關掉分頁或瀏覽器再打開資料仍不會消失，且資料無期效限制，資料將永久被保留。</p>
+<blockquote>
+<p>資料儲存的格式</p>
+<ul>
+<li>資料是以類似 JSON 的格式儲存</li>
+<li>keyName(屬性名稱) 和 keyValue(相對應的值) 皆需要為字串，ex, keyName: ‘Name’&#x2F; keyValue:’Shawn’</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><strong>存入資料</strong>語法:<br><code>localStorage.setItem(keyName, keyValue)</code></p>
+<p>我們欲將選取的座位(selectedSeats)存入本地端，而點選的座位值(seatsIndex)為array(陣列)，將其轉換為字串方能存入瀏覽器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因分開說明，這裡再將上方解釋的程式補充於此，讓讀者更方便對應，localStorage取值的部分:</span></span><br><span class="line"><span class="comment">// const seatsIndex = [...selectedSeats].map(( seat =&gt; &#123;return [...seats].indexOf(seat)&#125;))</span></span><br><span class="line"><span class="comment">// keyName:&#x27;selectedSeats&#x27;，keyValue為keyName對應的值，因其在上方函式已轉為陣列(array)，所以使用JSON.stringify()轉換成字串(string)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x27;selectedSeats&#x27;為application顯式的名稱(見下圖)</span></span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;selectedSeats&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(seatsIndex));</span><br></pre></td></tr></table></figure>
+
+<p><strong>可於瀏覽器的檢查(shift+ctrl+i)中的application，找到儲存的seatsIndex。</strong></p>
+<h4 id="localStorage同樣用法-於setMovieData函式使用"><a href="#localStorage同樣用法-於setMovieData函式使用" class="headerlink" title="localStorage同樣用法:於setMovieData函式使用"></a>localStorage同樣用法:於setMovieData函式使用</h4><p>除了座位被儲存，選擇哪部電影及其票價，也同樣需要被存入本地儲存空間。<br>此次不同的地方在於，keyValue本身即為字串，不須使用<code>JSON.stringify()</code>轉換。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Save selected movie index and price</span></span><br><span class="line"><span class="comment">// function放入參數:e.target.selectedIndex=movieIndex，</span></span><br><span class="line"><span class="comment">// e.target.value=moviePrice</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">setMovieData</span>(<span class="params">movieIndex, moviePrice</span>) &#123;</span><br><span class="line"><span class="comment">// &#x27;selectedMovieIndex&#x27;及&#x27;selectedMoviePrice&#x27;為存入application顯示的名稱(可見下圖)</span></span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;selectedMovieIndex&#x27;</span>, movieIndex);</span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;selectedMoviePrice&#x27;</span>, moviePrice);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再設定上方函式之前，我們於movieSelect的監聽事件上再增加一行呼叫函式，以作為被觸發(此處為滑鼠點擊事件，即點選電影目錄)時，會存入localStorage。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Movie select event</span></span><br><span class="line">movieSelect.<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    ticketPrice = +e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//此行是此次localStorage函式前添加，其他addEventListener上方皆已說明。</span></span><br><span class="line"><span class="comment">// e.target.selectedIndex為</span></span><br><span class="line"><span class="comment">// 抓取瀏覽器(e)中點選目標(target)之值(此處為被點選之電影目錄索引值)，而value則指票價值(html 中 option value = &quot;票價值&quot;)。</span></span><br><span class="line"><span class="comment">// selectedIndex為取得select底下option tag的index(索引號)</span></span><br><span class="line">    <span class="title function_">setMovieData</span>(e.<span class="property">target</span>.<span class="property">selectedIndex</span>, e.<span class="property">target</span>.<span class="property">value</span>);</span><br><span class="line">    <span class="title function_">updateSelectedCount</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>補充說明:selectedIndex&#x3D;&gt;設定(set)或回傳(return)多個選擇的下拉式列表，它將僅返回選擇的第一個選項的索引(index)。<br>引用自<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_select.asp">HTML DOM Select 對象</a></p>
+<p>設定之後，於瀏覽器中呈現如下:<br><code>(此範例中，我開啟檢查以方便做對比，我點選第一個Avengers電影，因此右側selectedMovieindex索引值為0(索引值從0起算)，selectedMoviePrice為10(票價10))</code></p>
+<p><img src="https://i.imgur.com/x2PTfOl.png"></p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://medium.com/%E9%BA%A5%E5%85%8B%E7%9A%84%E5%8D%8A%E8%B7%AF%E5%87%BA%E5%AE%B6%E7%AD%86%E8%A8%98/javascript-localstorage-%E7%9A%84%E4%BD%BF%E7%94%A8-e0da6f402453">JavaScript-localStorage 的使用</a><br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10195522">JS30-Day15-LocalStorage</a></p>
+<h3 id="從localStorage-取出資料，及回頭填充至UI-瀏覽器介面"><a href="#從localStorage-取出資料，及回頭填充至UI-瀏覽器介面" class="headerlink" title="從localStorage 取出資料，及回頭填充至UI(瀏覽器介面)"></a>從localStorage 取出資料，及回頭填充至UI(瀏覽器介面)</h3><p>將<code>populateUI();</code>函式呼叫放置在最上層的註解:”Save Selected movie index and price”的function前面，目的是讓儲存在本地端的資料能回傳放進瀏覽者介面中，得以持續保存及顯示，不因重新整理消失。</p>
+<p>補充:持續顯示原因為本地端的資料”重新”各自放回選擇座位(seats)及選擇電影目錄(movieIndex)及電影票價(ticketPrice)等相關函式之中再計算、再判斷、再顯示於UI，最後跑到程式最後一行<code>updateSelectedCount()</code>呼叫函式，讓其重整網頁時，不需經過事件觸發，直接更新，所以看起來就如持續顯示一般。</p>
+<p>撰寫<code>populateUI();</code>函式，使用localStorage 取出資料<code>getItem()</code>語法，</p>
+<p>語法:<br><code>localStorage.getItem(key)</code></p>
+<p>取出資料時，使用 JSON.parse() 方法，將資料轉換回原本的格式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get datd from localstorage and populate UI</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">populateUI</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="comment">//這邊使用parse把JSON資料轉換array回來，使用getItem到我們要使用的keyValue也就是剛剛我們設定的&#x27;selectedSeats&#x27;並且指派給變數selectedSeats</span></span><br><span class="line"><span class="comment">//往下做判斷式處理讓藍色座椅繼續留著，因為localstorage裡面儲存的資料符合條件</span></span><br><span class="line">    <span class="keyword">const</span> selectedSeats = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;selectedSeats&#x27;</span>));</span><br><span class="line"><span class="comment">//如果array selectedSeats不為空以及selectedSeats.length大於0則跑下面判斷式</span></span><br><span class="line">    <span class="keyword">if</span> (selectedSeats ! <span class="literal">null</span> &amp;&amp; selectedSeats.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line"><span class="comment">//把所有座位使用forEach一個個印出並且判斷每個座位的index號碼是否跟selectedSeats的一樣，如果一樣則執行加上selected這個class</span></span><br><span class="line">        seat.<span class="title function_">forEach</span>(<span class="function">(<span class="params">seat, index</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="comment">// 陣列回傳-1，為undefined</span></span><br><span class="line">            <span class="keyword">if</span> (selectedSeats.<span class="title function_">indexOf</span>(index) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">                seat.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;selected&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//判斷selectedMovieIndex是否為空，不為空則執行重新賦值給selectedMovieIndex下拉式選單選取的電影index</span></span><br><span class="line">    <span class="keyword">const</span> selectedMovieIndex = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;selectedMovieIndex&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (selectedMovieIndex ! <span class="literal">null</span>) &#123;</span><br><span class="line">        movieSelect.<span class="property">selectedIndex</span> = selectedMovieIndex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Initial count and total set</span></span><br><span class="line"><span class="comment">//會直接顯示出這個function的內容而不需要經過事件觸發保持讓事件重新整理後持續顯示</span></span><br><span class="line"><span class="title function_">updateSelectedCount</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="補充-map-v-s-forEach"><a href="#補充-map-v-s-forEach" class="headerlink" title="補充: map() v.s forEach()"></a>補充: map() v.s forEach()</h3><p>map()特色為不會改變原陣列，而forEach()會修改原本陣列，另外forEach()沒有在使用return。</p>
+<blockquote>
+<p>forEach適合於你並不打算改變數據的時候，而只是想用數據做一些事情– 比如存入數據庫或則打印出來。</p>
+</blockquote>
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [ <span class="string">&quot;a&quot;</span> , <span class="string">&quot;b&quot;</span> , <span class="string">&quot;c&quot;</span> , <span class="string">&quot;d&quot;</span> ]; </span><br><span class="line">arr.<span class="title function_">forEach</span>( <span class="function"><span class="params">letter</span> =&gt;</span> &#123; <span class="variable language_">console</span> .<span class="title function_">log</span>(letter); &#125;); <span class="comment">// a // b // c // d</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>map()適用於你要改變數據值的時候。不僅僅在於它更快，而且返回一個新的數組。這樣的優點在於你可以使用複合(composition)(map(), filter(), reduce()等組合使用)來玩出更多的花樣。</p>
+</blockquote>
+<p>範例:<br>讓範例更具變化，我們首先使用map將每一個元素乘以2，然後緊接著篩選出那些大於5的元素。最終結果賦值給arr2。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [ <span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span> , <span class="number">5</span> ]; </span><br><span class="line"><span class="keyword">let</span> arr2 = arr.<span class="title function_">map</span>( <span class="function"><span class="params">num</span> =&gt;</span> num * <span class="number">2</span> ).<span class="title function_">filter</span>( <span class="function"><span class="params">num</span> =&gt;</span> num &gt; <span class="number">5</span> );</span><br><span class="line"><span class="comment">// arr2 = [6, 8, 10 ]</span></span><br></pre></td></tr></table></figure>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10215281">Day13【ES6 小筆記】Array.map() - 處理陣列最佳選擇</a><br><a target="_blank" rel="noopener" href="https://blog.fundebug.com/2018/02/05/map_vs_foreach/">JavaScript中Map和ForEach的區別</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/10/JS-%E7%AB%8B%E5%8D%B3%E5%9F%B7%E8%A1%8C%E5%87%BD%E5%BC%8F-IIFE-%E8%88%87%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F/" rel="prev" title="立即執行函式(IIFE)與箭頭函式">
+      <i class="fa fa-chevron-left"></i> 立即執行函式(IIFE)與箭頭函式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/21/JS%E5%90%8C%E6%AD%A5%E8%88%87%E9%9D%9E%E5%90%8C%E6%AD%A5-%E5%A0%86%E7%96%8A-stack-%E8%88%87%E4%BD%87%E5%88%97-Queue/" rel="next" title="JS同步與非同步 堆疊(stack)與佇列(Queue)">
+      JS同步與非同步 堆疊(stack)與佇列(Queue) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Movie-Seat-Booking"><span class="nav-number">1.</span> <span class="nav-text">作品練習 :Movie Seat Booking</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%A1%E5%96%AE%E7%9A%84%E5%BF%AB%E6%8D%B7%E8%BC%B8%E5%85%A5%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">簡單的快捷輸入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E6%96%BClabel%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">關於label的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E4%BD%9C%E5%93%81%E4%B8%AD%E7%9A%84code%E5%91%88%E7%8F%BE%E5%A6%82%E4%B8%8B"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">練習作品中的code呈現如下:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%9C%E6%96%BC%E7%94%A8%E6%B3%95"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">關於用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%9C%E6%96%BCselect%E7%94%A8%E6%B3%95-%E5%85%B8%E5%9E%8B%E8%88%87label%E7%B5%90%E5%90%88%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">關於select用法(典型與label結合的用法)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%BA%A7%E4%BD%8D%E7%8B%80%E6%85%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">建立座位狀態</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%9B%BB%E5%BD%B1%E8%9E%A2%E5%B9%95%E5%8F%8A%E5%BB%BA%E7%AB%8B%E5%BA%A7%E4%BD%8D"><span class="nav-number">1.1.4.</span> <span class="nav-text">建立電影螢幕及建立座位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E5%83%B9%E6%A0%BC%E9%A1%AF%E7%A4%BA"><span class="nav-number">1.1.5.</span> <span class="nav-text">總價格顯示:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#html%E5%AE%8C%E6%88%90%E5%9C%96%E5%A6%82%E4%B8%8B"><span class="nav-number">1.1.6.</span> <span class="nav-text">html完成圖如下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">1.2.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%9E%8B%E5%A5%97%E7%94%A8%E8%88%87%E9%80%9A%E7%94%A8%E9%81%B8%E5%8F%96%E5%99%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">字型套用與通用選取器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#body-CSS%E6%A8%A3%E5%BC%8F%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.2.2.</span> <span class="nav-text">body CSS樣式設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E4%B8%8B%E6%8B%89%E5%BC%8F%E9%81%B8%E5%96%AE-select-%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">設定下拉式選單(select)樣式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%94%E8%BC%83border-0-%E8%88%87-border-none"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">比較border:0 與 border: none</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appearance%E5%B1%AC%E6%80%A7%E6%94%B9%E8%AE%8A%E5%85%83%E7%B4%A0%E7%9A%84%E5%A4%96%E8%A7%80"><span class="nav-number">1.2.4.</span> <span class="nav-text">appearance屬性改變元素的外觀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transform%E8%88%873D%E4%B8%89%E7%B6%AD%E8%AE%8A%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">transform與3D三維變化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#transform%E7%9A%84perspective%E6%95%88%E6%9E%9C"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">transform的perspective效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transform%E7%9A%84rotateX-%E6%95%88%E6%9E%9C"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">transform的rotateX()效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%A7%E4%BD%8D%E6%A8%A3%E5%BC%8F%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.2.6.</span> <span class="nav-text">座位樣式設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E8%B5%B0%E9%81%93-nth-of-type%E5%8F%8A-nth-last-of-type"><span class="nav-number">1.2.7.</span> <span class="nav-text">製作走道 :nth-of-type及:nth-last-of-type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E5%BA%A7%E4%BD%8D%E6%95%88%E6%9E%9C-not%E9%81%B8%E6%93%87%E5%99%A8%E8%88%87-hover%E9%81%B8%E6%93%87%E5%99%A8"><span class="nav-number">1.2.8.</span> <span class="nav-text">製作座位效果 :not選擇器與:hover選擇器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#showcase%E7%AF%84%E4%BE%8B%E5%9C%96%E5%BC%8F%E7%A7%BB%E9%99%A4hover%E6%95%88%E6%9E%9C"><span class="nav-number">1.2.9.</span> <span class="nav-text">showcase範例圖式移除hover效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#showcase%E5%BA%A7%E4%BD%8D%E7%8B%80%E6%85%8B%E9%A1%AF%E7%A4%BA%E6%A8%A3%E5%BC%8F%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.2.10.</span> <span class="nav-text">showcase座位狀態顯示樣式設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E9%81%B8%E5%8F%96%E9%9B%BB%E5%BD%B1%E5%BA%A7%E4%BD%8D%E7%B8%BD%E6%95%B8%E5%8F%8A%E7%B8%BD%E7%A5%A8%E5%83%B9%E6%96%87%E5%AD%97%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.2.11.</span> <span class="nav-text">設定選取電影座位總數及總票價文字樣式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4Javascript"><span class="nav-number">1.3.</span> <span class="nav-text">完整Javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM%E5%85%83%E7%B4%A0%E5%AE%A3%E5%91%8A"><span class="nav-number">1.3.1.</span> <span class="nav-text">DOM元素宣告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9Aseat%E4%BA%8B%E4%BB%B6%E7%9B%A3%E8%81%BD%EF%BC%8C%E5%86%8D%E8%A8%AD%E5%AE%9Aseat-toggle-%E5%88%87%E6%8F%9B-%E7%8B%80%E6%85%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">設定seat事件監聽，再設定seat toggle(切換)狀態</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E7%B8%BD%E7%A5%A8%E5%83%B9%E7%9A%84%E6%95%B8%E5%AD%97%E8%AE%8A%E5%8C%96"><span class="nav-number">1.3.3.</span> <span class="nav-text">設定總票價的數字變化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E9%81%B8%E6%93%87%E4%B8%8D%E5%90%8C%E9%9B%BB%E5%BD%B1%E8%B7%B3%E5%87%BA%E4%B8%8D%E5%90%8C%E7%A5%A8%E5%83%B9"><span class="nav-number">1.3.4.</span> <span class="nav-text">設定選擇不同電影跳出不同票價</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E9%BB%9E%E9%81%B8%E7%9A%84%E5%BA%A7%E4%BD%8D%E5%84%B2%E5%AD%98%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%A9%BA%E9%96%93"><span class="nav-number">1.3.5.</span> <span class="nav-text">將點選的座位儲存在本地空間</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%BCupdateSelectedCount%E5%87%BD%E5%BC%8F%E5%85%A7%E5%AF%AB%E5%85%A5"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">於updateSelectedCount函式內寫入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%BB%9E%E9%81%B8%E5%BA%A7%E4%BD%8D%E4%BD%8D%E7%BD%AE-%E7%82%BA%E6%AF%8F%E5%80%8B%E5%BA%A7%E4%BD%8D%E5%AE%9A%E4%B8%8A%E9%A0%86%E5%BA%8F%E4%BD%8D%E7%BD%AE-%E7%B4%A2%E5%BC%95%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">如何點選座位位置(為每個座位定上順序位置(索引位置))</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Copy-selected-seats-into-array-%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E7%AC%A6%E4%BB%8B%E7%B4%B9"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">Copy selected seats into array-展開運算符介紹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-through-array-%E8%99%95%E7%90%86%E9%99%A3%E5%88%97%E5%85%83%E7%B4%A0-map"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">Map through array- 處理陣列元素 map()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#return-a-new-array-indexs-%E5%9B%9E%E5%82%B3%E7%AC%AC%E5%B9%BE%E5%80%8B%E4%BD%8D%E5%AD%90-indexOf"><span class="nav-number">1.3.5.5.</span> <span class="nav-text">return a new array indexs -回傳第幾個位子: indexOf()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9AlocalStorge-%E5%84%B2%E5%AD%98%E6%96%BC%E6%9C%AC%E5%9C%B0%E5%84%B2%E5%AD%98%E7%A9%BA%E9%96%93-%E7%80%8F%E8%A6%BD%E5%99%A8"><span class="nav-number">1.3.5.6.</span> <span class="nav-text">設定localStorge 儲存於本地儲存空間(瀏覽器)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#localStorage%E5%90%8C%E6%A8%A3%E7%94%A8%E6%B3%95-%E6%96%BCsetMovieData%E5%87%BD%E5%BC%8F%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.5.7.</span> <span class="nav-text">localStorage同樣用法:於setMovieData函式使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%9ElocalStorage-%E5%8F%96%E5%87%BA%E8%B3%87%E6%96%99%EF%BC%8C%E5%8F%8A%E5%9B%9E%E9%A0%AD%E5%A1%AB%E5%85%85%E8%87%B3UI-%E7%80%8F%E8%A6%BD%E5%99%A8%E4%BB%8B%E9%9D%A2"><span class="nav-number">1.3.6.</span> <span class="nav-text">從localStorage 取出資料，及回頭填充至UI(瀏覽器介面)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%9C%E5%85%85-map-v-s-forEach"><span class="nav-number">1.3.7.</span> <span class="nav-text">補充: map() v.s forEach()</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

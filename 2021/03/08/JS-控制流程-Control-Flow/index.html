@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JS 控制流程 Control Flow 介紹條件控制與迴圈控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 控制流程 Control Flow">
+<meta property="og:url" content="https://shawn.github.io/2021/03/08/JS-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B-Control-Flow/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="JS 控制流程 Control Flow 介紹條件控制與迴圈控制">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-03-08T13:35:26.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.342Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://shawn.github.io/2021/03/08/JS-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B-Control-Flow/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JS 控制流程 Control Flow | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2021/03/08/JS-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B-Control-Flow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS 控制流程 Control Flow
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-03-08 21:35:26" itemprop="dateCreated datePublished" datetime="2021-03-08T21:35:26+08:00">2021-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JS-控制流程-Control-Flow"><a href="#JS-控制流程-Control-Flow" class="headerlink" title="JS 控制流程 Control Flow"></a>JS 控制流程 Control Flow</h1><blockquote>
+<p>介紹條件控制與迴圈控制</p>
+</blockquote>
+<span id="more"></span>
+<p>在JS中流程控制的指令分為兩類:<br>條件控制、迴圈控制</p>
+<h2 id="條件控制"><a href="#條件控制" class="headerlink" title="條件控制"></a>條件控制</h2><h3 id="語法1-if…else"><a href="#語法1-if…else" class="headerlink" title="語法1:if…else"></a>語法1:if…else</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (條件式)&#123;</span><br><span class="line"><span class="comment">//某條件成立會執行此 &#123;&#125; 區塊中的內容</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//否則執行else 此 &#123;&#125; 區塊中的內容</span></span><br><span class="line"><span class="comment">//else可有也可以沒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>EX:(儘管此舉例有&#x3D;&#x3D;else if&#x3D;&#x3D; 也一樣是同條件語法)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> month = 填入條件(ex.1or <span class="number">2.</span>..)</span><br><span class="line"><span class="keyword">if</span>(month ===<span class="number">3</span>|| month ===<span class="number">4</span>|| month ===<span class="number">5</span>)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;春天&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (month ===<span class="number">6</span>|| month ===<span class="number">7</span>|| month ===<span class="number">8</span>)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;夏天&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (month ===<span class="number">9</span>|| month ===<span class="number">10</span>|| month ===<span class="number">11</span>)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;秋天&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (month ===<span class="number">12</span>|| month ===<span class="number">1</span>|| month ===<span class="number">2</span>)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;冬天&#x27;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;月份錯誤&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="語法2-switch-作為-if-else簡化用"><a href="#語法2-switch-作為-if-else簡化用" class="headerlink" title="語法2:switch(作為 if else簡化用)"></a>語法2:switch(作為 if else簡化用)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (key) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="attr">value</span>:</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>switch括號內語法(key)可能為”運算式”或”變數、數值”，接著進入case判斷，若key值剛好是case後的值，則會執行case區塊內指令。<br>而default區塊則是當上面case都不成立時執行，另外break像是 if else 內大括號{}的效果，作為切分使用，如無break來終止，程式可能會一路順暢跑下去。</p>
+<h2 id="迴圈控制"><a href="#迴圈控制" class="headerlink" title="迴圈控制"></a>迴圈控制</h2><h3 id="for迴圈"><a href="#for迴圈" class="headerlink" title="for迴圈"></a>for迴圈</h3><p>基礎for迴圈語法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i;</span><br><span class="line"><span class="comment">//i = 0 (初始值)</span></span><br><span class="line"><span class="comment">//i &lt; 10 (條件)</span></span><br><span class="line"><span class="comment">//i++ (結束時變動)</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line"><span class="comment">//做某件事</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="property">log</span> ( i );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上所述，程式語法for()括號裡:</p>
+<ol>
+<li>左邊的 i&#x3D;0，為起始值，所以如果希望從1開始計算，就改為i&#x3D;1，以此類推。</li>
+<li>中間的 i &lt; 10，為執行迴圈的條件，如當滿足此條件(結果是true時)，會進入{}大括號中執行程式碼。</li>
+<li>右邊的 i++，則是{}大括號執行完，會跳回執行此程式碼，為(執行)結束時變動</li>
+<li>因此，從上順序來看，在中間程式碼進入{}執行之後再跳回右邊程式碼，如&#x3D;&#x3D;執行迴圈的條件&#x3D;&#x3D;符合的情況下會繼續迴圈，否則就會跳出迴圈。</li>
+</ol>
+<h3 id="while迴圈"><a href="#while迴圈" class="headerlink" title="while迴圈"></a>while迴圈</h3><p>while迴圈語法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">1</span>;<span class="comment">//初始值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> ( i &lt;= <span class="number">10</span> )&#123;<span class="comment">//條件</span></span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>( i );</span><br><span class="line"> i++;<span class="comment">//結束時變動</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>經過了for迴圈語法，while迴圈語法大同小異，就是順序寫的順序有點不同，但背後運作原理相同。</p>
+<h4 id="無論是for迴圈或while迴圈，設定-結束的條件-是必須的。"><a href="#無論是for迴圈或while迴圈，設定-結束的條件-是必須的。" class="headerlink" title="無論是for迴圈或while迴圈，設定++結束的條件++是必須的。"></a>無論是for迴圈或while迴圈，設定++結束的條件++是必須的。</h4><h3 id="微進階-do-while-與while-執行順序微微不一樣，先執行變動再判斷條件"><a href="#微進階-do-while-與while-執行順序微微不一樣，先執行變動再判斷條件" class="headerlink" title="微進階-do while (與while 執行順序微微不一樣，先執行變動再判斷條件)"></a>微進階-do while (與while 執行順序微微不一樣，先執行變動再判斷條件)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">10</span>;<span class="comment">//初始值</span></span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">i++;<span class="comment">//變動</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>( i );</span><br><span class="line">&#125;<span class="keyword">while</span>(i &lt; <span class="number">10</span>)<span class="comment">//條件</span></span><br></pre></td></tr></table></figure>
+<p>因為執行的關係順序，從上面程式碼計算下來，結果會呈現11喔!與while迴圈語法跑出的無結果不同</p>
+<h3 id="break-amp-continue"><a href="#break-amp-continue" class="headerlink" title="break &amp; continue"></a>break &amp; continue</h3><p>迴圈中想要跳過其中幾次，或者提早離開迴圈，我們可以使用 break &#x2F; continue。</p>
+<p>兩者差別:</p>
+<ul>
+<li>break會直接跳出迴圈</li>
+<li>continue會跳過一次，再強制繼續下一次迴圈</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/02/JS-%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/" rel="prev" title="JS 運算元與運算子">
+      <i class="fa fa-chevron-left"></i> JS 運算元與運算子
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/20/JS-%E5%9F%BA%E6%9C%AC%E5%87%BD%E5%BC%8FFunction%E6%A6%82%E5%BF%B5/" rel="next" title="JS 基本函式Function概念">
+      JS 基本函式Function概念 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B-Control-Flow"><span class="nav-number">1.</span> <span class="nav-text">JS 控制流程 Control Flow</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E6%8E%A7%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">條件控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%9E%E6%B3%951-if%E2%80%A6else"><span class="nav-number">1.1.1.</span> <span class="nav-text">語法1:if…else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%9E%E6%B3%952-switch-%E4%BD%9C%E7%82%BA-if-else%E7%B0%A1%E5%8C%96%E7%94%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">語法2:switch(作為 if else簡化用)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%B4%E5%9C%88%E6%8E%A7%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">迴圈控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E8%BF%B4%E5%9C%88"><span class="nav-number">1.2.1.</span> <span class="nav-text">for迴圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while%E8%BF%B4%E5%9C%88"><span class="nav-number">1.2.2.</span> <span class="nav-text">while迴圈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%84%A1%E8%AB%96%E6%98%AFfor%E8%BF%B4%E5%9C%88%E6%88%96while%E8%BF%B4%E5%9C%88%EF%BC%8C%E8%A8%AD%E5%AE%9A-%E7%B5%90%E6%9D%9F%E7%9A%84%E6%A2%9D%E4%BB%B6-%E6%98%AF%E5%BF%85%E9%A0%88%E7%9A%84%E3%80%82"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">無論是for迴圈或while迴圈，設定++結束的條件++是必須的。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E9%80%B2%E9%9A%8E-do-while-%E8%88%87while-%E5%9F%B7%E8%A1%8C%E9%A0%86%E5%BA%8F%E5%BE%AE%E5%BE%AE%E4%B8%8D%E4%B8%80%E6%A8%A3%EF%BC%8C%E5%85%88%E5%9F%B7%E8%A1%8C%E8%AE%8A%E5%8B%95%E5%86%8D%E5%88%A4%E6%96%B7%E6%A2%9D%E4%BB%B6"><span class="nav-number">1.2.3.</span> <span class="nav-text">微進階-do while (與while 執行順序微微不一樣，先執行變動再判斷條件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break-amp-continue"><span class="nav-number">1.2.4.</span> <span class="nav-text">break &amp; continue</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

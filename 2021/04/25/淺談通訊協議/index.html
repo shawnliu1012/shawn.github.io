@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="淺談通訊協議 什麼是HTTP、FTP、SSH、SMTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="淺談通訊協議:什麼是HTTP、FTP、SSH、SMTP">
+<meta property="og:url" content="https://shawn.github.io/2021/04/25/%E6%B7%BA%E8%AB%87%E9%80%9A%E8%A8%8A%E5%8D%94%E8%AD%B0/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="淺談通訊協議 什麼是HTTP、FTP、SSH、SMTP">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/83EA05T.png">
+<meta property="og:image" content="https://i.imgur.com/TcYmH2K.png">
+<meta property="article:published_time" content="2021-04-25T15:19:22.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:04.991Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Frontend">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/83EA05T.png">
+
+<link rel="canonical" href="https://shawn.github.io/2021/04/25/%E6%B7%BA%E8%AB%87%E9%80%9A%E8%A8%8A%E5%8D%94%E8%AD%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>淺談通訊協議:什麼是HTTP、FTP、SSH、SMTP | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2021/04/25/%E6%B7%BA%E8%AB%87%E9%80%9A%E8%A8%8A%E5%8D%94%E8%AD%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          淺談通訊協議:什麼是HTTP、FTP、SSH、SMTP
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-04-25 23:19:22" itemprop="dateCreated datePublished" datetime="2021-04-25T23:19:22+08:00">2021-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:04" itemprop="dateModified" datetime="2022-05-24T17:41:04+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="淺談通訊協議"><a href="#淺談通訊協議" class="headerlink" title="淺談通訊協議"></a>淺談通訊協議</h1><blockquote>
+<p>什麼是HTTP、FTP、SSH、SMTP</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="什麼是HTTP"><a href="#什麼是HTTP" class="headerlink" title="什麼是HTTP"></a>什麼是HTTP</h2><p>稱為<strong>超文本傳輸協定</strong>(HyperText Transfer Protocol,縮寫HTTP)。</p>
+<p><strong>設計HTTP最初的目的是為了提供一種發布和接收HTML頁面的方法</strong>。透過HTTP或者HTTPS協定請求的資源由統一資源識別碼（Uniform Resource Identifiers，URI）來標識。-取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">維基百科-超文本傳輸協定</a><br>我們以google搜尋頁面為例，可以在右鍵檢查頁面中去看到http類型:</p>
+<!-- more -->
+<p>(檢查-Network-app..-Headers-scheme)<br><img src="https://i.imgur.com/83EA05T.png"></p>
+<h2 id="什麼是-FTP"><a href="#什麼是-FTP" class="headerlink" title="什麼是 FTP"></a>什麼是 FTP</h2><p>稱為<strong>檔案傳輸協定</strong>(File Transfer Protocol，縮寫：FTP)。</p>
+<p>是一個用於<strong>在電腦網路上在客戶端和伺服器之間進行檔案傳輸的應用層協定</strong>。-取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">維基百科-檔案傳輸協定</a></p>
+<p><strong>FTP 協定比較特別的地方在於它在使用時必須建立二個連線：一個用來傳輸指令、一個用來傳輸檔案</strong>。</p>
+<p>當我們使用 FTP 軟體連到 FTP 伺服器時，客戶端會先連到伺服器的連接埠 21，並建立一條「控制連線」(Control Stream)。接下來，您會輸入帳號、密碼等指令，這些指令及 FTP 的回應都是使用都是使用「控制連線」。當您要下載檔案時，或者是執行 ls 以列出目錄中的檔案時，檔案或目錄列表的下載是經另一個連線「資料連線」(Data Stream)。<strong>「資料連線」和「控制連線」不同的是資料連線所傳輸的資料比較大，而控制連線只是用來傳輸指令及簡單的回應。</strong><br><img src="https://i.imgur.com/TcYmH2K.png"></p>
+<p>基本上，一個完整的 FTP 連線建立過程為：</p>
+<ul>
+<li>客戶端打開自已機器大於 1024 的連接埠，並連到伺服器的連接埠 21，建立「控制連線」。</li>
+<li>客戶端開始對伺服器下指令，告訴伺服器客戶端用來傳輸檔案的連接埠為何。</li>
+<li>伺服器從連接埠 20 連到客戶端所開放的埠號 (大於 1024)，以建立「資料連線」。<br>-取自於<a target="_blank" rel="noopener" href="https://www.twbsd.org/cht/book/index.php?ch=15">FTP 伺服器</a></li>
+</ul>
+<h2 id="什麼是SSH"><a href="#什麼是SSH" class="headerlink" title="什麼是SSH"></a>什麼是SSH</h2><p>稱為<strong>安全外殼協定</strong>（Secure Shell，縮寫SSH）是一種加密的網路傳輸協定，可在不安全的網路中為網路服務提供安全的傳輸環境。</p>
+<p>SSH以<strong>非對稱加密</strong>實現身分驗證。<br>身分驗證有多種途徑，例如其中一種方法是使用自動生成的公鑰-私鑰對來簡單地加密網路連接，隨後使用密碼認證進行登錄；另一種方法是人工生成一對公鑰和私鑰，通過生成的金鑰進行認證，這樣就可以在不輸入密碼的情況下登錄。任何人都可以自行生成金鑰。<br><strong>公鑰需要放在待存取的電腦之中，而對應的私鑰需要由使用者自行保管。認證過程基於生成出來的私鑰，但整個認證過程中私鑰本身不會傳輸到網路中。</strong> -取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Secure_Shell">維基百科-Secure Shell</a></p>
+<h2 id="什麼是SMTP"><a href="#什麼是SMTP" class="headerlink" title="什麼是SMTP"></a>什麼是SMTP</h2><p>稱為<strong>簡單郵件傳輸協定</strong>(Simple Mail Transfer Protocol，縮寫：SMTP)是一個在網際網路上傳輸電子郵件的標準。</p>
+<p><strong>SMTP 屬於即時送信與收信的通訊協定，傳送端與接收端的主機必須開機並連線，傳送端送出信件後，接收端立即收到信件</strong>。SMTP 傳輸協定的內容包括：「信封（Envelope）」指明收件人的電子郵件地址。</p>
+<p>例如：使用者 @ 郵件伺服器（<a href="mailto:&#104;&#105;&#103;&#104;&#x74;&#101;&#x63;&#x68;&#116;&#119;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#104;&#105;&#103;&#104;&#x74;&#101;&#x63;&#x68;&#116;&#119;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a>）；「表頭（Header）」指明電子郵件的重要訊息，其中「To」指明收件人的電子郵件地址、「From」指明寄件人的電子郵件地址、「Subject」指明電子郵件的主旨、「Date」指明電子郵件的發信日期與時間等；「本文（Body）」就是我們所要傳送的電子郵件的內容。-取自<a target="_blank" rel="noopener" href="https://www.stockfeel.com.tw/%EF%BD%8Dail-%E4%BC%BA%E6%9C%8D%E5%99%A8%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F%E5%A6%82%E4%BD%95%E9%81%8B%E7%94%A8%EF%BC%9F/">Ｍail 伺服器是什麼？如何運用？</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Frontend/" rel="tag"># Frontend</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/JS-%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%B4%BE/" rel="prev" title="JS 事件委派">
+      <i class="fa fa-chevron-left"></i> JS 事件委派
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/28/%E8%AA%8D%E8%AD%98%E7%B6%B2%E8%B7%AF%E5%90%8D%E8%A9%9E/" rel="next" title="認識網路名詞:什麼是IP、DNS、TCP/IP標準、UDP/TCP分別">
+      認識網路名詞:什麼是IP、DNS、TCP/IP標準、UDP/TCP分別 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BA%E8%AB%87%E9%80%9A%E8%A8%8A%E5%8D%94%E8%AD%B0"><span class="nav-number">1.</span> <span class="nav-text">淺談通訊協議</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFHTTP"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-FTP"><span class="nav-number">1.2.</span> <span class="nav-text">什麼是 FTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFSSH"><span class="nav-number">1.3.</span> <span class="nav-text">什麼是SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFSMTP"><span class="nav-number">1.4.</span> <span class="nav-text">什麼是SMTP</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

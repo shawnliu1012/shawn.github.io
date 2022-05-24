@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明由於原本筆電有問題，因此從windows系統換成了mac系統，本次安裝分為環境安裝以及npm指令安裝及vue2.9.6版本無法卸載之解決辦法三部分。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明">
+<meta property="og:url" content="https://shawn.github.io/2022/02/26/Mac-M1%E7%92%B0%E5%A2%83%E5%AE%89%E8%A3%9D%E3%80%81npm%E6%8C%87%E4%BB%A4%E5%AE%89%E8%A3%9D%E5%8F%8Avue2-9-6%E7%89%88%E6%9C%AC%E5%8D%B8%E8%BC%89%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%9D%E8%AA%AA%E6%98%8E/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明由於原本筆電有問題，因此從windows系統換成了mac系統，本次安裝分為環境安裝以及npm指令安裝及vue2.9.6版本無法卸載之解決辦法三部分。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/QXdoSX7.png">
+<meta property="og:image" content="https://i.imgur.com/BRFNCA8.png">
+<meta property="og:image" content="https://i.imgur.com/F8J1K58.png">
+<meta property="og:image" content="https://i.imgur.com/7zcld7E.png">
+<meta property="og:image" content="https://i.imgur.com/8PNtTkg.png">
+<meta property="og:image" content="https://i.imgur.com/eVF7LOq.png">
+<meta property="og:image" content="https://i.imgur.com/XdvON5f.png">
+<meta property="og:image" content="https://i.imgur.com/2s1ttFe.png">
+<meta property="og:image" content="https://i.imgur.com/LpKCEUT.png">
+<meta property="og:image" content="https://i.imgur.com/zwwth2c.png">
+<meta property="og:image" content="https://i.imgur.com/N6o6zwo.png">
+<meta property="og:image" content="https://i.imgur.com/y93wkQV.png">
+<meta property="og:image" content="https://i.imgur.com/qGbtylj.png">
+<meta property="og:image" content="https://i.imgur.com/36Llx7w.png">
+<meta property="article:published_time" content="2022-02-26T05:54:05.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.527Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="技術社群">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/QXdoSX7.png">
+
+<link rel="canonical" href="https://shawn.github.io/2022/02/26/Mac-M1%E7%92%B0%E5%A2%83%E5%AE%89%E8%A3%9D%E3%80%81npm%E6%8C%87%E4%BB%A4%E5%AE%89%E8%A3%9D%E5%8F%8Avue2-9-6%E7%89%88%E6%9C%AC%E5%8D%B8%E8%BC%89%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%9D%E8%AA%AA%E6%98%8E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2022/02/26/Mac-M1%E7%92%B0%E5%A2%83%E5%AE%89%E8%A3%9D%E3%80%81npm%E6%8C%87%E4%BB%A4%E5%AE%89%E8%A3%9D%E5%8F%8Avue2-9-6%E7%89%88%E6%9C%AC%E5%8D%B8%E8%BC%89%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%9D%E8%AA%AA%E6%98%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-02-26 13:54:05" itemprop="dateCreated datePublished" datetime="2022-02-26T13:54:05+08:00">2022-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Mac-M1環境安裝、npm指令安裝及vue2-9-6版本卸載重新安裝說明"><a href="#Mac-M1環境安裝、npm指令安裝及vue2-9-6版本卸載重新安裝說明" class="headerlink" title="Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明"></a>Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明</h1><p>由於原本筆電有問題，因此從windows系統換成了mac系統，本次安裝分為環境安裝以及npm指令安裝及vue2.9.6版本無法卸載之解決辦法三部分。</p>
+<span id="more"></span>
+<h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>環境安裝的部分基本沒什麼問題，我照著<a target="_blank" rel="noopener" href="https://www.ioa.tw/macOS/iTerm2.html">macOS 開發者必安裝的終端機 - iTerm2</a>教學，先行安裝<strong>Homebrew</strong> ，<br>輸入指令<code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code>進行安裝，<br>接著檢查版本，之後照著網頁指示操作，<br>再來安裝<strong>ZSH</strong>，<br>輸入brew指令<code>brew install zsh</code>，接著按照網頁指示完成安裝ZSH，</p>
+<p>經過上述環境安裝，基本上就完成了，顯示大概會像下圖:<br><img src="https://i.imgur.com/QXdoSX7.png"></p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4A3L1kJ6q5Q">https://www.youtube.com/watch?v=4A3L1kJ6q5Q</a><br><a target="_blank" rel="noopener" href="https://www.ioa.tw/macOS/iTerm2.html">https://www.ioa.tw/macOS/iTerm2.html</a><br><a target="_blank" rel="noopener" href="https://www.onejar99.com/terminal-iterm2-zsh-powerlevel10k/">https://www.onejar99.com/terminal-iterm2-zsh-powerlevel10k/</a></p>
+<h2 id="安裝npm指令"><a href="#安裝npm指令" class="headerlink" title="安裝npm指令"></a>安裝npm指令</h2><p>這邊之所以說明npm指令，是因為需要進行vue的環境建置，進而發現無法使用npm install指令:<br><img src="https://i.imgur.com/BRFNCA8.png">，<br>上網查找改使用<code>sudo npm install -g vue-cli</code>進行安裝，但因為後續有些問題，我們下一章節進行論，</p>
+<p>這邊改為安裝nvm的辦法去解決，因nvm安裝完npm指令即可使用，</p>
+<ol>
+<li>參照網站指示<a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">github:nvm-sh&#x2F;nvm</a>，輸入指令:<br><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</code>進行安裝<br><img src="https://i.imgur.com/F8J1K58.png"></li>
+<li>接著輸入指令<code>open ~/.zshrc</code>(這邊我採用zshrc資料夾，可依自己電腦選擇開啟<code>~/.bash_profile</code>、<code>~/.zshrc</code>、<code>~/.profile</code> 或 <code>~/.bashrc</code>)</li>
+<li>照著網頁指示再跳出的記事本貼上指令(如附圖):</li>
+</ol>
+<p><img src="https://i.imgur.com/7zcld7E.png"></p>
+<ul>
+<li>於記事本貼上指令(我貼在最後):<br><img src="https://i.imgur.com/8PNtTkg.png"></li>
+</ul>
+<ol start="4">
+<li><p>接著輸入指令:<code>nvm --version</code>檢查是否安裝成功<br><img src="https://i.imgur.com/eVF7LOq.png"></p>
+</li>
+<li><p>一旦安裝成功，npm指令即可使用!</p>
+</li>
+</ol>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/shaleilei/article/details/80812410">https://blog.csdn.net/shaleilei/article/details/80812410</a><br><a target="_blank" rel="noopener" href="https://titangene.github.io/article/nvm.html">https://titangene.github.io/article/nvm.html</a><br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10184980">https://ithelp.ithome.com.tw/articles/10184980</a><br><a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm">https://github.com/nvm-sh/nvm</a></p>
+<h2 id="安裝vue-cli環境"><a href="#安裝vue-cli環境" class="headerlink" title="安裝vue cli環境"></a>安裝vue cli環境</h2><p>npm指令可使用後，我們就可以進行vue的環境安裝，但由於上一章節說明時我已經先使用指令<code>sudo npm install -g vue-cli</code>，因此在安裝時產生了問題，這邊我分為兩部分說明，<strong>一是node版本安裝，再來是卸載vue，重新進行安裝</strong>:</p>
+<ol>
+<li>node版本安裝</li>
+</ol>
+<p>在安裝vue之前，我們需要先行安裝node.js，這邊我先行下指令<code>nvm use node</code>進行測試，他會跳出提示提醒我安裝，</p>
+<p>因此我再下指令<code>nvm install 16.14.0</code>(此處我指定安裝目前LTS 16.14.0版本，可依需要進行指定版本安裝)，之後輸入<code>node -v</code>檢查安裝版本，完整程序如下圖:<br><img src="https://i.imgur.com/XdvON5f.png"></p>
+<ol start="2">
+<li>vue卸載及重新安裝</li>
+</ol>
+<p>由於使用sudo指令安裝了vue2.9.6版本導致無法使用 <code>vue create [專案名稱]</code>指令，因此這裡我需要完整卸載舊版本，並安裝新版本</p>
+<ul>
+<li>這裡我嘗試使用<code>npm insall -g @vue/cli</code>指令進行安裝，但得到的版本為<code>2.9.6</code>。<br><img src="https://i.imgur.com/2s1ttFe.png"></li>
+<li>嘗試使用<code>vue create</code>指令得到需卸載再安裝的npm指令<br><img src="https://i.imgur.com/LpKCEUT.png"></li>
+<li>照上述npm指令卸載再安裝，檢查版本仍為<code>2.9.6</code><br><img src="https://i.imgur.com/zwwth2c.png"></li>
+<li>因此這裡我嘗試檢查是否路徑問題(檢查結果並沒有，接在bin資料夾下)以及得到vue並未刪除乾淨的結論<br><img src="https://i.imgur.com/N6o6zwo.png"></li>
+<li>cd至vue所在資料夾，使用<code>ls</code>指令得到vue、vue-init…資料夾，下達<code>sudo rm -rf</code>進行刪除，輸入<code>where vue</code>得到完整刪除結果<br><img src="https://i.imgur.com/y93wkQV.png"></li>
+<li>重新輸入<code>npm install -g @vue/cli</code>指令進行安裝並進行版本檢查，終於得到<code>5.0.1</code>新版本<br><img src="https://i.imgur.com/qGbtylj.png"></li>
+<li>下達<code>vue create</code>指令，得到進一步安裝訊息<br><img src="https://i.imgur.com/36Llx7w.png"></li>
+</ul>
+<p>經過上述步驟，完成卸載vue舊版本及安裝成功新版本，以此紀錄過程。</p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://www.icode9.com/content-4-985254.html">https://www.icode9.com/content-4-985254.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44736158/article/details/121130856">https://blog.csdn.net/weixin_44736158/article/details/121130856</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E8%A1%93%E7%A4%BE%E7%BE%A4/" rel="tag"># 技術社群</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/27/JS-%E5%82%B3%E5%80%BC%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-Call-by-value-Call-by-reference/" rel="prev" title="傳值與傳參考(Call by value & Call by reference)">
+      <i class="fa fa-chevron-left"></i> 傳值與傳參考(Call by value & Call by reference)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/01/Hexo-hexo-d%E5%A0%B1%E9%8C%AFerr-Error-Spawn-failed%E8%A7%A3%E6%B1%BA%E6%96%B9%E5%BC%8F/" rel="next" title="Hexo-hexo d報錯err: Error: Spawn failed解決方式">
+      Hexo-hexo d報錯err: Error: Spawn failed解決方式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac-M1%E7%92%B0%E5%A2%83%E5%AE%89%E8%A3%9D%E3%80%81npm%E6%8C%87%E4%BB%A4%E5%AE%89%E8%A3%9D%E5%8F%8Avue2-9-6%E7%89%88%E6%9C%AC%E5%8D%B8%E8%BC%89%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%9D%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">Mac M1環境安裝、npm指令安裝及vue2.9.6版本卸載重新安裝說明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E7%92%B0%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">安裝環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9Dnpm%E6%8C%87%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">安裝npm指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9Dvue-cli%E7%92%B0%E5%A2%83"><span class="nav-number">1.3.</span> <span class="nav-text">安裝vue cli環境</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

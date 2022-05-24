@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="同步與非同步&#x2F;堆疊(Stack)與佇列(Queue)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS同步與非同步 堆疊(stack)與佇列(Queue)">
+<meta property="og:url" content="https://shawn.github.io/2021/06/21/JS%E5%90%8C%E6%AD%A5%E8%88%87%E9%9D%9E%E5%90%8C%E6%AD%A5-%E5%A0%86%E7%96%8A-stack-%E8%88%87%E4%BD%87%E5%88%97-Queue/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="同步與非同步&#x2F;堆疊(Stack)與佇列(Queue)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/6rXH9vB.png">
+<meta property="og:image" content="https://i.imgur.com/NPeOujW.png">
+<meta property="og:image" content="https://i.imgur.com/52dhBHA.png">
+<meta property="og:image" content="https://i.imgur.com/rWXshhj.png">
+<meta property="og:image" content="https://i.imgur.com/3yFgvfx.png">
+<meta property="og:image" content="https://i.imgur.com/E4quhbX.png">
+<meta property="og:image" content="https://i.imgur.com/zX23FKo.png">
+<meta property="og:image" content="https://i.imgur.com/Xp2KjGq.png">
+<meta property="article:published_time" content="2021-06-21T15:45:48.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.511Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/6rXH9vB.png">
+
+<link rel="canonical" href="https://shawn.github.io/2021/06/21/JS%E5%90%8C%E6%AD%A5%E8%88%87%E9%9D%9E%E5%90%8C%E6%AD%A5-%E5%A0%86%E7%96%8A-stack-%E8%88%87%E4%BD%87%E5%88%97-Queue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JS同步與非同步 堆疊(stack)與佇列(Queue) | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2021/06/21/JS%E5%90%8C%E6%AD%A5%E8%88%87%E9%9D%9E%E5%90%8C%E6%AD%A5-%E5%A0%86%E7%96%8A-stack-%E8%88%87%E4%BD%87%E5%88%97-Queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS同步與非同步 堆疊(stack)與佇列(Queue)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-06-21 23:45:48" itemprop="dateCreated datePublished" datetime="2021-06-21T23:45:48+08:00">2021-06-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="同步與非同步-x2F-堆疊-Stack-與佇列-Queue"><a href="#同步與非同步-x2F-堆疊-Stack-與佇列-Queue" class="headerlink" title="同步與非同步&#x2F;堆疊(Stack)與佇列(Queue)"></a>同步與非同步&#x2F;堆疊(Stack)與佇列(Queue)</h1><span id="more"></span>
+<h2 id="單執行緒與同步執行"><a href="#單執行緒與同步執行" class="headerlink" title="單執行緒與同步執行"></a>單執行緒與同步執行</h2><p>Javascript是單執行緒和同步執行，單執行緒表示一次只能執行一個指令，同步，一次執行一個而且是照順序的。</p>
+<h2 id="呼叫-invocation-與執行堆-stack"><a href="#呼叫-invocation-與執行堆-stack" class="headerlink" title="呼叫(invocation)與執行堆(stack)"></a>呼叫(invocation)與執行堆(stack)</h2><p>我們先來說明，在程式開始前，<strong>全域執行環境會先被創造</strong>，因為<strong>語法解析器會分析程式，然後編譯器會編譯程式進而創造全域環境，最後將這些函釋放進記憶體中</strong>。<br>瞭解上述道理之後，我們以下列function來說明:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.最先全域執行環境被創造，在執行堆中最底層(最先所以最底層)</span></span><br><span class="line"><span class="comment">// 5.function b執行，被放入執行堆，因為最後放入因此最先執行</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span>(<span class="params"></span>) &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3.a()呼叫創造新執行環境給下方function a()，同時進入執行堆 </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="comment">//     4.function a()中有b()，因此一樣，b()創造新的執行環境給function b()，並進入執行堆</span></span><br><span class="line">    <span class="title function_">b</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">a</span>();<span class="comment">//2.其次a()呼叫</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面例子中，<br>function b&amp;a都在記憶體中然後程式碼<strong>逐行執行</strong>，但是，還不會執行函數中的程式，因為<strong>未被呼叫</strong>。<br>下圖為，全域環境被創造出來，但未被呼叫，functio a、b未執行:<br><img src="https://i.imgur.com/6rXH9vB.png"></p>
+<p>再來，程式範例中，最後<code>a()</code>進行呼叫。因此新的執行環境被創造，那麼他就會如下圖，進入執行推(steck)中，像是新東西被堆上去，<em><strong>越上面的越先被執行</strong></em> :</p>
+<p><img src="https://i.imgur.com/NPeOujW.png"></p>
+<p>再來<code>function a()</code>中有<code>b()</code>，因此b 函式的呼叫，新的執行環境成立給b函式，一樣進入執行堆中，如下圖:</p>
+<p><img src="https://i.imgur.com/52dhBHA.png"></p>
+<p>所以當函數呼叫，一個新的執行環境就被創造(創造階段)給函數，而新的執行環境會進入執行堆，最後<strong>當執行完畢後，離開執行堆，最上面的即正在執行的程式，逐行並同步的</strong>，如下圖，<code>function b()</code>執行完之後離開執，繼續執行<code>function a()</code>，以此類推，直到逐行執行完畢。<br><img src="https://i.imgur.com/rWXshhj.png"></p>
+<p>以此我們可以上方範例去進行驗證:<br><img src="https://i.imgur.com/3yFgvfx.png"><br>可以確定在執行堆的作用下，<code>function b</code>最先印出，其次是<code>function a</code>。</p>
+<h2 id="非同步事件（asynchronous-callback）"><a href="#非同步事件（asynchronous-callback）" class="headerlink" title="非同步事件（asynchronous callback）"></a>非同步事件（asynchronous callback）</h2><p>如果JS程式是逐行執行，那為什麼它可以監控瀏覽器的一些事件（event）呢？像是偵測滑鼠的點擊、滑動等等這類的非同步呼叫（asynchronous callback）。<br>首先，JS引擎只是在瀏覽頁(Browser)中的其中一個部分，另外還包含其它的部分，像是rendering engine和http request，也就是說，<strong>整個網頁在執行的過程中可以是非同步（asynchronous）的，但就JS引擎本身，確實是同步的。</strong></p>
+<p><img src="https://i.imgur.com/E4quhbX.png"></p>
+<h2 id="事件佇列-event-Queue"><a href="#事件佇列-event-Queue" class="headerlink" title="事件佇列(event Queue)"></a>事件佇列(event Queue)</h2><p>因此，這牽扯到事件佇列的部分，在<strong>JS引擎內的等待列稱為事件佇列Event Queue</strong>，如果有事件發生，如瀏覽器頁面的滑鼠點擊事件，<strong>JS引擎會先將事件放在事件佇列Event Queue，當執行環境的程式都執行完成後，JS才會開始注意事件佇列，此時檢查是否有函式被事件觸發，如果事件觸發函式，就創造執行環境給對應函式</strong>，所以說，當瀏覽器的其他引擎或處理器有事件、狀態發生並與JS引擎互動時，這些事件就會被註冊進事件佇列裡。</p>
+<p><img src="https://i.imgur.com/zX23FKo.png"></p>
+<p>以下以JS奇怪的部分內的範例舉例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">waitThreeSeconds</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="keyword">var</span> ms = <span class="number">3000</span> + <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line"> <span class="keyword">while</span>(<span class="keyword">new</span> <span class="title class_">Date</span>() &lt; ms)&#123;&#125;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;finished function&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">clickHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;click event!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, clickHandler);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;started execution&quot;</span>);</span><br><span class="line"><span class="title function_">waitThreeSeconds</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;finished execution&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>結果印出為:<br><img src="https://i.imgur.com/Xp2KjGq.png"></p>
+<p>因此此處重複做小總結，JS會在處理完執行堆之後，檢查Event Queue是否有事件被<strong>註冊</strong>，再做處理。 </p>
+<p>參考資料:</p>
+<ul>
+<li>影片:JavaScript 全攻略：克服 JS 的奇怪部分</li>
+<li><a target="_blank" rel="noopener" href="https://pjchender.blogspot.com/2016/01/javascriptasynchronousevent-queue.html">談談JavaScript中的asynchronous和event queue</a></li>
+<li><a target="_blank" rel="noopener" href="https://pjchender.dev/javascript/js-event-loop-stack-queue/#%E5%A0%86%E7%96%8Astack">理解 JavaScript 中的事件循環、堆疊、佇列和併發模式（Learn event loop, stack, queue, and concurrency mode of JavaScript in depth）</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/16/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Movie-Seat-Booking/" rel="prev" title="作品練習-Movie Seat Booking">
+      <i class="fa fa-chevron-left"></i> 作品練習-Movie Seat Booking
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/25/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Exchange-Rate-Calculator/" rel="next" title="作品練習-Exchange Rate Calculator">
+      作品練習-Exchange Rate Calculator <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E8%88%87%E9%9D%9E%E5%90%8C%E6%AD%A5-x2F-%E5%A0%86%E7%96%8A-Stack-%E8%88%87%E4%BD%87%E5%88%97-Queue"><span class="nav-number">1.</span> <span class="nav-text">同步與非同步&#x2F;堆疊(Stack)與佇列(Queue)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%96%AE%E5%9F%B7%E8%A1%8C%E7%B7%92%E8%88%87%E5%90%8C%E6%AD%A5%E5%9F%B7%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">單執行緒與同步執行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BC%E5%8F%AB-invocation-%E8%88%87%E5%9F%B7%E8%A1%8C%E5%A0%86-stack"><span class="nav-number">1.2.</span> <span class="nav-text">呼叫(invocation)與執行堆(stack)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%90%8C%E6%AD%A5%E4%BA%8B%E4%BB%B6%EF%BC%88asynchronous-callback%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">非同步事件（asynchronous callback）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E4%BD%87%E5%88%97-event-Queue"><span class="nav-number">1.4.</span> <span class="nav-text">事件佇列(event Queue)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

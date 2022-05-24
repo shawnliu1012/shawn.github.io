@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JS 基本函式(Function)概念 介紹函式、作用域及提升該念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 基本函式Function概念">
+<meta property="og:url" content="https://shawn.github.io/2021/03/20/JS-%E5%9F%BA%E6%9C%AC%E5%87%BD%E5%BC%8FFunction%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="JS 基本函式(Function)概念 介紹函式、作用域及提升該念">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-03-20T13:38:19.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.335Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://shawn.github.io/2021/03/20/JS-%E5%9F%BA%E6%9C%AC%E5%87%BD%E5%BC%8FFunction%E6%A6%82%E5%BF%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JS 基本函式Function概念 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2021/03/20/JS-%E5%9F%BA%E6%9C%AC%E5%87%BD%E5%BC%8FFunction%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS 基本函式Function概念
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-03-20 21:38:19" itemprop="dateCreated datePublished" datetime="2021-03-20T21:38:19+08:00">2021-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JS-基本函式-Function-概念"><a href="#JS-基本函式-Function-概念" class="headerlink" title="JS 基本函式(Function)概念"></a>JS 基本函式(Function)概念</h1><blockquote>
+<p>介紹函式、作用域及提升該念</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="何謂函式"><a href="#何謂函式" class="headerlink" title="何謂函式"></a>何謂函式</h2><p><strong>“函式”指的是將一或多段程式指令包裝起來，可以重複使用，也方便維護。</strong>(參至 0陷阱!0誤解!8天重新認識javascript)</p>
+<p>也就是指如果在程式內，多次使用到某程式碼時，可以統一整理，定義function,以方便之後如有更動，方便統一修改，不必個別修改。<br>EX:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;第&quot;</span>+ i +<span class="string">&quot;隻綿羊&quot;</span>);</span><br><span class="line"><span class="comment">/*假若原本程式碼我們多次使用到此行，</span></span><br><span class="line"><span class="comment">那麼我們可以使用function方便我們做整理撰寫*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定義function，修改後為:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">echoSheep</span>(<span class="params">index</span>)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;第&quot;</span> + index + <span class="string">&quot;隻綿羊&quot;</span>);<span class="comment">/*定義之後，</span></span><br><span class="line"><span class="comment">* 如有修改內容，從此function下手就可以!*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line"><span class="title function_">echoSheep</span>(i)<span class="comment">//以function定義，方便做統一修改</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="定義函式的方式"><a href="#定義函式的方式" class="headerlink" title="定義函式的方式"></a>定義函式的方式</h2><h3 id="函式宣告-Function-Declaration"><a href="#函式宣告-Function-Declaration" class="headerlink" title="函式宣告(Function Declaration)"></a>函式宣告(Function Declaration)</h3><p>屬於最常見的用法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> 名稱 ([參數<span class="number">1</span>,參數<span class="number">2</span>,...])&#123;</span><br><span class="line"><span class="comment">//做某事</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">square</span>(<span class="params">namber</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> number * number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="初步認識函式陳述式-Function-Statement"><a href="#初步認識函式陳述式-Function-Statement" class="headerlink" title="初步認識函式陳述式(Function Statement)"></a>初步認識函式陳述式(Function Statement)</h3><p>從上面宣告方式也可以進一步去看關於陳述式的部分，<br><strong>陳述式</strong>指的是:<br>藉由直接給定函式名稱來宣告一個函式，為一般函式宣告</p>
+<h3 id="初步認識函式表達式-或稱表示式-Function-Expressions"><a href="#初步認識函式表達式-或稱表示式-Function-Expressions" class="headerlink" title="初步認識函式表達式(或稱表示式)(Function Expressions)"></a>初步認識函式表達式(或稱表示式)(Function Expressions)</h3><p>表達式(表示式)為直接把一個函式指派給另一個變數，因此除了一般的宣告外，函式也能夠作為被指派的值。</p>
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> square = <span class="keyword">function</span> (<span class="params">number</span>) &#123;</span><br><span class="line"><span class="keyword">return</span> number * number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而以上範例可知，function後並沒有定義名稱，此為匿名函式，</p>
+<h3 id="如何撰寫函式"><a href="#如何撰寫函式" class="headerlink" title="如何撰寫函式"></a>如何撰寫函式</h3><p>上述介紹完function形式後，我們以白話點的方式幫助我們日後撰寫function，首先前面提及函式指的是將一或多段程式指令包裝起來，可以重複使用，也方便維護。 意思為在一段程式碼中，我們需要判別哪些變數會在之後需要改變，</p>
+<p>由以下a物品及b物品的價格及顧客要來購買的例子來解釋:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> aPrice = <span class="number">5</span>;<span class="comment">//a價格</span></span><br><span class="line"><span class="keyword">var</span> bPrice = <span class="number">4</span>;<span class="comment">//b價格</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Whobuytotal</span> = aPrice + bPrice;<span class="comment">//顧客買的總價格</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ME&quot;</span> + <span class="title class_">MYbuytotal</span>);<span class="comment">//計算一個顧客買的價格</span></span><br></pre></td></tr></table></figure>
+<p>上述程式碼判斷，我們可以得知:</p>
+<blockquote>
+<ol>
+<li>a物品價格及b物品價格為不會改變的變數，</li>
+<li>會改變的變因為: 顧客名、a、b物品數量，</li>
+<li>確定完之後，我們需要計算每個顧客購買的總價格，因此設定function，讓他專門return給我們結果。</li>
+</ol>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> aPrice = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> bPrice = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Whobuytotal</span>: </span><br><span class="line"><span class="title class_">Whobuytotal</span> = aPrice + bPrice;</span><br><span class="line">       <span class="comment">//function名字(參數,參數,參數) </span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">buy</span>(<span class="params">Name,aNum,bNum</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Name</span>+(aPrice * aNum + bPrice * bNum)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;John&quot;</span>,<span class="number">3</span>,<span class="number">3</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;BOB&quot;</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="變數的有效範圍-作用域-scope"><a href="#變數的有效範圍-作用域-scope" class="headerlink" title="變數的有效範圍-作用域(scope)"></a>變數的有效範圍-作用域(scope)</h3><p>Function是一個作用域，<br>舉例而言:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span>;<span class="comment">//為下方console.log(a)</span></span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">helloWorld</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">150</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a)<span class="comment">//為下方helloWorld()</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">helloWorld</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br></pre></td></tr></table></figure>
+<p>印出來的數字(a)為<br>150(helloWorld()的結果)<br>100(console.log(a)的結果)<br>由此結果可知function為作用域，前提為必須在function裡加上var or let，才不會污染其他變數。<br>必須注意，如果未加var，那剛才的程式運算結果將為<br>150<br>150</p>
+<ul>
+<li>function 可以影響外層已經宣告的變數，但外層無法影響function內宣告的變數,因此，寫在函式(function)內，若無var、let、const的變數，會變成全域變數</li>
+</ul>
+<h4 id="P-S-全域變數與區域變數"><a href="#P-S-全域變數與區域變數" class="headerlink" title="P.S 全域變數與區域變數"></a>P.S 全域變數與區域變數</h4><p>function內為區域變數，外為全域變數，大至window，(window為根物件)，而在JS內，全域變數更準確來說，應該為全域物件(或為頂層物件)，以瀏覽器來說即為window，在node環境中則叫做global。</p>
+<h3 id="提升-Hoisting"><a href="#提升-Hoisting" class="headerlink" title="提升(Hoisting)"></a>提升(Hoisting)</h3><p>關於提升的概念，覺得比較明瞭的說法參考至<a target="_blank" rel="noopener" href="https://wcc723.github.io/javascript/2017/12/16/javascript-hoisting/">卡斯伯-鐵人賽：JavaScript Function 與 Hoisting</a></p>
+<p>提升比較類似於變數和函式的宣告先被放入記憶體，以上述引用的連結文章來說明，以白話說明，就像是一本筆記本列了多項要做的項目，但作者翻閱筆記本並不是要開始做，而是類似備忘錄的概念，先記在腦子裡，所以，<br>以文章中的舉例來說:</p>
+<p>假如變數尚未被宣告，而使用console.log()印出，會顯示此變數未被定義。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(phone); <span class="comment">// phone is not defined</span></span><br></pre></td></tr></table></figure>
+<p>假如在var 定義變數前使用console.log()，那麼將會顯示undefined，表示已經存入記憶體，但尚未有值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(phone); <span class="comment">// undefined</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">var</span> phone = <span class="string">&#x27;myphone&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>也就是我們可以解讀為以下的樣子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">var</span> phone;<span class="comment">//只有宣告語法被存入記憶體之中</span></span><br><span class="line"><span class="number">2</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(phone); <span class="comment">// undefined</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">var</span> phone = <span class="string">&#x27;myphone&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>因此，因為這樣<strong>變數提升</strong>的特性，請必須將變數都盡量在scope的最上面先宣告完成再使用。</p>
+<h3 id="let、const的暫時性死區"><a href="#let、const的暫時性死區" class="headerlink" title="let、const的暫時性死區"></a>let、const的暫時性死區</h3><p>結論: 盡量不要再用var來宣告變數，改用let與const，而且優先使用const，除非需要再指定值才用let。</p>
+<ul>
+<li>“ const ”— 一般使用在識別值(identifier)不會被重新指定值。</li>
+<li>“let”— 一般使用在變數(variable)可能會被重新指定值。</li>
+</ul>
+<p>引用參考資料至:<br><a target="_blank" rel="noopener" href="https://eyesofkids.gitbooks.io/react-basic-zh-tw/content/day05_es6_let_const/">ES6篇 - let與const</a><br><a target="_blank" rel="noopener" href="https://medium.com/@totoroLiu/javascript-var-let-const-%E5%B7%AE%E7%95%B0-e3d930521230">JavaScript: var, let, const 差異</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/08/JS-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B-Control-Flow/" rel="prev" title="JS 控制流程 Control Flow">
+      <i class="fa fa-chevron-left"></i> JS 控制流程 Control Flow
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/23/JS-%E5%AE%A3%E5%91%8A-var-const-let-%E6%AF%94%E8%BC%83/" rel="next" title="JS 宣告的var、const、let比較">
+      JS 宣告的var、const、let比較 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-%E5%9F%BA%E6%9C%AC%E5%87%BD%E5%BC%8F-Function-%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">JS 基本函式(Function)概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E8%AC%82%E5%87%BD%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">何謂函式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9%E5%87%BD%E5%BC%8F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">定義函式的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%AE%A3%E5%91%8A-Function-Declaration"><span class="nav-number">1.2.1.</span> <span class="nav-text">函式宣告(Function Declaration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E8%AA%8D%E8%AD%98%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F-Function-Statement"><span class="nav-number">1.2.2.</span> <span class="nav-text">初步認識函式陳述式(Function Statement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E8%AA%8D%E8%AD%98%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F-%E6%88%96%E7%A8%B1%E8%A1%A8%E7%A4%BA%E5%BC%8F-Function-Expressions"><span class="nav-number">1.2.3.</span> <span class="nav-text">初步認識函式表達式(或稱表示式)(Function Expressions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%92%B0%E5%AF%AB%E5%87%BD%E5%BC%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">如何撰寫函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8%E7%9A%84%E6%9C%89%E6%95%88%E7%AF%84%E5%9C%8D-%E4%BD%9C%E7%94%A8%E5%9F%9F-scope"><span class="nav-number">1.2.5.</span> <span class="nav-text">變數的有效範圍-作用域(scope)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#P-S-%E5%85%A8%E5%9F%9F%E8%AE%8A%E6%95%B8%E8%88%87%E5%8D%80%E5%9F%9F%E8%AE%8A%E6%95%B8"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">P.S 全域變數與區域變數</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E5%8D%87-Hoisting"><span class="nav-number">1.2.6.</span> <span class="nav-text">提升(Hoisting)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let%E3%80%81const%E7%9A%84%E6%9A%AB%E6%99%82%E6%80%A7%E6%AD%BB%E5%8D%80"><span class="nav-number">1.2.7.</span> <span class="nav-text">let、const的暫時性死區</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

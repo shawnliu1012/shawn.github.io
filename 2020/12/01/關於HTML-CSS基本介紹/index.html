@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="關於HTML CSS基本介紹 針對目前了解的HTML標籤及初步了解的CSS屬性作介紹筆記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="關於HTML CSS基本介紹">
+<meta property="og:url" content="https://shawn.github.io/2020/12/01/%E9%97%9C%E6%96%BCHTML-CSS%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="關於HTML CSS基本介紹 針對目前了解的HTML標籤及初步了解的CSS屬性作介紹筆記">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/xid0P1w.png">
+<meta property="og:image" content="https://i.imgur.com/alarUl7.png">
+<meta property="og:image" content="https://i.imgur.com/SgaeM6j.png">
+<meta property="og:image" content="https://i.imgur.com/PYbk5rB.png">
+<meta property="og:image" content="https://i.imgur.com/xNcRObr.png">
+<meta property="og:image" content="https://i.imgur.com/kFp7Q4b.png">
+<meta property="og:image" content="https://i.imgur.com/fuJg7G5.png">
+<meta property="og:image" content="https://i.imgur.com/Dm8TTPq.png">
+<meta property="og:image" content="https://i.imgur.com/Su46BWd.png">
+<meta property="og:image" content="https://i.imgur.com/EsMiMYJ.png">
+<meta property="og:image" content="https://i.imgur.com/Emr6yUk.png">
+<meta property="og:image" content="https://i.imgur.com/iojlohD.png">
+<meta property="og:image" content="https://i.imgur.com/rC3De7y.png">
+<meta property="og:image" content="https://i.imgur.com/UTnL9Me.png">
+<meta property="og:image" content="https://i.imgur.com/LzvriKZ.png">
+<meta property="og:image" content="https://i.imgur.com/kR8SV9v.png">
+<meta property="og:image" content="https://i.imgur.com/Dtd6q0Z.png">
+<meta property="article:published_time" content="2020-12-01T15:51:56.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.039Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/xid0P1w.png">
+
+<link rel="canonical" href="https://shawn.github.io/2020/12/01/%E9%97%9C%E6%96%BCHTML-CSS%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>關於HTML CSS基本介紹 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2020/12/01/%E9%97%9C%E6%96%BCHTML-CSS%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          關於HTML CSS基本介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-12-01 23:51:56" itemprop="dateCreated datePublished" datetime="2020-12-01T23:51:56+08:00">2020-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="關於HTML-CSS基本介紹"><a href="#關於HTML-CSS基本介紹" class="headerlink" title="關於HTML CSS基本介紹"></a>關於HTML CSS基本介紹</h1><blockquote>
+<p>針對目前了解的HTML標籤及初步了解的CSS屬性作介紹筆記</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><ul>
+<li>如需編輯網站時，必須將所有相關檔案放入同一資料夾中，</li>
+</ul>
+<h2 id="HTML常用標籤"><a href="#HTML常用標籤" class="headerlink" title="HTML常用標籤"></a>HTML常用標籤</h2><h3 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>大標題<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>次標題<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>中標題<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="內文"><a href="#內文" class="headerlink" title="內文"></a>內文</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>內文<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--有序清單(order list)  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>清單一<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>清單二<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>清單三<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--無序清單(unorder list) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>清單<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>清單<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>清單<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="有序清單"><a href="#有序清單" class="headerlink" title="有序清單"></a>有序清單</h4><p><img src="https://i.imgur.com/xid0P1w.png"></p>
+<h4 id="無序清單"><a href="#無序清單" class="headerlink" title="無序清單"></a>無序清單</h4><p><img src="https://i.imgur.com/alarUl7.png"></p>
+<h3 id="粗體與斜體"><a href="#粗體與斜體" class="headerlink" title="粗體與斜體"></a>粗體與斜體</h3><p>粗體有<code>&lt;b&gt;&lt;/b&gt;</code>與<code>&lt;strong&gt;&lt;/strong&gt;</code>，斜體有<code>&lt;i&gt;&lt;/i&gt;</code>與<code>&lt;em&gt;&lt;/em&gt;</code>，兩者達到效果相同，但細分為物理標記與邏輯標記，前者為單純視覺上的效果，後者有表達語意的效果。</p>
+<ul>
+<li>參考:<br><a target="_blank" rel="noopener" href="https://www.itread01.com/p/653655.html">關於html標籤中b和strong,i與em兩個的區別(物理標記和邏輯標記)</a><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">b</span>&gt;</span>粗體<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span>&gt;</span>斜體<span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="強調"><a href="#強調" class="headerlink" title="強調"></a>強調</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">strong</span>&gt;</span>粗體<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span>斜體<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="超連結與選單"><a href="#超連結與選單" class="headerlink" title="超連結與選單"></a>超連結與選單</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--補充:nav元素，包含導航資訊,通常是一系列連結，另外放於header也合理  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- a href 為超連結的語法 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>= <span class="string">&quot;&quot;</span>&gt;</span>選單<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>= <span class="string">&quot;&quot;</span>&gt;</span>選單<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>= <span class="string">&quot;&quot;</span>&gt;</span>選單<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="超連結語法"><a href="#超連結語法" class="headerlink" title="超連結語法"></a>超連結語法</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;連結的URL &quot;</span> <span class="attr">target</span>=<span class="string">&quot;連結目標&quot;</span> <span class="attr">title</span>=<span class="string">&quot;連結替代文字&quot;</span>&gt;</span>要顯示的連結文字或圖片<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--target 是連結目標的意思，可以用來設定用何種方式前往連結，</span></span><br><span class="line"><span class="comment">常見的有另開視窗（_blank）、直接於現在的視窗開起（_self）、開啟於父層框架（_parent）等，</span></span><br><span class="line"><span class="comment">target 在 HTML a href 屬性中為非必要項目。</span></span><br><span class="line"><span class="comment">  --&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="選單呈現"><a href="#選單呈現" class="headerlink" title="選單呈現"></a>選單呈現</h4><p><img src="https://i.imgur.com/SgaeM6j.png"></p>
+<h3 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--figure為html5出現的功能，主要使用為包裹圖片--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片來源.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;替代文字&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>詳細說明文字<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--這裡為方便呈現理解，呈現改為增加&lt;tabel border=&quot;2&quot;&gt;  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--tr=table row(行的意思)    --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--td=table data (列的意思)          --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="表格呈現"><a href="#表格呈現" class="headerlink" title="表格呈現"></a>表格呈現</h4><ul>
+<li>未加border原圖<br><img src="https://i.imgur.com/PYbk5rB.png"></li>
+<li>增加border後(一般於css去做修飾):<br><img src="https://i.imgur.com/xNcRObr.png"></li>
+</ul>
+<h3 id="表格輸入"><a href="#表格輸入" class="headerlink" title="表格輸入"></a>表格輸入</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--action表示發送位置  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://XXX.com&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--br表示斷行，但大部分都是由css去做行距部分修正  --&gt;</span></span><br><span class="line">        First name: <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- type於下方補充屬性值         --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--placeholder為提醒你要輸入什麼。用淺灰色表示)  --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--placeholder 属性可用於以下&lt;input&gt; 的類型：</span></span><br><span class="line"><span class="comment">text, search, url, telephone, email 以及 password  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;firstname&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;提示欲輸入之文字&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        Lastname:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 此處為輸入類型，value為呈現內容         --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;lastname&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Mouse&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 此為為按鈕類型，value為按鈕上顯示的文字         --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="表格輸入呈現"><a href="#表格輸入呈現" class="headerlink" title="表格輸入呈現"></a>表格輸入呈現</h4><p><img src="https://i.imgur.com/kFp7Q4b.png"></p>
+<h4 id="input-type常見屬性值"><a href="#input-type常見屬性值" class="headerlink" title="input type常見屬性值"></a>input type常見屬性值</h4><p><img src="https://i.imgur.com/fuJg7G5.png"></p>
+<ul>
+<li>可參考:<br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/att_input_type.asp">HTML input標籤的type 屬性</a></li>
+</ul>
+<h4 id="input-value-補充說明"><a href="#input-value-補充說明" class="headerlink" title="input value 補充說明"></a>input value 補充說明</h4><p>輸入類型的value代表欄位中的內容。按鈕類型的value代表按鈕的顯示文字</p>
+<ul>
+<li>可參考:<br><a target="_blank" rel="noopener" href="https://matthung0807.blogspot.com/2019/08/html-input-value.html">HTML input value屬性</a></li>
+</ul>
+<h3 id="div區塊"><a href="#div區塊" class="headerlink" title="div區塊"></a>div區塊</h3><p>用於將資料包裹使用，作為同一區資料，方便之後CSS編輯排版，<br>一組標準的 HTML div 區塊是由一個開頭<code>&lt;div&gt;</code>標籤與一個結束<code> &lt;/div&gt;</code> 標籤所組成，其間背包起來的部份就是區塊內容，可以是文字、圖片、影片、框架 … 等網頁內容，開頭的 <code>&lt;div&gt; </code>區塊內可以設置 id、class 或直接開始一段樣式設計，也就是 style 的部份。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--style的部分，可以忽略另外採用css編輯，也可以保留直接做此段編輯  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;自訂&quot;</span> <span class="attr">class</span>=<span class="string">&quot;自訂&quot;</span> <span class="attr">style</span>=<span class="string">&quot;自訂&quot;</span>&gt;</span>區塊內容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="css語法"><a href="#css語法" class="headerlink" title="css語法"></a>css語法</h2><p>一般會另外建一個css檔方便修改，而如果在html檔內，<code>&lt;style&gt;</code>加在<code>&lt;head&gt;</code>裡，而一般ccs寫法為:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*以&#123;&#125;括起，欲設定的屬性內容以:去表示  */</span></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line"><span class="attribute">color</span>: red</span><br><span class="line">font-size: <span class="number">20px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="css表示圖"><a href="#css表示圖" class="headerlink" title="css表示圖"></a>css表示圖</h4><p><img src="https://i.imgur.com/Dm8TTPq.png"></p>
+<h4 id="css-常用選擇器class及id撰寫法"><a href="#css-常用選擇器class及id撰寫法" class="headerlink" title="css 常用選擇器class及id撰寫法"></a>css 常用選擇器class及id撰寫法</h4><p>class 屬性則可將元素歸為某特定類別，通常也會有很多元素屬於同一種類別;id 屬性是讓你為元素命名的，整個頁面中的元素名稱也不可重複，是唯一的。</p>
+<p>選取器 class以”.”後輸入名稱表示，id可以”#”撰寫後輸入名稱表示<br><img src="https://i.imgur.com/Su46BWd.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*指h1的元素會被指定  */</span></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line"><span class="attribute">color</span> : red</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*指spcial的class標籤分類會被指定  */</span></span><br><span class="line"><span class="selector-class">.special</span> &#123;</span><br><span class="line"><span class="attribute">color</span> :red</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*指data的id標籤名稱會被指定  */</span></span><br><span class="line"><span class="selector-id">#data</span> &#123;</span><br><span class="line"><span class="attribute">color</span> :red</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*進階:指h1 中的超連結 &lt;a href&gt;  */</span></span><br><span class="line"><span class="selector-tag">h1</span> <span class="selector-tag">a</span>&#123;</span><br><span class="line"><span class="attribute">color</span> : red</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="內部css及外部css"><a href="#內部css及外部css" class="headerlink" title="內部css及外部css"></a>內部css及外部css</h3><h4 id="內部CSS"><a href="#內部CSS" class="headerlink" title="內部CSS"></a>內部CSS</h4><p><img src="https://i.imgur.com/EsMiMYJ.png"></p>
+<h4 id="外部CSS"><a href="#外部CSS" class="headerlink" title="外部CSS"></a>外部CSS</h4><p>另外建立css檔案以方便日後如需修改方便維護，而HTML檔必須於title後加上如下CSS連結:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*href 撰寫css檔名  */</span></span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;style<span class="selector-class">.css</span>&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/Emr6yUk.png"></p>
+<h3 id="CSS-常用屬性設定"><a href="#CSS-常用屬性設定" class="headerlink" title="CSS 常用屬性設定"></a>CSS 常用屬性設定</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><h5 id="background-color背景色設定"><a href="#background-color背景色設定" class="headerlink" title="background-color背景色設定"></a>background-color背景色設定</h5><p>用來設定網頁背景顏色，也可以用來設定網頁元素的背景顏色，例如 DIV 區塊、span 區域、表格背景甚至是文字背景顏色。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-color</span>: 顏色名稱或色碼 ;</span><br></pre></td></tr></table></figure>
+<p>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=77">CSS background-color 背景顏色</a></p>
+<h5 id="background-image背景圖片"><a href="#background-image背景圖片" class="headerlink" title="background-image背景圖片"></a>background-image背景圖片</h5><p><strong>基礎語法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string"> &#x27; 圖片網址 &#x27; </span>);</span><br></pre></td></tr></table></figure>
+<p><strong>網頁背景圖片範例</strong><br>直接在 body 設 background-image 是許多設計師常用的手法，優點是管理整個網頁背景較為便利，若遇到圖片未正常顯示的情況，至少還有背景顏色可以顯示，這也是設計網頁背景時的一種保險技巧。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">　<span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string"> &#x27; 要顯示的圖片網址 &#x27; </span>);</span><br><span class="line"><span class="comment">/* 背景圖片不要重覆顯示  */</span></span><br><span class="line">　<span class="attribute">background-repeat</span>:no-repeat;</span><br><span class="line">　<span class="attribute">background-color</span>: 背景顏色;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=75">CSS background-image 背景圖片</a></p>
+<h4 id="文字"><a href="#文字" class="headerlink" title="文字"></a>文字</h4><h5 id="color-文字顏色"><a href="#color-文字顏色" class="headerlink" title="color 文字顏色"></a>color 文字顏色</h5><p>CSS 的文字顏色設計採用的是 color 標示，不需要寫成 font-color 這樣，但在其他元素如邊框顏色就要使用border-color、背景顏色要使用 background-color 來標示，設計師可將 color 寫在DIV 區塊、span 區域、超連結內甚至是直接寫在 <code>&lt;body&gt;</code> 標籤內。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>: 顏色的英文或色碼 ;</span><br></pre></td></tr></table></figure>
+<p>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=394">CSS color 文字顏色</a></p>
+<h5 id="font-size-文字大小"><a href="#font-size-文字大小" class="headerlink" title="font-size 文字大小"></a>font-size 文字大小</h5><p>單位長度的類型可以分成 2 種：相對和絕對。 絕對單位與長度的物理單位相關。 例如，in 和 mm 分別代表着英寸和毫米。 絕對長度單位會接近屏幕上的實際測量值，不過不同屏幕的分辨率會存在差異，這就可能會造成誤差。</p>
+<p>相對單位長度，比如 em 和 rem，它們的實際值會依賴其他長度的值而決定。 比如 em 的大小基於元素字體的字體大小。 如果使用它來設置 font-size 值，它的值會跟隨父元素的 font-size 值來改變。</p>
+<p><img src="https://i.imgur.com/iojlohD.png"><br>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=93">CSS font-size 文字大小</a></p>
+<h5 id="text-decoration-文字裝飾"><a href="#text-decoration-文字裝飾" class="headerlink" title="text-decoration 文字裝飾"></a>text-decoration 文字裝飾</h5><p>CSS text-decoration 用來替網頁的文字做特效，例如增加文字的上線、文字底線或刪除線的效果，取代以往用 HTML 標籤一個個去標註網頁文字的耗時工作，透過 text-decoration 可以輕鬆快速的管理網頁內的文字特效，網頁設計師常常利用此計巧，直接管理整個網頁內的文字超連結底線，text-decoration 是 CSS 文字特效的標準語法。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">text-decoration</span>: 文字特效參數;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/rC3De7y.png"><br>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=104">CSS text-decoration</a></p>
+<h5 id="text-indent-文字首行縮排"><a href="#text-indent-文字首行縮排" class="headerlink" title="text-indent 文字首行縮排"></a>text-indent 文字首行縮排</h5><p>作為排版用，可使用其他單位，例如 em 或 cm 。另外也可以使用負值的，相對第一個字會向前凸出去。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">　<span class="attribute">text-indent</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=171">CSS text-indent 段落首字縮排</a></p>
+<h4 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h4><h5 id="width寬度屬性"><a href="#width寬度屬性" class="headerlink" title="width寬度屬性"></a>width寬度屬性</h5><p>CSS width 寬度屬性是用來控制網頁元素寬度的功能，width 可以接受自動判斷寬度（auto）、自訂寬度百分比（%），CSS width 屬性可以用在 DIV 區塊、span 區域、圖片（img 標籤）、文字輸入欄位（textarea）、按鈕（button）… 等諸多網頁元素的寬度設計，width 寬度屬性常常與高度的 height 屬性一起使用 。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">width</span>: 寬度值;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/UTnL9Me.png"><br>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=CSS_width_%E5%AF%AC%E5%BA%A6%E5%B1%AC%E6%80%A7">CSS width 寬度屬性</a></p>
+<h5 id="border-邊框"><a href="#border-邊框" class="headerlink" title="border 邊框"></a>border 邊框</h5><p>CSS 對於 border 的設計不只局限於 DIV 區塊或 span 的邊框，也可以應用到其他的網頁元素的邊框上，例如網頁標題的邊框、圖片的邊框（img border）… 等。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">border</span>: 邊框粗細 邊框顏色 邊框樣式 ;</span><br></pre></td></tr></table></figure>
+<p>標準的 css border 規則由左至右共有三個參數，每個參數間用半形空格隔開，第一個參數為邊框的粗細（border-width），一般使用 px、em 等標準網頁單位，第二個參數標示邊框的顏色（border-color），可以使用色標準色碼或顏色的英文名稱，第三個參數是邊框樣式（border-style），可以設定實線、虛線、雙實線、連續點 … 等許多不同的風格。也可以單邊設計:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line"><span class="selector-id">#BorderBox</span>&#123;</span><br><span class="line">　<span class="attribute">border-top</span>:<span class="number">5px</span> black solid;　//上方邊框寬度設為 <span class="number">5px</span>，顏色為黑色</span><br><span class="line">　<span class="attribute">border-right</span>:<span class="number">8px</span> red double;　//右邊的邊框寬度設為 <span class="number">8px</span>，顏色為紅色，樣式為 double</span><br><span class="line">　<span class="attribute">border-left</span>:<span class="number">7px</span> yellow dotted;　//左邊的邊框寬度設為 <span class="number">7px</span>，顏色為黃色，樣式為 dotted</span><br><span class="line">　<span class="attribute">border-bottom</span>:<span class="number">3px</span> blue dashed;　//下方邊框寬度設為 <span class="number">3px</span>，顏色為藍色，樣式為 dashed</span><br><span class="line">　<span class="attribute">padding</span>:<span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;<span class="selector-tag">div</span> id=&quot;BorderBox&quot;&gt;四個不同的邊框設計&lt;/<span class="selector-tag">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/LzvriKZ.png"></p>
+<p>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=86">CSS border 邊框</a></p>
+<h5 id="padding-內距"><a href="#padding-內距" class="headerlink" title="padding 內距"></a>padding 內距</h5><p>透過 CSS padding 內距的設定，可以控制區域如 DIV 或 span 的內部距離，也可以控制 HTML 的表格內部距離（例如文字或圖片與邊框的距離），padding 本身就是內距的設定，padding 是不可以設定負值的唷！這點與 margin 不同。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">padding</span>:上 右 下 左;　</span><br><span class="line"><span class="attribute">padding</span>:上下 左右;　</span><br><span class="line"><span class="attribute">padding</span>:上 左右 下;　</span><br><span class="line"><span class="attribute">padding</span>:四個邊同樣値;</span><br></pre></td></tr></table></figure>
+<p>padding 可能的値<br>padding:auto;　&#x2F;&#x2F;代表讓瀏覽器自己去設定。<br>padding:長度單位;　&#x2F;&#x2F;就是給數字跟單位，單位可以是 em、px、pt 等値。<br>padding:%;　&#x2F;&#x2F;讓瀏覽器自己去設定，跟邊界元素有關。<br>參考:[CSS padding 內距屬性與用法範例] (<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=111">https://www.wibibi.com/info.php?tid=111</a>)</p>
+<h5 id="margin外邊界距離"><a href="#margin外邊界距離" class="headerlink" title="margin外邊界距離"></a>margin外邊界距離</h5><p>CSS margin 屬性用來定義一個區域（例如 DIV 或 span）的外邊界距離，俗稱外距，與常用的 padding（內距）剛好不同。margin 可以讓你一次設定四個邊的外距，也可以分別設定每個邊不同的外距，特別的是 margin 可以設定負値。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">margin</span>:上 右 下 左;　</span><br><span class="line"><span class="attribute">margin</span>:上下 左右;　</span><br><span class="line"><span class="attribute">margin</span>:上 左右 下;　</span><br><span class="line"><span class="attribute">margin</span>:四個邊同樣値;</span><br></pre></td></tr></table></figure>
+<p>margin 可以的值有 auto、長度單位與 %，各種値應用範圍不一定相同<br>margin:auto;　&#x2F;&#x2F;代表讓瀏覽器自己去設定分配剩下的空間畫面，但上下不會有作用，只有左右會有作用。<br>margin:長度單位;　&#x2F;&#x2F;就是給數字跟單位，單位可以是 em、px、pt 等値。<br>margin:%;　&#x2F;&#x2F;讓瀏覽器自己去設定，跟邊界元素有關。<br>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=110">CSS margin 屬性與用法範例</a></p>
+<h5 id="height高度屬性"><a href="#height高度屬性" class="headerlink" title="height高度屬性"></a>height高度屬性</h5><p>用來控制網頁元素高度的一個標準屬性，網頁設計師常常會使用 CSS height 屬性來調整 DIV 區塊的高度、圖片的高度、表格的高度或者是文字輸入欄位的高度，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">height</span>: 高度參數值;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/kR8SV9v.png"><br>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=CSS_height_%E9%AB%98%E5%BA%A6%E5%B1%AC%E6%80%A7">CSS height 高度屬性</a></p>
+<h5 id="line-height-行高"><a href="#line-height-行高" class="headerlink" title="line-height 行高"></a>line-height 行高</h5><p>line-height 通常與 font-size（文字大小）搭配使用</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">line-height</span>: 設定値;</span><br></pre></td></tr></table></figure>
+<p>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=103">CSS line-height 設定字體範圍高度（行間距）</a></p>
+<h4 id="position-定位"><a href="#position-定位" class="headerlink" title="position 定位"></a>position 定位</h4><p>用來設定元素位置的語法，你可以定義出某個元素（如圖片、DIV 區塊、h1、h2 … 等）要在網頁的哪個位置呈現。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">position</span>: 位置參數;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/Dtd6q0Z.png"><br>參考:<a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=156">CSS position 位置屬性（定位）</a></p>
+<h2 id="HTML-及-CSS可參考網站"><a href="#HTML-及-CSS可參考網站" class="headerlink" title="HTML 及 CSS可參考網站"></a>HTML 及 CSS可參考網站</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/">MDN</a><br><a target="_blank" rel="noopener" href="https://www.w3schools.com/">W3School</a><br><a target="_blank" rel="noopener" href="https://www.wibibi.com/">wibibi網頁設計教學百科</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CSS/" rel="tag"># CSS</a>
+              <a href="/tags/HTML/" rel="tag"># HTML</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/25/%E4%BD%BF%E7%94%A8-Github-Pages-%E4%B8%8A%E5%82%B3%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%80%8B%E7%B6%B2%E9%A0%81/" rel="prev" title="使用 Github Pages 上傳你的第一個網頁">
+      <i class="fa fa-chevron-left"></i> 使用 Github Pages 上傳你的第一個網頁
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/03/HTML-input-%E5%96%AE%E9%81%B8%E8%88%87%E8%A4%87%E9%81%B8%E5%B1%AC%E6%80%A7-radio-checkboxes/" rel="next" title="HTML input 單選與複選屬性 radio& checkboxes">
+      HTML input 單選與複選屬性 radio& checkboxes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%9C%E6%96%BCHTML-CSS%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9"><span class="nav-number">1.</span> <span class="nav-text">關於HTML CSS基本介紹</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.1.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML%E5%B8%B8%E7%94%A8%E6%A8%99%E7%B1%A4"><span class="nav-number">1.2.</span> <span class="nav-text">HTML常用標籤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%99%E9%A1%8C"><span class="nav-number">1.2.1.</span> <span class="nav-text">標題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A7%E6%96%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">內文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E5%96%AE"><span class="nav-number">1.2.3.</span> <span class="nav-text">清單</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E6%B8%85%E5%96%AE"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">有序清單</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%84%A1%E5%BA%8F%E6%B8%85%E5%96%AE"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">無序清單</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%97%E9%AB%94%E8%88%87%E6%96%9C%E9%AB%94"><span class="nav-number">1.2.4.</span> <span class="nav-text">粗體與斜體</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%B7%E8%AA%BF"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">強調</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E9%80%A3%E7%B5%90%E8%88%87%E9%81%B8%E5%96%AE"><span class="nav-number">1.2.5.</span> <span class="nav-text">超連結與選單</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E9%80%A3%E7%B5%90%E8%AA%9E%E6%B3%95"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">超連結語法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%B8%E5%96%AE%E5%91%88%E7%8F%BE"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">選單呈現</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%96%E7%89%87"><span class="nav-number">1.2.6.</span> <span class="nav-text">圖片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.2.7.</span> <span class="nav-text">表格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E5%91%88%E7%8F%BE"><span class="nav-number">1.2.7.1.</span> <span class="nav-text">表格呈現</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E8%BC%B8%E5%85%A5"><span class="nav-number">1.2.8.</span> <span class="nav-text">表格輸入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E8%BC%B8%E5%85%A5%E5%91%88%E7%8F%BE"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">表格輸入呈現</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input-type%E5%B8%B8%E8%A6%8B%E5%B1%AC%E6%80%A7%E5%80%BC"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">input type常見屬性值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input-value-%E8%A3%9C%E5%85%85%E8%AA%AA%E6%98%8E"><span class="nav-number">1.2.8.3.</span> <span class="nav-text">input value 補充說明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#div%E5%8D%80%E5%A1%8A"><span class="nav-number">1.2.9.</span> <span class="nav-text">div區塊</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css%E8%AA%9E%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">css語法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#css%E8%A1%A8%E7%A4%BA%E5%9C%96"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">css表示圖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css-%E5%B8%B8%E7%94%A8%E9%81%B8%E6%93%87%E5%99%A8class%E5%8F%8Aid%E6%92%B0%E5%AF%AB%E6%B3%95"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">css 常用選擇器class及id撰寫法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A7%E9%83%A8css%E5%8F%8A%E5%A4%96%E9%83%A8css"><span class="nav-number">1.3.1.</span> <span class="nav-text">內部css及外部css</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A7%E9%83%A8CSS"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">內部CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%83%A8CSS"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">外部CSS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-%E5%B8%B8%E7%94%A8%E5%B1%AC%E6%80%A7%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.3.2.</span> <span class="nav-text">CSS 常用屬性設定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#background-color%E8%83%8C%E6%99%AF%E8%89%B2%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">background-color背景色設定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#background-image%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87"><span class="nav-number">1.3.2.1.2.</span> <span class="nav-text">background-image背景圖片</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E5%AD%97"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">文字</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#color-%E6%96%87%E5%AD%97%E9%A1%8F%E8%89%B2"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">color 文字顏色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#font-size-%E6%96%87%E5%AD%97%E5%A4%A7%E5%B0%8F"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">font-size 文字大小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-decoration-%E6%96%87%E5%AD%97%E8%A3%9D%E9%A3%BE"><span class="nav-number">1.3.2.2.3.</span> <span class="nav-text">text-decoration 文字裝飾</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-indent-%E6%96%87%E5%AD%97%E9%A6%96%E8%A1%8C%E7%B8%AE%E6%8E%92"><span class="nav-number">1.3.2.2.4.</span> <span class="nav-text">text-indent 文字首行縮排</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BA%E5%AF%B8"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">尺寸</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#width%E5%AF%AC%E5%BA%A6%E5%B1%AC%E6%80%A7"><span class="nav-number">1.3.2.3.1.</span> <span class="nav-text">width寬度屬性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#border-%E9%82%8A%E6%A1%86"><span class="nav-number">1.3.2.3.2.</span> <span class="nav-text">border 邊框</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#padding-%E5%85%A7%E8%B7%9D"><span class="nav-number">1.3.2.3.3.</span> <span class="nav-text">padding 內距</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#margin%E5%A4%96%E9%82%8A%E7%95%8C%E8%B7%9D%E9%9B%A2"><span class="nav-number">1.3.2.3.4.</span> <span class="nav-text">margin外邊界距離</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#height%E9%AB%98%E5%BA%A6%E5%B1%AC%E6%80%A7"><span class="nav-number">1.3.2.3.5.</span> <span class="nav-text">height高度屬性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#line-height-%E8%A1%8C%E9%AB%98"><span class="nav-number">1.3.2.3.6.</span> <span class="nav-text">line-height 行高</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#position-%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">position 定位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-%E5%8F%8A-CSS%E5%8F%AF%E5%8F%83%E8%80%83%E7%B6%B2%E7%AB%99"><span class="nav-number">1.4.</span> <span class="nav-text">HTML 及 CSS可參考網站</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

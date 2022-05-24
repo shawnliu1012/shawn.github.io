@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawn.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="CSS偽元素及偽類選取器 談論偽類選取器與偽元素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS偽元素及偽類選取器">
+<meta property="og:url" content="https://shawn.github.io/2021/01/10/CSS%E5%81%BD%E5%85%83%E7%B4%A0%E5%8F%8A%E5%81%BD%E9%A1%9E%E9%81%B8%E5%8F%96%E5%99%A8/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="CSS偽元素及偽類選取器 談論偽類選取器與偽元素">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/gbAMzCQ.png">
+<meta property="og:image" content="https://i.imgur.com/izRr5ey.png">
+<meta property="article:published_time" content="2021-01-09T17:15:27.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.175Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/gbAMzCQ.png">
+
+<link rel="canonical" href="https://shawn.github.io/2021/01/10/CSS%E5%81%BD%E5%85%83%E7%B4%A0%E5%8F%8A%E5%81%BD%E9%A1%9E%E9%81%B8%E5%8F%96%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>CSS偽元素及偽類選取器 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawn.github.io/2021/01/10/CSS%E5%81%BD%E5%85%83%E7%B4%A0%E5%8F%8A%E5%81%BD%E9%A1%9E%E9%81%B8%E5%8F%96%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS偽元素及偽類選取器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-01-10 01:15:27" itemprop="dateCreated datePublished" datetime="2021-01-10T01:15:27+08:00">2021-01-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CSS偽元素及偽類選取器"><a href="#CSS偽元素及偽類選取器" class="headerlink" title="CSS偽元素及偽類選取器"></a>CSS偽元素及偽類選取器</h1><blockquote>
+<p>談論偽類選取器與偽元素</p>
+</blockquote>
+<span id="more"></span>
+<p>css3為了區分偽類和偽元素，偽元素採用雙冒號寫法:</p>
+<blockquote>
+<p>常見偽類—:hover、:link、:active、:target、:not()、:focus。<br>常見偽元素—::first-letter、::first-line、::before、::after、::selection。[color&#x3D;#7cfc41]</p>
+</blockquote>
+<h2 id="偽類選取器"><a href="#偽類選取器" class="headerlink" title="偽類選取器"></a>偽類選取器</h2><p>偽類選取器是由一個「:」冒號作為開頭，而後接著偽類選取器的名稱。<br>偽類選取器大致又分為:<br>連結偽類、使用者操作偽類、目標偽類、結構性偽類、UI狀態元素偽類、否定偽類<br>以下做各個分類偽類選取器介紹:</p>
+<h3 id="連結偽類"><a href="#連結偽類" class="headerlink" title="連結偽類"></a>連結偽類</h3><p>接於連結<code>&lt;a&gt;</code>之後，分為<code>:link</code>(未訪問過的連結)<br>及<code>:visited</code>(已訪問過的連結)。</p>
+<h3 id="使用者操作偽類"><a href="#使用者操作偽類" class="headerlink" title="使用者操作偽類"></a>使用者操作偽類</h3><p>又分為<code>:hover</code>、<code>:focus</code>及<code>:active</code>，<code>:hover</code>為滑鼠游標停於該元素所產生的效果，<code>:focus</code>為表單輸入元素產生的效果，<code>:active</code>為滑鼠點擊時產生的效果。</p>
+<h3 id="目標偽類"><a href="#目標偽類" class="headerlink" title="目標偽類"></a>目標偽類</h3><p><code>target</code>即為目標偽類，官方定義是:</p>
+<p>**URL 帶有後面跟有錨名稱<code>#(id)</code>,指向文件內某個具體的元素。這個被連結的元素就是目標元素(target element)**，即為連結設定<code>:target</code>之後會進行跳轉至某目標元素。</p>
+<h3 id="結構性偽類"><a href="#結構性偽類" class="headerlink" title="結構性偽類"></a>結構性偽類</h3><ol>
+<li><code>:root</code>選取根元素</li>
+<li><code>:first-child</code>、<code>:last-child</code>頭尾選取器:分別為選取第一個及最後一個<strong>子物件</strong></li>
+<li><code>:first-of-type</code>、<code>:last-of-type</code>首尾分類選取器:分別為選取第一個及最後一個<strong>同類別(ex.div、p、h1…)物件</strong></li>
+<li><code>only-child</code>獨子選取器，選取<strong>唯一</strong>的子物件</li>
+<li><code>:only-of-type</code>類型獨子選取器，選取<strong>唯一一個該類型(ex.div、p、h1…)的物件</strong></li>
+<li><code>:nth-child(n)</code>、<code>:nth-last-child(n)</code>，選取(頭&#x2F;尾)第n個子物件，括號內更詳細應該寫成(an+b)，其中a、b可以自訂數值，而+則是可以變更的運算符號(運算子)，以此進行更多的選取範圍</li>
+<li><code>:nth-of-type(n)</code>、<code>:nth-last-of-type(n)</code>，選取(頭&#x2F;尾)同類型第n個物件，<strong>先依標籤做分類，緊接著再做同類別選取</strong>，同樣更詳細括號內可寫成(an+b)，進行更廣泛選取</li>
+<li><code>:empty</code>空值選取器，專門選取空的物件</li>
+</ol>
+<h3 id="UI-元素狀態偽類"><a href="#UI-元素狀態偽類" class="headerlink" title="UI 元素狀態偽類"></a>UI 元素狀態偽類</h3><p><code>:enabled</code>、<code>:disabled</code>分別為表單內啟用及禁用狀態元素，常用於<code>&lt;button&gt;</code>，以及另一個偽類<code>:checked</code>，表單使用者選擇的UI元素，意思為表單被勾選時會產生的狀態</p>
+<h3 id="否定偽類"><a href="#否定偽類" class="headerlink" title="否定偽類"></a>否定偽類</h3><p><code>:not()</code>，即不選取某元素的選取器</p>
+<p>參考文章:<br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10221625">AMOS偽類選取器器</a><br><a target="_blank" rel="noopener" href="https://www.footmark.info/web-design/css/css-pseudo-class-selectors/#fm-chapter-1">CSS 偽類別選擇器教學範例</a></p>
+<h2 id="偽元素選取器"><a href="#偽元素選取器" class="headerlink" title="偽元素選取器"></a>偽元素選取器</h2><h3 id="before-amp-after"><a href="#before-amp-after" class="headerlink" title="::before &amp; ::after"></a>::before &amp; ::after</h3><p><code>::before</code>和<code>::after</code>下特有的content，用於在css渲染中向元素邏輯上的頭部或尾部新增內容。</p>
+<p>這些新增不會出現在DOM中，不會改變文件內容，不可複製，僅僅是在css渲染層加入。</p>
+<p>所以不要用:before或:after展示有實際意義的內容，儘量使用它們顯示修飾性內容，例如圖示。<strong>偽類元素的display是預設值inline，可以通過設定display:block來改變其顯示</strong></p>
+<p>舉例：網站有些聯絡電話，希望在它們前加一個icon☎，就可以使用:before偽元素。</p>
+<h4 id="content作用"><a href="#content作用" class="headerlink" title="content作用"></a>content作用</h4><p><code>::before</code>和<code>::after</code>必須配合content屬性來使用，content用來定義插入的內容，content必須有值，至少是空。<br>以下舉例</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="content引號內部可插入"><a href="#content引號內部可插入" class="headerlink" title="content引號內部可插入:"></a>content引號內部可插入:</h4><ul>
+<li>string: 使用引號包一段字串，將會向元素內容中新增字串</li>
+<li>attr(): 通過attr()呼叫當前元素的屬性，比如將圖片alt提示文字或者連結的href地址顯示出來。</li>
+<li>counter(): 呼叫計數器，可以不使用列表元素實現序號功能。<br>配合counter-increment和counter-reset屬性使用：<br>h2:before { counter-increment: chapter; content: “Chapter “ counter(chapter) “. “ }<br>範例程式碼:<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-tag">body</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">counter-reset</span>: section;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">h1</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">counter-reset</span>: subsection;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">h1</span><span class="selector-pseudo">:before</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">counter-increment</span>:section;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">content</span>:<span class="built_in">counter</span>(section) <span class="string">&quot;、&quot;</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-tag">h2</span><span class="selector-pseudo">:before</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">counter-increment</span>:subsection;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">content</span>: <span class="built_in">counter</span>(section) <span class="string">&quot;.&quot;</span> <span class="built_in">counter</span>(subsection) <span class="string">&quot;、&quot;</span>;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">------------------------------------------------</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>HTML tutorials<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>HTML Tutorial<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>XHTML Tutorial<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>CSS Tutorial<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Scripting tutorials<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>JavaScript<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>VBScript<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>XML tutorials<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>XML<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>XSL<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span>   </span><br></pre></td></tr></table></figure>
+呈現如下:<br><img src="https://i.imgur.com/gbAMzCQ.png"></li>
+<li><code>url()/uri()</code>: 用於引用媒體檔案。舉例：“百度”前面給出一張圖片，後面給出href屬性。(雖可以使用，但是無法調整 width&amp;height，不是那麼實用)</li>
+</ul>
+<p>偽元素建議用於裝飾性物件(例如icon)，別用於具體意義的文字項目上</p>
+<h4 id="利用-before-amp-after-心型圖案製作"><a href="#利用-before-amp-after-心型圖案製作" class="headerlink" title="利用::before &amp; ::after 心型圖案製作"></a>利用::before &amp; ::after 心型圖案製作</h4><p>範例程式碼如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.heart</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: auto;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">right</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">45deg</span>);</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.heart</span><span class="selector-pseudo">::after</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.heart</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">content</span>:<span class="string">&quot;&quot;</span> ;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: -<span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;heart&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>顯示如下:<br><img src="https://i.imgur.com/izRr5ey.png"></p>
+<h4 id="進階-跳動的心"><a href="#進階-跳動的心" class="headerlink" title="進階 跳動的心"></a>進階 跳動的心</h4><p>搭配<code>animation</code>，程式碼如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.back</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: fixed;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: white;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">animation-name</span>: backdiv;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">animation-duration</span>: <span class="number">1s</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">animation-iteration-count</span>: infinite;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.heart</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">margin</span>: auto;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">right</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">bottom</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">transform</span>: <span class="built_in">rotate</span>(-<span class="number">45deg</span>);</span></span><br><span class="line"><span class="language-css">    <span class="attribute">animation-name</span>: beat;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">animation-duration</span>: <span class="number">1s</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">animation-iteration-count</span>: infinite;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.heart</span><span class="selector-pseudo">:after</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css">  <span class="selector-class">.heart</span><span class="selector-pseudo">:before</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">top</span>: -<span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">left</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="keyword">@keyframes</span> backdiv &#123;</span></span><br><span class="line"><span class="language-css">    <span class="number">50%</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">background</span>: <span class="number">#ffe6f2</span>;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="keyword">@keyframes</span> beat &#123;</span></span><br><span class="line"><span class="language-css">    <span class="number">0%</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1</span>) <span class="built_in">rotate</span>(-<span class="number">45deg</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">    <span class="number">50%</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">0.6</span>) <span class="built_in">rotate</span>(-<span class="number">45deg</span>);</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;back&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;heart&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>顯示如下:<br><a target="_blank" rel="noopener" href="https://codepen.io/shawnliu1012/pen/OJmJPvJ">https://codepen.io/shawnliu1012/pen/OJmJPvJ</a><br>參考資料:<br><a target="_blank" rel="noopener" href="https://www.itread01.com/content/1545145569.html">::before和::after偽元素的用法</a></p>
+<h3 id="first-line首行選取器"><a href="#first-line首行選取器" class="headerlink" title="::first-line首行選取器"></a>::first-line首行選取器</h3><p>即為選取第一行，為使用後能讓被設定的物件內容第一行呈現為設定的樣子。</p>
+<h3 id="selection-選取狀態偽元素"><a href="#selection-選取狀態偽元素" class="headerlink" title="::selection 選取狀態偽元素"></a>::selection 選取狀態偽元素</h3><p>意思為可設定選取反白後產生的效果，支援的變化為:</p>
+<ol>
+<li>color(文字色彩)</li>
+<li>background-color(背景色彩)</li>
+<li>cursor(滑鼠游標)</li>
+<li>caret-color(閃動標點)</li>
+<li>outline(外框線)</li>
+<li>text-decoration(文字裝飾)</li>
+<li>text-emphasis-color(文字加重強調符號色彩)</li>
+<li>text-shadow(文字陰影</li>
+</ol>
+<p>參考文章:<br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20112550/ironman/2799">AMOS 金魚都能懂的CSS選取器</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CSS/" rel="tag"># CSS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/06/CSS%E5%8B%95%E7%95%ABanimation/" rel="prev" title="CSS動畫animation">
+      <i class="fa fa-chevron-left"></i> CSS動畫animation
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/15/%E5%88%87%E7%89%88-%E8%B6%85%E9%80%9A%E7%94%A8%E6%A8%A1%E5%BC%8F%E7%89%88%E9%9D%A2/" rel="next" title="切版-超通用模式版面">
+      切版-超通用模式版面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS%E5%81%BD%E5%85%83%E7%B4%A0%E5%8F%8A%E5%81%BD%E9%A1%9E%E9%81%B8%E5%8F%96%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">CSS偽元素及偽類選取器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%BD%E9%A1%9E%E9%81%B8%E5%8F%96%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">偽類選取器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%A3%E7%B5%90%E5%81%BD%E9%A1%9E"><span class="nav-number">1.1.1.</span> <span class="nav-text">連結偽類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85%E6%93%8D%E4%BD%9C%E5%81%BD%E9%A1%9E"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用者操作偽類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A8%99%E5%81%BD%E9%A1%9E"><span class="nav-number">1.1.3.</span> <span class="nav-text">目標偽類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B5%90%E6%A7%8B%E6%80%A7%E5%81%BD%E9%A1%9E"><span class="nav-number">1.1.4.</span> <span class="nav-text">結構性偽類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-%E5%85%83%E7%B4%A0%E7%8B%80%E6%85%8B%E5%81%BD%E9%A1%9E"><span class="nav-number">1.1.5.</span> <span class="nav-text">UI 元素狀態偽類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%A6%E5%AE%9A%E5%81%BD%E9%A1%9E"><span class="nav-number">1.1.6.</span> <span class="nav-text">否定偽類</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%BD%E5%85%83%E7%B4%A0%E9%81%B8%E5%8F%96%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">偽元素選取器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#before-amp-after"><span class="nav-number">1.2.1.</span> <span class="nav-text">::before &amp; ::after</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#content%E4%BD%9C%E7%94%A8"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">content作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#content%E5%BC%95%E8%99%9F%E5%85%A7%E9%83%A8%E5%8F%AF%E6%8F%92%E5%85%A5"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">content引號內部可插入:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-before-amp-after-%E5%BF%83%E5%9E%8B%E5%9C%96%E6%A1%88%E8%A3%BD%E4%BD%9C"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">利用::before &amp; ::after 心型圖案製作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%B2%E9%9A%8E-%E8%B7%B3%E5%8B%95%E7%9A%84%E5%BF%83"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">進階 跳動的心</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-line%E9%A6%96%E8%A1%8C%E9%81%B8%E5%8F%96%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">::first-line首行選取器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selection-%E9%81%B8%E5%8F%96%E7%8B%80%E6%85%8B%E5%81%BD%E5%85%83%E7%B4%A0"><span class="nav-number">1.2.3.</span> <span class="nav-text">::selection 選取狀態偽元素</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
