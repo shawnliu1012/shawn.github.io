@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="作品練習-Weather API 本次練習:使用bootstrap練習開發及申請API及串接資料">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作品練習-Weather Api">
+<meta property="og:url" content="https://shawnliu1012.github.io/2021/08/30/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Weather-Api/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="作品練習-Weather API 本次練習:使用bootstrap練習開發及申請API及串接資料">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/ZhxxhpD.png">
+<meta property="og:image" content="https://i.imgur.com/qOwW6Fl.png">
+<meta property="og:image" content="https://i.imgur.com/HueHk2T.png">
+<meta property="og:image" content="https://i.imgur.com/9KO7tRi.png">
+<meta property="og:image" content="https://i.imgur.com/mJZDjTy.png">
+<meta property="og:image" content="https://i.imgur.com/4860QZn.png">
+<meta property="og:image" content="https://i.imgur.com/LaB7lL1.png">
+<meta property="og:image" content="https://i.imgur.com/QnNEYv6.png">
+<meta property="og:image" content="https://i.imgur.com/0t4HQVl.png">
+<meta property="article:published_time" content="2021-08-30T15:56:26.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:04.958Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/ZhxxhpD.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2021/08/30/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Weather-Api/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>作品練習-Weather Api | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2021/08/30/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Weather-Api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          作品練習-Weather Api
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-08-30 23:56:26" itemprop="dateCreated datePublished" datetime="2021-08-30T23:56:26+08:00">2021-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:04" itemprop="dateModified" datetime="2022-05-24T17:41:04+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="作品練習-Weather-API"><a href="#作品練習-Weather-API" class="headerlink" title="作品練習-Weather API"></a>作品練習-Weather API</h1><blockquote>
+<p>本次練習:使用bootstrap練習開發及申請API及串接資料</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="申請API"><a href="#申請API" class="headerlink" title="申請API"></a>申請API</h2><h3 id="中央氣象局網站登入-x2F-註冊"><a href="#中央氣象局網站登入-x2F-註冊" class="headerlink" title="中央氣象局網站登入&#x2F;註冊"></a>中央氣象局網站登入&#x2F;註冊</h3><p>首先至<a target="_blank" rel="noopener" href="https://opendata.cwb.gov.tw/index">中央氣象局-氣象開放資料平台</a>進行登入&#x2F;註冊<br><img src="https://i.imgur.com/ZhxxhpD.png"></p>
+<h3 id="申請授權碼及取得授權資料"><a href="#申請授權碼及取得授權資料" class="headerlink" title="申請授權碼及取得授權資料"></a>申請授權碼及取得授權資料</h3><p>登入之後點選API授權，取得授權碼部分<br><img src="https://i.imgur.com/qOwW6Fl.png"><br>之後點選上方列表:開發指南-開放資料平臺之資料擷取API，尋找需要的資料:<br><img src="https://i.imgur.com/HueHk2T.png"></p>
+<p>點選<code>try it out</code>後，在Authorization輸入授權碼:<br><img src="https://i.imgur.com/9KO7tRi.png"></p>
+<p>等資料跑一會之後，即可以取得json，及Request URL<br><img src="https://i.imgur.com/mJZDjTy.png"></p>
+<h2 id="Javascript撰寫"><a href="#Javascript撰寫" class="headerlink" title="Javascript撰寫"></a>Javascript撰寫</h2><p>完整JS code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(</span><br><span class="line">    <span class="string">&quot;https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-566FD187-2A7C-4845-AC20-59E5816BA0BA&amp;format=JSON&amp;locationName=&amp;elementName=&quot;</span></span><br><span class="line">)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">res</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">json</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">        <span class="comment">// console.log(data);</span></span><br><span class="line">        <span class="keyword">const</span> weatherData = data.<span class="property">records</span>.<span class="property">location</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        [...weatherData].<span class="title function_">forEach</span>(<span class="function">(<span class="params">currentValue, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> name = weatherData[index].<span class="property">locationName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">Rain</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">1</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">Wx</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">0</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">MinT</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">2</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">MaxT</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">4</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="comment">// console.log(currentValue);</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> img;</span><br><span class="line">            <span class="keyword">if</span> (<span class="title class_">Rain</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                img = <span class="string">&quot;svg/sun.svg&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Rain</span> &gt; <span class="number">25</span> || <span class="title class_">Rain</span> &lt; <span class="number">40</span>) &#123;</span><br><span class="line">                img = <span class="string">&quot;svg/cloud-sun.svg&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Rain</span> &gt; <span class="number">50</span>) &#123;</span><br><span class="line">                img = <span class="string">&quot;svg/cloud.svg&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                img = <span class="string">&quot;svg/rain.svg&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> card = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.row&quot;</span>);</span><br><span class="line">            card.<span class="property">innerHTML</span> += <span class="string">`</span></span><br><span class="line"><span class="string">            &lt;div class=&quot;card mb-2 text-center mx-auto&quot; style=&quot;width: 18rem&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;img src=&quot;<span class="subst">$&#123;img&#125;</span>&quot; class=&quot;card-img-top mx-auto&quot;  style=&quot;width:50% &quot; alt=&quot;weather&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;div class=&quot;card-body&quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;h5 class=&quot;card-title&quot;&gt;<span class="subst">$&#123;name&#125;</span>&lt;/h5&gt;</span></span><br><span class="line"><span class="string">                &lt;p class=&quot;card-text&quot;&gt;tmp: <span class="subst">$&#123;MinT&#125;</span>&amp;#8451~<span class="subst">$&#123;MaxT&#125;</span>&amp;#8451&lt;/p&gt;</span></span><br><span class="line"><span class="string">                &lt;p class=&quot;card-text&quot;&gt;降雨機率: <span class="subst">$&#123;Rain&#125;</span>%&lt;/p&gt;</span></span><br><span class="line"><span class="string">                &lt;p class=&quot;card-text&quot;&gt;tmp: <span class="subst">$&#123;Wx&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch()"></a>fetch()</h3><p>使用fetch()進行串接:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(</span><br><span class="line">    <span class="string">&quot;https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-566FD187-2A7C-4845-AC20-59E5816BA0BA&amp;format=JSON&amp;locationName=&amp;elementName=&quot;</span></span><br><span class="line">)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">res</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">json</span>();</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">        <span class="comment">// console.log(data);</span></span><br><span class="line">        <span class="keyword">const</span> weatherData = data.<span class="property">records</span>.<span class="property">location</span>;</span><br></pre></td></tr></table></figure>
+<p>串接後，<code>console.log(data)</code>看看是否有成功串到資料:<br><img src="https://i.imgur.com/4860QZn.png"></p>
+<h3 id="ForEach"><a href="#ForEach" class="headerlink" title="ForEach"></a>ForEach</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[...weatherData].<span class="title function_">forEach</span>(<span class="function">(<span class="params">currentValue, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> name = weatherData[index].<span class="property">locationName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">Rain</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">1</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">Wx</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">0</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">MinT</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">2</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="title class_">MaxT</span> =</span><br><span class="line">                weatherData[index].<span class="property">weatherElement</span>[<span class="number">4</span>].<span class="property">time</span>[<span class="number">2</span>].<span class="property">parameter</span>.<span class="property">parameterName</span>;</span><br><span class="line">            <span class="comment">// console.log(currentValue);</span></span><br></pre></td></tr></table></figure>
+<p><code>console.log(currentValue)</code>查看locationName的陣列顯示如下:<br><img src="https://i.imgur.com/LaB7lL1.png"><br>點入陣列查看細節:<br><img src="https://i.imgur.com/QnNEYv6.png"></p>
+<h3 id="If-else-amp-HTML"><a href="#If-else-amp-HTML" class="headerlink" title="If else &amp; HTML"></a>If else &amp; HTML</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">let img;</span><br><span class="line">           if (Rain == 0) &#123;</span><br><span class="line">               img = &quot;svg/sun.svg&quot;;</span><br><span class="line">           &#125; else if (Rain &gt; 25 || Rain &lt; 40) &#123;</span><br><span class="line">               img = &quot;svg/cloud-sun.svg&quot;;</span><br><span class="line">           &#125; else if (Rain &gt; 50) &#123;</span><br><span class="line">               img = &quot;svg/cloud.svg&quot;;</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               img = &quot;svg/rain.svg&quot;;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           let card = document.querySelector(&quot;.row&quot;);</span><br><span class="line">           card.innerHTML += `</span><br><span class="line">           &lt;div class=&quot;card mb-2 text-center mx-auto&quot; style=&quot;width: 18rem&quot;&gt;</span><br><span class="line">       &lt;img src=&quot;$&#123;img&#125;&quot; class=&quot;card-img-top mx-auto&quot;  style=&quot;width:50% &quot; alt=&quot;weather&quot;&gt;</span><br><span class="line">           &lt;div class=&quot;card-body&quot;&gt;</span><br><span class="line">               &lt;h5 class=&quot;card-title&quot;&gt;$&#123;name&#125;&lt;/h5&gt;</span><br><span class="line">               &lt;p class=&quot;card-text&quot;&gt;tmp: $&#123;MinT&#125;&amp;#8451~$&#123;MaxT&#125;&amp;#8451&lt;/p&gt;</span><br><span class="line">               &lt;p class=&quot;card-text&quot;&gt;降雨機率: $&#123;Rain&#125;%&lt;/p&gt;</span><br><span class="line">               &lt;p class=&quot;card-text&quot;&gt;tmp: $&#123;Wx&#125;&lt;/p&gt;</span><br><span class="line">       &lt;/div&gt;</span><br><span class="line">       &lt;/div&gt;</span><br><span class="line">   `;</span><br></pre></td></tr></table></figure>
+
+<h4 id="溫度符號輸入"><a href="#溫度符號輸入" class="headerlink" title="溫度符號輸入"></a>溫度符號輸入</h4><p><code>&amp;#8451</code>是<code>HTML</code>中℃的輸入方式，有兩種方式輸入，請參考:<br><img src="https://i.imgur.com/0t4HQVl.png"><br>資料來源:<a target="_blank" rel="noopener" href="https://blog.csdn.net/web_cgh/article/details/78436625">HTML中溫度符號的輸入</a></p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://www.latech.tw/2018/03/opendata.html">氣象局 OpenData 抓取「目前天氣」、「天氣預報」</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/25/Bootstrap-5-%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%B4%B9/" rel="prev" title="Bootstrap 5 功能介紹">
+      <i class="fa fa-chevron-left"></i> Bootstrap 5 功能介紹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/12/JS-%E9%80%B2%E9%9A%8E%E9%99%A3%E5%88%97/" rel="next" title="JS- 進階陣列">
+      JS- 進階陣列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Weather-API"><span class="nav-number">1.</span> <span class="nav-text">作品練習-Weather API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B3%E8%AB%8BAPI"><span class="nav-number">1.1.</span> <span class="nav-text">申請API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E5%A4%AE%E6%B0%A3%E8%B1%A1%E5%B1%80%E7%B6%B2%E7%AB%99%E7%99%BB%E5%85%A5-x2F-%E8%A8%BB%E5%86%8A"><span class="nav-number">1.1.1.</span> <span class="nav-text">中央氣象局網站登入&#x2F;註冊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B3%E8%AB%8B%E6%8E%88%E6%AC%8A%E7%A2%BC%E5%8F%8A%E5%8F%96%E5%BE%97%E6%8E%88%E6%AC%8A%E8%B3%87%E6%96%99"><span class="nav-number">1.1.2.</span> <span class="nav-text">申請授權碼及取得授權資料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript%E6%92%B0%E5%AF%AB"><span class="nav-number">1.2.</span> <span class="nav-text">Javascript撰寫</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch"><span class="nav-number">1.2.1.</span> <span class="nav-text">fetch()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ForEach"><span class="nav-number">1.2.2.</span> <span class="nav-text">ForEach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#If-else-amp-HTML"><span class="nav-number">1.2.3.</span> <span class="nav-text">If else &amp; HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%AB%E5%BA%A6%E7%AC%A6%E8%99%9F%E8%BC%B8%E5%85%A5"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">溫度符號輸入</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

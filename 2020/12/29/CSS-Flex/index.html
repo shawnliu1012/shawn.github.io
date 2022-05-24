@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="CSS Flex 介紹Flex相關細節及與float、box-sizing差別">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Flex">
+<meta property="og:url" content="https://shawnliu1012.github.io/2020/12/29/CSS-Flex/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="CSS Flex 介紹Flex相關細節及與float、box-sizing差別">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Nh4kL5l.png">
+<meta property="og:image" content="https://i.imgur.com/cfCWEQn.png">
+<meta property="og:image" content="https://i.imgur.com/V5b9LjJ.png">
+<meta property="og:image" content="https://i.imgur.com/0ginbOT.png">
+<meta property="og:image" content="https://i.imgur.com/x4BxJK5.png">
+<meta property="og:image" content="https://i.imgur.com/AfdSRzB.png">
+<meta property="og:image" content="https://i.imgur.com/UPsVLPr.png">
+<meta property="og:image" content="https://i.imgur.com/x07l8II.png">
+<meta property="og:image" content="https://i.imgur.com/InDJ8s5.png">
+<meta property="og:image" content="https://i.imgur.com/6JVZb39.png">
+<meta property="og:image" content="https://i.imgur.com/TmnBcSq.png">
+<meta property="og:image" content="https://i.imgur.com/Pd1oywn.png">
+<meta property="og:image" content="https://i.imgur.com/oaiJcEE.png">
+<meta property="og:image" content="https://i.imgur.com/weyAQ9z.png">
+<meta property="og:image" content="https://i.imgur.com/Yw62tfI.png">
+<meta property="article:published_time" content="2020-12-28T16:57:22.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.154Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Nh4kL5l.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2020/12/29/CSS-Flex/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>CSS Flex | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2020/12/29/CSS-Flex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS Flex
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-12-29 00:57:22" itemprop="dateCreated datePublished" datetime="2020-12-29T00:57:22+08:00">2020-12-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CSS-Flex"><a href="#CSS-Flex" class="headerlink" title="CSS Flex"></a>CSS Flex</h1><blockquote>
+<p>介紹Flex相關細節及與float、box-sizing差別</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="關於Flex"><a href="#關於Flex" class="headerlink" title="關於Flex"></a>關於Flex</h2><p>分為父元素及子元素的設定，後續屬性會詳細介紹，先來了解脈絡與內容。</p>
+<h3 id="與flaot、box-sizing差別"><a href="#與flaot、box-sizing差別" class="headerlink" title="與flaot、box-sizing差別"></a>與flaot、box-sizing差別</h3><p>flex一次擁有，既有橫排也會幫忙算寬度，讓畫面不至於爆掉寬度跑到第二行。</p>
+<h3 id="排版進程"><a href="#排版進程" class="headerlink" title="排版進程"></a>排版進程</h3><p>table -&gt; float-&gt;inline-block-&gt;box-&gt;<strong>flex</strong></p>
+<h3 id="Flex三大特性-RWD更方便"><a href="#Flex三大特性-RWD更方便" class="headerlink" title="Flex三大特性(RWD更方便)"></a>Flex三大特性(RWD更方便)</h3><p>延展比 flex-grow<br>收縮比 flex-shrink<br>基本比 flex-basis<br>也就是Flex自動幫你算尺寸</p>
+<h2 id="什麼是Flex資料流"><a href="#什麼是Flex資料流" class="headerlink" title="什麼是Flex資料流"></a>什麼是Flex資料流</h2><p>以主軸及次軸(交叉軸)來看，看直向為主軸還是橫向為主軸，另一方向就為次軸，橫向由左至右，直向由上至下。</p>
+<blockquote>
+<p>白話理解為看你往哪流，流超過範圍到下一排繼續流。<br><img src="https://i.imgur.com/Nh4kL5l.png"></p>
+</blockquote>
+<blockquote>
+<p>一般flex設定為橫的，所以主軸及對應的交叉軸流向如下:<br><img src="https://i.imgur.com/cfCWEQn.png"><br><img src="https://i.imgur.com/V5b9LjJ.png"></p>
+</blockquote>
+<blockquote>
+<p>如flex設定為直的(<code>flex-direction: column;</code>)，主軸及交叉軸就改成如下:<br><img src="https://i.imgur.com/0ginbOT.png"><br><img src="https://i.imgur.com/x4BxJK5.png"></p>
+</blockquote>
+<h2 id="父層-父元素-x2F-外容器-設定之Flex項目"><a href="#父層-父元素-x2F-外容器-設定之Flex項目" class="headerlink" title="父層(父元素&#x2F;外容器)設定之Flex項目:"></a>父層(父元素&#x2F;外容器)設定之Flex項目:</h2><p>Flex 外容器屬性：</p>
+<ul>
+<li>display</li>
+<li>flex-flow<br>– flex-wrap<br>– flex-direction</li>
+<li>justify-content</li>
+<li>align-items</li>
+</ul>
+<h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><p>Flex使用需要宣告<code> display: flex</code> ，<strong>此設定在父層</strong>，除了 flex 外，還有一個 inline-flex，作用類似於 inline-block + flex。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">display</span>: flex;</span><br><span class="line"><span class="comment">/* or */</span></span><br><span class="line"><span class="attribute">display</span>: inline-flex;</span><br></pre></td></tr></table></figure>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>該flex-flow屬性是用於設置 <code>flex-direction</code>和 <code>flex-wrap</code>屬性的簡寫屬性:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* flex-flow: flex-dtrection flex-wrap */</span></span><br><span class="line">  <span class="attribute">flex-flow</span>: row wrap;</span><br></pre></td></tr></table></figure>
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><p>設定換行 flex-wrap: wrap<strong>此設定在display之後設定，同樣父層</strong>，分為換行、不換行、換行時反轉:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line"><span class="comment">/* or */</span></span><br><span class="line"><span class="attribute">flex-wrap</span>: nowrap;</span><br><span class="line"><span class="comment">/* or */</span></span><br><span class="line"><span class="attribute">flex-wrap</span>: wrap-reverse;</span><br></pre></td></tr></table></figure>
+<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><p>flex-direction:直排橫排隨你控制-走向，分為水平反轉、轉為垂直、垂直反轉<br><img src="https://i.imgur.com/AfdSRzB.png"></p>
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>資料流的對齊 justify-content: flex-(靠左)start&#x2F;(置中)center&#x2F;(靠右)flex-end<br><img src="https://i.imgur.com/UPsVLPr.png"></p>
+<p>資料流的間距 justify-content: (空間分配在左右)space-around&#x2F;(空間分配在之間)space-between<br><img src="https://i.imgur.com/x07l8II.png"></p>
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><p><strong>align開頭就是所謂次軸(交叉軸)</strong><br>用法如下:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">align-items</span>: flex-start | flex-end | center | baseline | stretch;</span><br></pre></td></tr></table></figure>
+<p>(示範圖建立在資料流為橫向時)<br><img src="https://i.imgur.com/InDJ8s5.png"></p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>交叉軸的對齊-多行間距:<br>用法如下:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">align-content</span>: flex-start | flex-end | center | space-between | space-around | stretch;</span><br></pre></td></tr></table></figure>
+<p>示範圖如下:<br><img src="https://i.imgur.com/6JVZb39.png"></p>
+<h2 id="子層-子元素-x2F-內元件-設定之Flex項目"><a href="#子層-子元素-x2F-內元件-設定之Flex項目" class="headerlink" title="子層(子元素&#x2F;內元件)設定之Flex項目:"></a>子層(子元素&#x2F;內元件)設定之Flex項目:</h2><p>Flex 內元件屬性：</p>
+<ul>
+<li>flex<br>– flex-grow<br>– flex-shrink<br>– flex-basis</li>
+<li>order</li>
+<li>align-self</li>
+</ul>
+<h3 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h3><p>Flex 是縮寫，裡面可一併設置依序包含三個屬性 flex-grow、flex-shrink 和 flex-basis。</p>
+<p>例如，<code>flex: 1 0 10px;</code> 會把項目屬性設爲 f<code>lex-grow: 1;</code>、<code>flex-shrink: 0;</code> 以及 <code>flex-basis: 10px;</code>。</p>
+<p>屬性的默認設置是 <code>flex: 0 1 auto;</code>。</p>
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p>flex-grow <strong>元件的伸展性</strong>屬性，接受數值作爲屬性值，會在容器太大時對子元素作出調整。</p>
+<p>如果一個項目的 flex-grow 屬性值爲 1，另一個項目的 flex-grow 屬性值爲 3，那麼值爲 3 的一個會較另一個擴大 3 倍。</p>
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>首先介紹的是 flex-shrink <strong>元件的收縮性</strong>屬性。 使用之後，如果 flex 容器太小，則子元素會自動縮小。 當容器的寬度小於裏面所有子元素的寬度之和時，所有子元素都會自動壓縮。</p>
+<p>flex-shrink 接受數值作爲屬性值。 數值越大，則該元素與其他元素相比會被壓縮得更厲害。 比如，一個項目的 flex-shrink 屬性值爲 1，另一個項目的 flex-shrink 屬性值爲 3，那麼後者相比前者會受到 3 倍壓縮。</p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>使用 flex-basis 屬性設置元素的初始大小<br>flex-basis 屬性定義了在使用 CSS 的 flex-shrink 或 flex-grow 屬性對元素進行調整前，元素的初始大小。</p>
+<p>flex-basis 屬性的單位與其他表示尺寸的屬性的單位一致（px、em、% 等）。 如果值爲 auto，則項目的尺寸隨內容調整。</p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>使用 order 屬性<strong>重新排列子元素</strong>，order 屬性告訴 CSS flex 容器裏子元素的順序。 默認情況下，項目排列順序與源 HTML 文件中順序相同。 這個屬性接受數字作爲參數，可以使用負數，默認數值為0。</p>
+<p>以程式碼輔助呈現突來說明:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">/* 紅色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 綠色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 紫色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/TmnBcSq.png"></p>
+<hr>
+<p>修改div:2 的order為-1 :</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">/* 紅色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 綠色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: -1&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 紫色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/Pd1oywn.png"></p>
+<hr>
+<p><strong>進階示範</strong>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 假設前提已使用了wrap換行 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">/* 淡紅色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 淡綠色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 淡藍色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 紅色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 綠色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 藍色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>6<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/oaiJcEE.png"></p>
+<hr>
+<p>修改順序，如order數值一樣，以程式碼優先撰寫者為先，如示範案例，div2優先於div5撰寫，儘管數值皆設定<code>order -1</code>，div2優先顯示於div5前。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 假設前提已使用了wrap換行 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">/* 淡紅色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 淡綠色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: -1&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 淡藍色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 紅色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: -2&quot;</span>&gt;</span>4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 綠色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: -1&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">/* 藍色區塊 */</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;order: 0&quot;</span>&gt;</span>6<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/weyAQ9z.png"></p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>使用 align-self 屬性<br>flex 子項目的最後一個屬性是 align-self。 這個屬性<strong>允許你調整單個子元素自己的對齊方式</strong>，而不會影響到全部子元素。 因爲 float、clear 和 vertical-align 等調整對齊方式的屬性都不能應用於 flex 子元素，所以這個屬性顯得十分有用。</p>
+<p>align-self 可設置的值與 align-items 的一樣，並且它會覆蓋 align-items 所設置的值。<br><img src="https://i.imgur.com/Yw62tfI.png"></p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://www.w3schools.com/css/css3_flexbox.asp">W3C CSS Flexbox</a><br><a target="_blank" rel="noopener" href="https://wcc723.github.io/css/2017/07/21/css-flex/">圖解：CSS Flex 屬性一點也不難</a><br><a target="_blank" rel="noopener" href="https://www.oxxostudio.tw/articles/201501/css-flexbox.html">深入解析 CSS Flexbox</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_nCBQ6AIzDU&t=3964s">AMOS 玩轉 CSS FLEX | CSS教學 | 網頁教學 | 網頁設計</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CSS/" rel="tag"># CSS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/26/CSS-float%E6%B5%AE%E5%8B%95%E3%80%81inline-block%E3%80%81box-sizing/" rel="prev" title="CSS float浮動、inline&block、box-sizing">
+      <i class="fa fa-chevron-left"></i> CSS float浮動、inline&block、box-sizing
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/04/CSS-%E9%9F%BF%E6%87%89%E5%BC%8F%E7%B6%B2%E9%A0%81-RWD/" rel="next" title="CSS 響應式網頁(RWD)">
+      CSS 響應式網頁(RWD) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS-Flex"><span class="nav-number">1.</span> <span class="nav-text">CSS Flex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%9C%E6%96%BCFlex"><span class="nav-number">1.1.</span> <span class="nav-text">關於Flex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%88%87flaot%E3%80%81box-sizing%E5%B7%AE%E5%88%A5"><span class="nav-number">1.1.1.</span> <span class="nav-text">與flaot、box-sizing差別</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E7%89%88%E9%80%B2%E7%A8%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">排版進程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7-RWD%E6%9B%B4%E6%96%B9%E4%BE%BF"><span class="nav-number">1.1.3.</span> <span class="nav-text">Flex三大特性(RWD更方便)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFFlex%E8%B3%87%E6%96%99%E6%B5%81"><span class="nav-number">1.2.</span> <span class="nav-text">什麼是Flex資料流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%B6%E5%B1%A4-%E7%88%B6%E5%85%83%E7%B4%A0-x2F-%E5%A4%96%E5%AE%B9%E5%99%A8-%E8%A8%AD%E5%AE%9A%E4%B9%8BFlex%E9%A0%85%E7%9B%AE"><span class="nav-number">1.3.</span> <span class="nav-text">父層(父元素&#x2F;外容器)設定之Flex項目:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#display"><span class="nav-number">1.3.1.</span> <span class="nav-text">display</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-flow"><span class="nav-number">1.3.2.</span> <span class="nav-text">flex-flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-wrap"><span class="nav-number">1.3.3.</span> <span class="nav-text">flex-wrap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-direction"><span class="nav-number">1.3.4.</span> <span class="nav-text">flex-direction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#justify-content"><span class="nav-number">1.3.5.</span> <span class="nav-text">justify-content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-items"><span class="nav-number">1.3.6.</span> <span class="nav-text">align-items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-content"><span class="nav-number">1.3.7.</span> <span class="nav-text">align-content</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E5%B1%A4-%E5%AD%90%E5%85%83%E7%B4%A0-x2F-%E5%85%A7%E5%85%83%E4%BB%B6-%E8%A8%AD%E5%AE%9A%E4%B9%8BFlex%E9%A0%85%E7%9B%AE"><span class="nav-number">1.4.</span> <span class="nav-text">子層(子元素&#x2F;內元件)設定之Flex項目:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex"><span class="nav-number">1.4.1.</span> <span class="nav-text">Flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-grow"><span class="nav-number">1.4.2.</span> <span class="nav-text">flex-grow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-shrink"><span class="nav-number">1.4.3.</span> <span class="nav-text">flex-shrink</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-basis"><span class="nav-number">1.4.4.</span> <span class="nav-text">flex-basis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order"><span class="nav-number">1.4.5.</span> <span class="nav-text">order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-self"><span class="nav-number">1.4.6.</span> <span class="nav-text">align-self</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

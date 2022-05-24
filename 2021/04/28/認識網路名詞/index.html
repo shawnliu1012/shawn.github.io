@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="認識網路名詞 什麼是IP、DNS、TCP&#x2F;IP標準、UDP&#x2F;TCP分別">
+<meta property="og:type" content="article">
+<meta property="og:title" content="認識網路名詞:什麼是IP、DNS、TCP&#x2F;IP標準、UDP&#x2F;TCP分別">
+<meta property="og:url" content="https://shawnliu1012.github.io/2021/04/28/%E8%AA%8D%E8%AD%98%E7%B6%B2%E8%B7%AF%E5%90%8D%E8%A9%9E/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="認識網路名詞 什麼是IP、DNS、TCP&#x2F;IP標準、UDP&#x2F;TCP分別">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/OY9yQ8T.png">
+<meta property="og:image" content="https://i.imgur.com/1RM8YOz.png">
+<meta property="og:image" content="https://i.imgur.com/6EAsfye.png">
+<meta property="article:published_time" content="2021-04-28T15:25:54.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.005Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Frontend">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/OY9yQ8T.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2021/04/28/%E8%AA%8D%E8%AD%98%E7%B6%B2%E8%B7%AF%E5%90%8D%E8%A9%9E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>認識網路名詞:什麼是IP、DNS、TCP/IP標準、UDP/TCP分別 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2021/04/28/%E8%AA%8D%E8%AD%98%E7%B6%B2%E8%B7%AF%E5%90%8D%E8%A9%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          認識網路名詞:什麼是IP、DNS、TCP/IP標準、UDP/TCP分別
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-04-28 23:25:54" itemprop="dateCreated datePublished" datetime="2021-04-28T23:25:54+08:00">2021-04-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="認識網路名詞"><a href="#認識網路名詞" class="headerlink" title="認識網路名詞"></a>認識網路名詞</h1><blockquote>
+<p>什麼是IP、DNS、TCP&#x2F;IP標準、UDP&#x2F;TCP分別</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="什麼是IP"><a href="#什麼是IP" class="headerlink" title="什麼是IP"></a>什麼是IP</h2><p>IP位址（英語：IP Address），是網際協定（Internet Protocol）中用於標識傳送或接收資料報的裝置的一串數字。</p>
+<p>IP好比是電腦的住址，提供主機在網路中的位置，<strong>用白話的意思為如果你要找台北101，那101的住址就類似IP。</strong></p>
+<p>呈現方式如下:<br>常見的IP位址分為 IPv4 與 IPv6 兩大類，IP位址由一串數字組成。IPv4 由十進位數字組成，並以點分隔，如：<code>172.16.254.1 </code>； IPv6 由十六進位數字組成，以冒號分割，如：<code>2001:db8:0:1234:0:567:8:1</code>。-取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/IP%E5%9C%B0%E5%9D%80">維基百科-IP位址</a></p>
+<!-- more -->
+<h2 id="什麼是DNS"><a href="#什麼是DNS" class="headerlink" title="什麼是DNS"></a>什麼是DNS</h2><p><strong>網域名稱系統</strong>（英語：Domain Name System，縮寫：DNS）是網際網路的一項服務。它作為將域名和IP位址<strong>相互對映</strong>的一個分散式資料庫，能夠使人更方便地存取網際網路。</p>
+<p>呈現方式為:<br><code>http://www.wikipedia.org.</code>。-取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F">維基百科-域名系統</a></p>
+<p><strong>用白話的意思來說，以上面IP範例，我們不可能台北101的住址背下來，因此我們在導航搜尋名稱台北101，讓導航幫我們定位。</strong></p>
+<p>補充說明:有名的購買網域網站: GoDaddy、Gandi…等等。</p>
+<h2 id="什麼是TCP-x2F-IP標準"><a href="#什麼是TCP-x2F-IP標準" class="headerlink" title="什麼是TCP&#x2F;IP標準"></a>什麼是TCP&#x2F;IP標準</h2><p> TCP&#x2F;IP 是由 OSI 七層協定簡化而來，將原本七層簡化成四層，而<strong>最右側相關通訊協定與標準呼應左側對應層</strong>:<br><img src="https://i.imgur.com/OY9yQ8T.png"><br>來源自:<br><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_server/0110network_basic.php#whatisnetwork_what">鳥哥-電腦網路通訊協定： TCP&#x2F;IP</a></p>
+<h2 id="UDP與TCP分別是什麼"><a href="#UDP與TCP分別是什麼" class="headerlink" title="UDP與TCP分別是什麼?"></a>UDP與TCP分別是什麼?</h2><p>在上述TCP&#x2F;IP標準中有提到<strong>傳送層</strong>的TCP與UDP(關於<strong>應用層</strong>介紹，請參考<a href="/sgFnctIORAeOKao8uhsDMQ">淺談通訊協議</a>)，以下簡單介紹TCP與UDP作用:</p>
+<h3 id="關於TCP"><a href="#關於TCP" class="headerlink" title="關於TCP"></a>關於TCP</h3><p>稱為傳輸控制協定（Transmission Control Protocol，縮寫：TCP）是一種連接導向的、可靠的傳輸層通信協定。-取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE">維基百科-傳輸控制協定</a></p>
+<h4 id="關於TCP的三向交握"><a href="#關於TCP的三向交握" class="headerlink" title="關於TCP的三向交握"></a>關於TCP的三向交握</h4><p>TCP 被稱為可靠的連線封包，主要是透過許多機制來達成的，其中最重要的就是三向交握的功能，三向交握(Three-way handshake)指的是<strong>在建立連線之前都必須要通過三個確認的動作</strong>。<br>白話翻譯為:<strong>如果你有詢問別人，你會先Line對方說:”在嗎?”，如果對方回了:”在喔”，你才會繼續問問題</strong>，因此TCP也是如此，<strong>確認伺服器有回應，才發起request，確認其有收到，比較有保障</strong>。</p>
+<p><img src="https://i.imgur.com/1RM8YOz.png"><br>來源自:<br><a target="_blank" rel="noopener" href="http://linux.vbird.org/linux_server/0110network_basic.php#tcpip_transfer_tcphand">鳥哥-TCP 的三向交握</a></p>
+<h3 id="關於UDP"><a href="#關於UDP" class="headerlink" title="關於UDP"></a>關於UDP</h3><p>使用者資料報協定（User Datagram Protocol，縮寫：UDP；又稱使用者資料包協定）是一個簡單的傳輸層通信協定。<br>相對於TCP，UDP只提供簡單的介面將資料傳遞，它一旦把應用程式發給網路層的資料傳送出去，就不保留資料備份，<strong>所以UDP有時候也被認為是不可靠的資料報協定</strong>。<br>-取自<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%8D%8F%E8%AE%AE">維基百科-使用者資料報協定</a></p>
+<h3 id="TCP-v-s-UDP"><a href="#TCP-v-s-UDP" class="headerlink" title="TCP v.s UDP"></a>TCP v.s UDP</h3><p>TCP與UDP都是常見的網路通訊協定，這兩種協定能確保網際網路資料傳輸的快速和完整性。它們做相同的工作，但運作方式不同，<strong>TCP 較可靠，UDP 較快速</strong>，以下摘錄圖表做詳細比較:</p>
+<p><img src="https://i.imgur.com/6EAsfye.png"><br>來源自:<br><a target="_blank" rel="noopener" href="https://nordvpn.com/zh-tw/blog/tcp-udp-bijiao/">TCP 和 UDP 是什麼：簡單的說明</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Frontend/" rel="tag"># Frontend</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/25/%E6%B7%BA%E8%AB%87%E9%80%9A%E8%A8%8A%E5%8D%94%E8%AD%B0/" rel="prev" title="淺談通訊協議:什麼是HTTP、FTP、SSH、SMTP">
+      <i class="fa fa-chevron-left"></i> 淺談通訊協議:什麼是HTTP、FTP、SSH、SMTP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/10/JS-%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/" rel="next" title="JS 樣板字面值">
+      JS 樣板字面值 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AA%8D%E8%AD%98%E7%B6%B2%E8%B7%AF%E5%90%8D%E8%A9%9E"><span class="nav-number">1.</span> <span class="nav-text">認識網路名詞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFIP"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFDNS"><span class="nav-number">1.2.</span> <span class="nav-text">什麼是DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFTCP-x2F-IP%E6%A8%99%E6%BA%96"><span class="nav-number">1.3.</span> <span class="nav-text">什麼是TCP&#x2F;IP標準</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP%E8%88%87TCP%E5%88%86%E5%88%A5%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="nav-number">1.4.</span> <span class="nav-text">UDP與TCP分別是什麼?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E6%96%BCTCP"><span class="nav-number">1.4.1.</span> <span class="nav-text">關於TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%9C%E6%96%BCTCP%E7%9A%84%E4%B8%89%E5%90%91%E4%BA%A4%E6%8F%A1"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">關於TCP的三向交握</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E6%96%BCUDP"><span class="nav-number">1.4.2.</span> <span class="nav-text">關於UDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-v-s-UDP"><span class="nav-number">1.4.3.</span> <span class="nav-text">TCP v.s UDP</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

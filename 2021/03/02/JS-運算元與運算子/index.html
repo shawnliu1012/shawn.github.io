@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JS 運算元與運算子 介紹運算元與運算子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 運算元與運算子">
+<meta property="og:url" content="https://shawnliu1012.github.io/2021/03/02/JS-%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="JS 運算元與運算子 介紹運算元與運算子">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/vXsLZyB.png">
+<meta property="og:image" content="https://i.imgur.com/r8UWTgJ.png">
+<meta property="og:image" content="https://i.imgur.com/9Hibmf3.png">
+<meta property="og:image" content="https://i.imgur.com/c6Toc1T.png">
+<meta property="og:image" content="https://i.imgur.com/jk2aXRS.png">
+<meta property="og:image" content="https://i.imgur.com/KbZ35y9.png">
+<meta property="og:image" content="https://i.imgur.com/ZBYZ8FA.png">
+<meta property="og:image" content="https://i.imgur.com/0jihy6y.png">
+<meta property="og:image" content="https://i.imgur.com/5Xainxr.png">
+<meta property="article:published_time" content="2021-03-02T13:32:33.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.434Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/vXsLZyB.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2021/03/02/JS-%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JS 運算元與運算子 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2021/03/02/JS-%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS 運算元與運算子
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-03-02 21:32:33" itemprop="dateCreated datePublished" datetime="2021-03-02T21:32:33+08:00">2021-03-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JS-運算元與運算子"><a href="#JS-運算元與運算子" class="headerlink" title="JS 運算元與運算子"></a>JS 運算元與運算子</h1><blockquote>
+<p>介紹運算元與運算子</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="運算元與運算子"><a href="#運算元與運算子" class="headerlink" title="運算元與運算子"></a>運算元與運算子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*其中&quot;+&quot;為運算子=運算符*/</span></span><br><span class="line"><span class="comment">/*&quot;1&quot;&amp;&quot;2&quot;為運算元*/</span></span><br><span class="line">&gt;<span class="number">1</span> + <span class="number">2</span></span><br><span class="line">&lt;<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h2 id="比較運算子介紹-大於小於-與等於screenflow"><a href="#比較運算子介紹-大於小於-與等於screenflow" class="headerlink" title="比較運算子介紹 大於小於.與等於screenflow"></a>比較運算子介紹 大於小於.與等於screenflow</h2><p>比較運算子以下圖示範，圖2也可以使用控制向去操作顯示結果。<br><img src="https://i.imgur.com/vXsLZyB.png"><br>圖1<br><img src="https://i.imgur.com/r8UWTgJ.png"><br>圖2</p>
+<h2 id="比較運算子第二部分-三個等於與兩個等於-有什麼不一樣"><a href="#比較運算子第二部分-三個等於與兩個等於-有什麼不一樣" class="headerlink" title="比較運算子第二部分 三個等於與兩個等於 有什麼不一樣"></a>比較運算子第二部分 三個等於與兩個等於 有什麼不一樣</h2><blockquote>
+<p>&#x3D;&#x3D; 相等(當兩者相等時成立)<br>&#x3D;&#x3D;&#x3D; 全等(當兩者相等且型別一樣時成立)<br><img src="https://i.imgur.com/9Hibmf3.png"></p>
+</blockquote>
+<blockquote>
+<p>pareseInt”轉換”，將型別轉換<br><img src="https://i.imgur.com/c6Toc1T.png"></p>
+</blockquote>
+<h2 id="算數運算子-加減乘除"><a href="#算數運算子-加減乘除" class="headerlink" title="算數運算子 加減乘除"></a>算數運算子 加減乘除</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">1</span> + <span class="number">1</span></span><br><span class="line">&lt;<span class="number">2</span></span><br><span class="line">&gt;<span class="number">2</span> - <span class="number">1</span></span><br><span class="line">&lt;<span class="number">1</span></span><br><span class="line">&gt;<span class="number">1</span> * <span class="number">5</span></span><br><span class="line">&lt;<span class="number">5</span></span><br><span class="line">&gt;<span class="number">1</span> + <span class="number">1</span> * <span class="number">5</span></span><br><span class="line">&lt;<span class="number">6</span></span><br><span class="line"><span class="comment">/*與一般算式相同，括號內優先*/</span></span><br><span class="line">&gt;(<span class="number">1</span> + <span class="number">1</span>)* <span class="number">5</span></span><br><span class="line">&lt;<span class="number">10</span></span><br><span class="line">&gt;<span class="number">10</span> / <span class="number">5</span></span><br><span class="line">&lt;<span class="number">2</span></span><br><span class="line"><span class="comment">/*遇到除不盡的，以IEEE二進位浮點數算術標準呈現*/</span></span><br><span class="line">&gt;<span class="number">10</span> / <span class="number">3</span></span><br><span class="line">&lt;<span class="number">3.3333333333333335</span></span><br><span class="line"><span class="comment">/*可使用parseInt去除小數點，取整數*/</span></span><br><span class="line">&gt;<span class="built_in">parseInt</span>(<span class="number">10</span> / <span class="number">3</span>)</span><br><span class="line">&lt;<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h2 id="算數運算子-餘數與被除數"><a href="#算數運算子-餘數與被除數" class="headerlink" title="算數運算子 餘數與被除數"></a>算數運算子 餘數與被除數</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="number">5</span>/<span class="number">3</span></span><br><span class="line">&lt;<span class="number">1.6666666666666667</span></span><br><span class="line"><span class="comment">/*但5除以3等於1餘2*/</span></span><br><span class="line">&gt;<span class="built_in">parseInt</span>(<span class="number">5</span>/<span class="number">3</span>)</span><br><span class="line">&lt;<span class="number">1</span></span><br><span class="line">&gt;<span class="number">5</span>%<span class="number">3</span></span><br><span class="line">&lt;<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h2 id="邏輯運算子-AND-amp-amp-與-OR"><a href="#邏輯運算子-AND-amp-amp-與-OR" class="headerlink" title="邏輯運算子  AND (&amp;&amp;) 與 OR(||)"></a>邏輯運算子  AND (&amp;&amp;) 與 OR(||)</h2><p> 不要套任關於以前數學的關係 是以邏輯順序去看的<br> 一般設定變數值，不一定要用var來開頭設定，但如果遇到設定or(或等於)時(ex.b||&#x3D;5)，就必須宣告var<br>另外 當原本宣告的值有預設值時，使用||(或等於)，會依or相性，顯示原本預設值<br>(ex.b||&#x3D;5，b||&#x3D;1(X):point_right:5(O))</p>
+<blockquote>
+<p>AND(&amp;&amp;)運算式裡，如果為true會循序計算下去(ex.(a-b)&amp;&amp;(b-1)為4)，如果第一個為false，就會顯示false(與or相反)<br>OR(||)運算式裡，如果第一個計算出true會優先跑計算結果，如果為false才會繼續計算(ex.(a-b)||(b-1)為5:point_right:沒計算(b-1)即跑出結果。)<br><img src="https://i.imgur.com/jk2aXRS.png"><br><img src="https://i.imgur.com/KbZ35y9.png"></p>
+</blockquote>
+<p>補充<br>但如果是原本宣告的預設變數或值又設了同名的變數或值，後來宣告的內容會取代原本的<br><img src="https://i.imgur.com/ZBYZ8FA.png"></p>
+<h2 id="邏輯運算子-NOT"><a href="#邏輯運算子-NOT" class="headerlink" title="邏輯運算子 NOT (!)"></a>邏輯運算子 NOT (!)</h2><p>不等於的意思<br><img src="https://i.imgur.com/0jihy6y.png"></p>
+<h2 id="三元運算子-條件運算子"><a href="#三元運算子-條件運算子" class="headerlink" title="三元運算子(條件運算子)"></a>三元運算子(條件運算子)</h2><p>由三個元素組成，以”條件”、”?”、”:”，這三個元素<br>(條件) ? [數值&#x2F;運算式(1)] : [數值&#x2F;運算式(2)];<br>如果”條件”為true,此時回傳數值1，否則回傳數值2。拿來作條件判斷使用<br>EX:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*以下算式並不大於等於3，答案為false*/</span></span><br><span class="line">(<span class="number">1</span>&gt;=<span class="number">3</span>)</span><br><span class="line"><span class="literal">false</span></span><br><span class="line"><span class="comment">/*重要!這個為原本詳細算式，並未做精簡，觀念以這個為基礎，</span></span><br><span class="line"><span class="comment"> * 意思為假如(1&gt;=3)不是true就是false，因此答案為false*/</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">1</span>&gt;=<span class="number">3</span>)&#123;<span class="literal">true</span>&#125;<span class="keyword">else</span>&#123;<span class="literal">false</span>&#125;</span><br><span class="line"><span class="literal">false</span></span><br><span class="line"><span class="comment">/*也可以設定成這樣，意思比照上面順序*/</span></span><br><span class="line">(<span class="number">1</span>&gt;=<span class="number">3</span>)?<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a&#x27;</span>):<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">b</span><br><span class="line"><span class="comment">/*或者比較多人精簡使用為這樣*/</span></span><br><span class="line">(<span class="number">1</span>&gt;=<span class="number">3</span>)?<span class="attr">true</span>:<span class="literal">false</span></span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>EX:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*原算式使用if else寫的話為以下*/</span></span><br><span class="line"><span class="keyword">if</span> (age &gt;= <span class="number">18</span>)&#123;</span><br><span class="line">status = <span class="string">&#x27;成人&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">status = <span class="string">&#x27;小孩&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用三元運算子則為:</span></span><br><span class="line"><span class="keyword">var</span> status = (age &gt;= <span class="number">18</span>) ? <span class="string">&#x27;成人&#x27;</span> : <span class="string">&#x27;小孩&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>:point_right:三元運算子可搭配參考流程控制if else</p>
+<h2 id="賦值運算子"><a href="#賦值運算子" class="headerlink" title="賦值運算子"></a>賦值運算子</h2><p>於vscode撰寫，灰字部分為瀏覽器上顯示之解答</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;賦值運算子&#x27;</span>)</span><br><span class="line">      <span class="keyword">var</span> x=<span class="number">1</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;x:&#x27;</span>,x);</span><br><span class="line">      <span class="comment">/*x: 1*/</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*以下又稱複合指派,&#x27;+=&#x27;最常使用，其餘先行知道*/</span></span><br><span class="line">      x +=<span class="number">1</span></span><br><span class="line">      <span class="comment">//x= x + 1</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;x +=1 等於&#x27;</span>,x);</span><br><span class="line">      <span class="comment">/*x +=1 等於 2*/</span></span><br><span class="line">           </span><br><span class="line">      </span><br><span class="line">      <span class="keyword">var</span> y = <span class="number">10</span>;</span><br><span class="line">      y -= <span class="number">2</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(y); </span><br><span class="line">      <span class="comment">/*8*/</span></span><br><span class="line">      <span class="comment">//y= y - 2</span></span><br><span class="line">      </span><br><span class="line">      x *= <span class="number">5</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;x *=5&#x27;</span>,x);</span><br><span class="line">      <span class="comment">/*x *=5 10*/</span></span><br><span class="line">      </span><br><span class="line">      x /= <span class="number">2</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;x /= 2&#x27;</span>,x);</span><br><span class="line">      <span class="comment">/*x /= 2 5*/</span></span><br><span class="line">      <span class="comment">//x= x / 2</span></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*餘數*/</span></span><br><span class="line">      <span class="keyword">var</span> z = <span class="number">35</span>;</span><br><span class="line">      z %= <span class="number">10</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;z %= 10&#x27;</span>,z);</span><br><span class="line">      <span class="comment">/*z %= 10 5*/</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*次方用法，注意與其他不同，</span></span><br><span class="line"><span class="comment">       * console.log括號內為重複二值*/</span></span><br><span class="line">      <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a ** 5&#x27;</span>,a ** <span class="number">5</span>);</span><br><span class="line">      <span class="comment">/*a ** 5 32*/</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">/*以下為連接回OR的使用*/</span></span><br><span class="line">      <span class="keyword">var</span> b;</span><br><span class="line">      b ||= <span class="number">10</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;給預設值b&#x27;</span>,b);</span><br><span class="line">      <span class="comment">/*給預設值b 10*/</span></span><br><span class="line">      </span><br><span class="line">      <span class="keyword">var</span> c = <span class="number">555</span>;</span><br><span class="line">      c ||= <span class="number">10</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;給預設值c&#x27;</span>,c);</span><br><span class="line">      <span class="comment">/*給預設值c 555*/</span></span><br><span class="line">      <span class="comment">//因c 已宣告，因此c仍保持為原本宣告之值</span></span><br><span class="line">     &lt;/script&gt;  </span><br></pre></td></tr></table></figure>
+<p>複合指派+&#x3D; 自行練習範例<br><img src="https://i.imgur.com/5Xainxr.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/23/JS-%E8%AE%8A%E6%95%B8%E3%80%81%E5%80%BC%E8%88%87%E5%9E%8B%E5%88%A5/" rel="prev" title="JS 變數、值與型別">
+      <i class="fa fa-chevron-left"></i> JS 變數、值與型別
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/08/JS-%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B-Control-Flow/" rel="next" title="JS 控制流程 Control Flow">
+      JS 控制流程 Control Flow <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">JS 運算元與運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">運算元與運算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BC%83%E9%81%8B%E7%AE%97%E5%AD%90%E4%BB%8B%E7%B4%B9-%E5%A4%A7%E6%96%BC%E5%B0%8F%E6%96%BC-%E8%88%87%E7%AD%89%E6%96%BCscreenflow"><span class="nav-number">1.2.</span> <span class="nav-text">比較運算子介紹 大於小於.與等於screenflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BC%83%E9%81%8B%E7%AE%97%E5%AD%90%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86-%E4%B8%89%E5%80%8B%E7%AD%89%E6%96%BC%E8%88%87%E5%85%A9%E5%80%8B%E7%AD%89%E6%96%BC-%E6%9C%89%E4%BB%80%E9%BA%BC%E4%B8%8D%E4%B8%80%E6%A8%A3"><span class="nav-number">1.3.</span> <span class="nav-text">比較運算子第二部分 三個等於與兩個等於 有什麼不一樣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E5%AD%90-%E5%8A%A0%E6%B8%9B%E4%B9%98%E9%99%A4"><span class="nav-number">1.4.</span> <span class="nav-text">算數運算子 加減乘除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E5%AD%90-%E9%A4%98%E6%95%B8%E8%88%87%E8%A2%AB%E9%99%A4%E6%95%B8"><span class="nav-number">1.5.</span> <span class="nav-text">算數運算子 餘數與被除數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90-AND-amp-amp-%E8%88%87-OR"><span class="nav-number">1.6.</span> <span class="nav-text">邏輯運算子  AND (&amp;&amp;) 與 OR(||)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90-NOT"><span class="nav-number">1.7.</span> <span class="nav-text">邏輯運算子 NOT (!)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E9%81%8B%E7%AE%97%E5%AD%90-%E6%A2%9D%E4%BB%B6%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.8.</span> <span class="nav-text">三元運算子(條件運算子)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%A6%E5%80%BC%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.9.</span> <span class="nav-text">賦值運算子</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

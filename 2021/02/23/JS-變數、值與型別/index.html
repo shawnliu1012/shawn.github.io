@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JS 變數、值與型別 介紹JS 變數、值與型別">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS 變數、值與型別">
+<meta property="og:url" content="https://shawnliu1012.github.io/2021/02/23/JS-%E8%AE%8A%E6%95%B8%E3%80%81%E5%80%BC%E8%88%87%E5%9E%8B%E5%88%A5/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="JS 變數、值與型別 介紹JS 變數、值與型別">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/jJIMbm6.png">
+<meta property="og:image" content="https://i.imgur.com/GoNM1lt.png">
+<meta property="og:image" content="https://i.imgur.com/RfEyisj.png">
+<meta property="og:image" content="https://i.imgur.com/Z1vjQKX.png">
+<meta property="og:image" content="https://i.imgur.com/oyzsu4E.png">
+<meta property="og:image" content="https://i.imgur.com/TYSDPe0.png">
+<meta property="og:image" content="https://i.imgur.com/s0BpJzq.png">
+<meta property="og:image" content="https://i.imgur.com/fJ3Iurp.png">
+<meta property="article:published_time" content="2021-02-23T13:28:25.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:05.494Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/jJIMbm6.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2021/02/23/JS-%E8%AE%8A%E6%95%B8%E3%80%81%E5%80%BC%E8%88%87%E5%9E%8B%E5%88%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JS 變數、值與型別 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2021/02/23/JS-%E8%AE%8A%E6%95%B8%E3%80%81%E5%80%BC%E8%88%87%E5%9E%8B%E5%88%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JS 變數、值與型別
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-02-23 21:28:25" itemprop="dateCreated datePublished" datetime="2021-02-23T21:28:25+08:00">2021-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:05" itemprop="dateModified" datetime="2022-05-24T17:41:05+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JS-變數、值與型別"><a href="#JS-變數、值與型別" class="headerlink" title="JS 變數、值與型別"></a>JS 變數、值與型別</h1><blockquote>
+<p>介紹JS 變數、值與型別</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="01-02使用-Chrome開發者工具、vscode撰寫-JS，講解變數、變數，與型別。"><a href="#01-02使用-Chrome開發者工具、vscode撰寫-JS，講解變數、變數，與型別。" class="headerlink" title="01 02使用 Chrome開發者工具、vscode撰寫 JS，講解變數、變數，與型別。"></a>01 02使用 Chrome開發者工具、vscode撰寫 JS，講解變數、變數，與型別。</h2><h3 id="開發者工具"><a href="#開發者工具" class="headerlink" title="開發者工具"></a>開發者工具</h3><p>使用ctrl+shift+I開啟開發者工具(檢查)上面列中點選console輸入js<br><img src="https://i.imgur.com/jJIMbm6.png"></p>
+<h3 id="程式如何運行"><a href="#程式如何運行" class="headerlink" title="程式如何運行"></a>程式如何運行</h3><p>首先我們先了解，如何運行，我們需要撰寫電腦看得懂的語言，撰寫的程式會透過編譯器傳換成電腦語言，如果符合規則就運行，不符合就退回，而運作類似如下:</p>
+<p><img src="https://i.imgur.com/GoNM1lt.png"></p>
+<h3 id="使用var進行變數宣告"><a href="#使用var進行變數宣告" class="headerlink" title="使用var進行變數宣告"></a>使用var進行變數宣告</h3><p>在這裡，一開始我們先使用var做宣告，而var宣告變數的意思，尚未輸入值之前，瀏覽器會顯示undefined，原因為JS為變數保留記憶體位置，然後再把這個記憶體位置指向即將賦予這個變數的值，另外在程式世界中，”&#x3D;”是<strong>指派</strong>的意思，而輸入typeof可以判斷類型。</p>
+<p>宣告變數的規則:</p>
+<ol>
+<li>只能用 $、_及字母做開頭，不可以使用數字(EX.123:X:、a123:O:)</li>
+<li>變數名稱大小寫有區別，A跟a視為兩種變數</li>
+<li>不能使用保留字(EX.var、let、const、function等)</li>
+</ol>
+<blockquote>
+<p>下圖中我指派x&#x3D;1(第二列)，因此在第三列我輸入x時，將顯示x為1，同理於y，指派為2，因此第五列，x+y為三<br><img src="https://i.imgur.com/RfEyisj.png"></p>
+</blockquote>
+<h4 id="備註"><a href="#備註" class="headerlink" title="備註"></a>備註</h4><p>書籍008天重新認識javascript提及，</p>
+<ul>
+<li>強烈不建議在未使用var宣告的情形下直接賦值，儘管一時可以得到值，但會有後遺症。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m=<span class="number">1</span></span><br><span class="line">&gt;<span class="variable language_">console</span>.<span class="title function_">log</span>(m);</span><br><span class="line">&lt; <span class="number">1</span></span><br><span class="line"><span class="comment">//雖會出現值，但不建議。</span></span><br></pre></td></tr></table></figure></li>
+<li>1.var可以再次宣告(後者覆蓋前者值)2.let不可以再次宣告<br>參考:<a target="_blank" rel="noopener" href="https://www.iware.com.tw/blog-JavaScript%20%E5%AE%A3%E5%91%8A:%20var%E3%80%81let%E3%80%81const.html">JavaScript 宣告: var、let、const</a>、<br><a target="_blank" rel="noopener" href="https://www.796t.com/article.php?id=33379">【JS】JavaScript語句和宣告之let,const</a>、<br><a target="_blank" rel="noopener" href="https://medium.com/coding-girl-life/js-var-let-const-ef9895b4773b">JS學徒特訓班 JavaScript ES6 : var, let, const 差異</a></li>
+</ul>
+<h2 id="03-04第一種型別「-Number-數字」-，JS-的數字跟其他語言有什麼不同？"><a href="#03-04第一種型別「-Number-數字」-，JS-的數字跟其他語言有什麼不同？" class="headerlink" title="03 04第一種型別「 Number 數字」 ，JS 的數字跟其他語言有什麼不同？"></a>03 04第一種型別「 Number 數字」 ，JS 的數字跟其他語言有什麼不同？</h2><blockquote>
+<p>在javascript中，整數及浮點數typeof皆為number，並無差別，而python有區別</p>
+</blockquote>
+<ul>
+<li>整數 Integer</li>
+<li>浮點數 float<h2 id="05-浮點數的陷阱"><a href="#05-浮點數的陷阱" class="headerlink" title="05 浮點數的陷阱"></a>05 浮點數的陷阱</h2><strong>看山不是山看海不是海</strong>，0.1+0.2並不等於0.3，實際為0.1+0.2&#x3D;0.30000000000000004，為浮點數誤差問題。<blockquote>
+<p>首先要搞清楚 JavaScript 如何儲存小數。和其它語言如 Java 和 Python 不同，JavaScript 中所有數字包括整數和小數都只有一種型別 — Number。它的實現遵循 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/IEEE_754">IEEE 754</a> 標準，使用 64 位固定長度來表示，也就是標準的 double 雙精度浮點數（相關的還有float 32位單精度）。[color&#x3D;#00ba72]<br>參考來源:<a target="_blank" rel="noopener" href="https://www.itread01.com/content/1545644704.html">JavaScript 浮點數陷阱及解法</a>、<a target="_blank" rel="noopener" href="https://medium.com/starbugs/see-why-floating-point-error-can-not-be-avoided-from-ieee-754-809720b32175">從 IEEE 754 標準來看為什麼浮點誤差是無法避免的</a>、<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wPBjd-vb9eI">Why 0.1 + 0.2 &#x3D;&#x3D;&#x3D; 0.30000000000000004: Implementing IEEE 754 in JS</a><br><img src="https://i.imgur.com/Z1vjQKX.png"></p>
+<blockquote>
+<p>同樣可能被浮點數雷的語言也包括:Python、c&#x2F;c++、Java、Rust </p>
+</blockquote>
+</blockquote>
+<h2 id="06-第二種資料型別「字串-String」"><a href="#06-第二種資料型別「字串-String」" class="headerlink" title="06 第二種資料型別「字串 String」"></a>06 第二種資料型別「字串 String」</h2><p>字串是由字母、數字、文字、符號所組合而成，在指定宣告時要在前後加上對稱的單雙引號(‘’&#x2F;“”)。</p>
+<blockquote>
+<p>以下為宣告方式不同，number與string產生不一樣的結果。<br><img src="https://i.imgur.com/oyzsu4E.png"></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="07-第三種資料型態-「Boolean-布林值」"><a href="#07-第三種資料型態-「Boolean-布林值」" class="headerlink" title="07 第三種資料型態 「Boolean 布林值」"></a>07 第三種資料型態 「Boolean 布林值」</h2><p>布林值包含了true和false，當答案是真假、是否、開關等，兩種選擇可以使用。<br><img src="https://i.imgur.com/TYSDPe0.png"></p>
+<h2 id="08-第四、第五種資料型別「null-空值」與-「undefined-未定義」"><a href="#08-第四、第五種資料型別「null-空值」與-「undefined-未定義」" class="headerlink" title="08 第四、第五種資料型別「null 空值」與 「undefined 未定義」"></a>08 第四、第五種資料型別「null 空值」與 「undefined 未定義」</h2><p>null空值，需要指派，意思為我預期他是空值<br><img src="https://i.imgur.com/s0BpJzq.png"></p>
+<p>undefined未定義，還沒指派，意思為我還沒給他指派，不過深入的探討，同時他也是<strong>值</strong>。<br><img src="https://i.imgur.com/fJ3Iurp.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/18/%E8%AA%8D%E8%AD%98Javascript-JS/" rel="prev" title="認識Javascript(JS)">
+      <i class="fa fa-chevron-left"></i> 認識Javascript(JS)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/02/JS-%E9%81%8B%E7%AE%97%E5%85%83%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/" rel="next" title="JS 運算元與運算子">
+      JS 運算元與運算子 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-%E8%AE%8A%E6%95%B8%E3%80%81%E5%80%BC%E8%88%87%E5%9E%8B%E5%88%A5"><span class="nav-number">1.</span> <span class="nav-text">JS 變數、值與型別</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-02%E4%BD%BF%E7%94%A8-Chrome%E9%96%8B%E7%99%BC%E8%80%85%E5%B7%A5%E5%85%B7%E3%80%81vscode%E6%92%B0%E5%AF%AB-JS%EF%BC%8C%E8%AC%9B%E8%A7%A3%E8%AE%8A%E6%95%B8%E3%80%81%E8%AE%8A%E6%95%B8%EF%BC%8C%E8%88%87%E5%9E%8B%E5%88%A5%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">01 02使用 Chrome開發者工具、vscode撰寫 JS，講解變數、變數，與型別。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B%E7%99%BC%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">開發者工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BC%8F%E5%A6%82%E4%BD%95%E9%81%8B%E8%A1%8C"><span class="nav-number">1.1.2.</span> <span class="nav-text">程式如何運行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8var%E9%80%B2%E8%A1%8C%E8%AE%8A%E6%95%B8%E5%AE%A3%E5%91%8A"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用var進行變數宣告</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%82%99%E8%A8%BB"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">備註</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-04%E7%AC%AC%E4%B8%80%E7%A8%AE%E5%9E%8B%E5%88%A5%E3%80%8C-Number-%E6%95%B8%E5%AD%97%E3%80%8D-%EF%BC%8CJS-%E7%9A%84%E6%95%B8%E5%AD%97%E8%B7%9F%E5%85%B6%E4%BB%96%E8%AA%9E%E8%A8%80%E6%9C%89%E4%BB%80%E9%BA%BC%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">03 04第一種型別「 Number 數字」 ，JS 的數字跟其他語言有什麼不同？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-%E6%B5%AE%E9%BB%9E%E6%95%B8%E7%9A%84%E9%99%B7%E9%98%B1"><span class="nav-number">1.3.</span> <span class="nav-text">05 浮點數的陷阱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-%E7%AC%AC%E4%BA%8C%E7%A8%AE%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5%E3%80%8C%E5%AD%97%E4%B8%B2-String%E3%80%8D"><span class="nav-number">1.4.</span> <span class="nav-text">06 第二種資料型別「字串 String」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#07-%E7%AC%AC%E4%B8%89%E7%A8%AE%E8%B3%87%E6%96%99%E5%9E%8B%E6%85%8B-%E3%80%8CBoolean-%E5%B8%83%E6%9E%97%E5%80%BC%E3%80%8D"><span class="nav-number">1.5.</span> <span class="nav-text">07 第三種資料型態 「Boolean 布林值」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#08-%E7%AC%AC%E5%9B%9B%E3%80%81%E7%AC%AC%E4%BA%94%E7%A8%AE%E8%B3%87%E6%96%99%E5%9E%8B%E5%88%A5%E3%80%8Cnull-%E7%A9%BA%E5%80%BC%E3%80%8D%E8%88%87-%E3%80%8Cundefined-%E6%9C%AA%E5%AE%9A%E7%BE%A9%E3%80%8D"><span class="nav-number">1.6.</span> <span class="nav-text">08 第四、第五種資料型別「null 空值」與 「undefined 未定義」</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

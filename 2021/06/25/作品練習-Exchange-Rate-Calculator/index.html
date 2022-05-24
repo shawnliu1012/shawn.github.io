@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="03實作練習 Exchange Rate Calculator">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作品練習-Exchange Rate Calculator">
+<meta property="og:url" content="https://shawnliu1012.github.io/2021/06/25/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Exchange-Rate-Calculator/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="03實作練習 Exchange Rate Calculator">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/WsCxAGU.png">
+<meta property="og:image" content="https://i.imgur.com/ZhDGOs0.png">
+<meta property="article:published_time" content="2021-06-25T14:57:14.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:04.936Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/WsCxAGU.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2021/06/25/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Exchange-Rate-Calculator/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>作品練習-Exchange Rate Calculator | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2021/06/25/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Exchange-Rate-Calculator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          作品練習-Exchange Rate Calculator
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-06-25 22:57:14" itemprop="dateCreated datePublished" datetime="2021-06-25T22:57:14+08:00">2021-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:04" itemprop="dateModified" datetime="2022-05-24T17:41:04+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="03實作練習-Exchange-Rate-Calculator"><a href="#03實作練習-Exchange-Rate-Calculator" class="headerlink" title="03實作練習 Exchange Rate Calculator"></a>03實作練習 Exchange Rate Calculator</h1><span id="more"></span>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><h3 id="設定圖片"><a href="#設定圖片" class="headerlink" title="設定圖片"></a>設定圖片</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/money.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;money-img&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Exchange Rate Calculator<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Choose the currency and the amounts to get the exchange rate<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="製作基準匯率下拉式表單及基準的幣值輸入框"><a href="#製作基準匯率下拉式表單及基準的幣值輸入框" class="headerlink" title="製作基準匯率下拉式表單及基準的幣值輸入框"></a>製作基準匯率下拉式表單及基準的幣值輸入框</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;currency&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;currency-one&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;AED&quot;</span>&gt;</span>AED<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ARS&quot;</span>&gt;</span>ARS<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;AUD&quot;</span>&gt;</span>AUD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;BGN&quot;</span>&gt;</span>BGN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;BRL&quot;</span>&gt;</span>BRL<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;BSD&quot;</span>&gt;</span>BSD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CAD&quot;</span>&gt;</span>CAD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CHF&quot;</span>&gt;</span>CHF<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CLP&quot;</span>&gt;</span>CLP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CNY&quot;</span>&gt;</span>CNY<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;COP&quot;</span>&gt;</span>COP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CZK&quot;</span>&gt;</span>CZK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;DKK&quot;</span>&gt;</span>DKK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;DOP&quot;</span>&gt;</span>DOP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;EGP&quot;</span>&gt;</span>EGP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;EUR&quot;</span>&gt;</span>EUR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;FJD&quot;</span>&gt;</span>FJD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;GBP&quot;</span>&gt;</span>GBP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;GTQ&quot;</span>&gt;</span>GTQ<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;HKD&quot;</span>&gt;</span>HKD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;HRK&quot;</span>&gt;</span>HRK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;HUF&quot;</span>&gt;</span>HUF<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;IDR&quot;</span>&gt;</span>IDR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ILS&quot;</span>&gt;</span>ILS<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;INR&quot;</span>&gt;</span>INR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ISK&quot;</span>&gt;</span>ISK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;JPY&quot;</span>&gt;</span>JPY<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;KRW&quot;</span>&gt;</span>KRW<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;KZT&quot;</span>&gt;</span>KZT<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;MXN&quot;</span>&gt;</span>MXN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;MYR&quot;</span>&gt;</span>MYR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;NOK&quot;</span>&gt;</span>NOK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;NZD&quot;</span>&gt;</span>NZD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PAB&quot;</span>&gt;</span>PAB<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PEN&quot;</span>&gt;</span>PEN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PHP&quot;</span>&gt;</span>PHP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PKR&quot;</span>&gt;</span>PKR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PLN&quot;</span>&gt;</span>PLN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PYG&quot;</span>&gt;</span>PYG<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;RON&quot;</span>&gt;</span>RON<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;RUB&quot;</span>&gt;</span>RUB<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;SAR&quot;</span>&gt;</span>SAR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;SEK&quot;</span>&gt;</span>SEK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;SGD&quot;</span>&gt;</span>SGD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;THB&quot;</span>&gt;</span>THB<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;TRY&quot;</span>&gt;</span>TRY<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;TWD&quot;</span>&gt;</span>TWD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;UAH&quot;</span>&gt;</span>UAH<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--設置selected為預設值  --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;USD&quot;</span> <span class="attr">selected</span>&gt;</span>USD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;UYU&quot;</span>&gt;</span>UYU<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;VND&quot;</span>&gt;</span>VND<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ZAR&quot;</span>&gt;</span>ZAR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">id</span>=<span class="string">&quot;amount-one&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;0&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="製作轉換匯率按鈕"><a href="#製作轉換匯率按鈕" class="headerlink" title="製作轉換匯率按鈕"></a>製作轉換匯率按鈕</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;swap-rate-container&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">id</span>=<span class="string">&quot;swap&quot;</span>&gt;</span></span><br><span class="line">                Swap</span><br><span class="line">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">&lt;!-- 此處會反映出匯率 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;rate&quot;</span> <span class="attr">id</span>=<span class="string">&quot;rate&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="製作比對的匯率下拉式表單及比對的幣值輸入-出-框"><a href="#製作比對的匯率下拉式表單及比對的幣值輸入-出-框" class="headerlink" title="製作比對的匯率下拉式表單及比對的幣值輸入(出)框"></a>製作比對的匯率下拉式表單及比對的幣值輸入(出)框</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;currency&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;currency-two&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;AED&quot;</span>&gt;</span>AED<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ARS&quot;</span>&gt;</span>ARS<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;AUD&quot;</span>&gt;</span>AUD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;BGN&quot;</span>&gt;</span>BGN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;BRL&quot;</span>&gt;</span>BRL<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;BSD&quot;</span>&gt;</span>BSD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CAD&quot;</span>&gt;</span>CAD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CHF&quot;</span>&gt;</span>CHF<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CLP&quot;</span>&gt;</span>CLP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CNY&quot;</span>&gt;</span>CNY<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;COP&quot;</span>&gt;</span>COP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;CZK&quot;</span>&gt;</span>CZK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;DKK&quot;</span>&gt;</span>DKK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;DOP&quot;</span>&gt;</span>DOP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;EGP&quot;</span>&gt;</span>EGP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;EUR&quot;</span> <span class="attr">selected</span>&gt;</span>EUR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;FJD&quot;</span>&gt;</span>FJD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;GBP&quot;</span>&gt;</span>GBP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;GTQ&quot;</span>&gt;</span>GTQ<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;HKD&quot;</span>&gt;</span>HKD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;HRK&quot;</span>&gt;</span>HRK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;HUF&quot;</span>&gt;</span>HUF<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;IDR&quot;</span>&gt;</span>IDR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ILS&quot;</span>&gt;</span>ILS<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;INR&quot;</span>&gt;</span>INR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ISK&quot;</span>&gt;</span>ISK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;JPY&quot;</span>&gt;</span>JPY<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;KRW&quot;</span>&gt;</span>KRW<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;KZT&quot;</span>&gt;</span>KZT<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;MXN&quot;</span>&gt;</span>MXN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;MYR&quot;</span>&gt;</span>MYR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;NOK&quot;</span>&gt;</span>NOK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;NZD&quot;</span>&gt;</span>NZD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PAB&quot;</span>&gt;</span>PAB<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PEN&quot;</span>&gt;</span>PEN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PHP&quot;</span>&gt;</span>PHP<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PKR&quot;</span>&gt;</span>PKR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PLN&quot;</span>&gt;</span>PLN<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;PYG&quot;</span>&gt;</span>PYG<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;RON&quot;</span>&gt;</span>RON<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;RUB&quot;</span>&gt;</span>RUB<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;SAR&quot;</span>&gt;</span>SAR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;SEK&quot;</span>&gt;</span>SEK<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;SGD&quot;</span>&gt;</span>SGD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;THB&quot;</span>&gt;</span>THB<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;TRY&quot;</span>&gt;</span>TRY<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;TWD&quot;</span>&gt;</span>TWD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;UAH&quot;</span>&gt;</span>UAH<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;USD&quot;</span>&gt;</span>USD<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;UYU&quot;</span>&gt;</span>UYU<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;VND&quot;</span>&gt;</span>VND<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;ZAR&quot;</span>&gt;</span>ZAR<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--這裡對比上方，沒有value，因為value由上方輸入決定其比對後轉換的匯率值  --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">id</span>=<span class="string">&quot;amount-two&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="HTML完成圖"><a href="#HTML完成圖" class="headerlink" title="HTML完成圖"></a>HTML完成圖</h3><p><img src="https://i.imgur.com/WsCxAGU.png"></p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="基礎body設定、萬用字源選取器-及根目錄選取器-root"><a href="#基礎body設定、萬用字源選取器-及根目錄選取器-root" class="headerlink" title="基礎body設定、萬用字源選取器*及根目錄選取器:root"></a>基礎body設定、萬用字源選取器*及根目錄選取器:root</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*根目錄選取器 ，此處建立變數，ex:--name-color: #fff */</span></span><br><span class="line"><span class="comment">/*此處希望正個頁皆可使用所以設置於此，如果只希望一部分用到就寫在該物件選取器中，ex: p &#123;</span></span><br><span class="line"><span class="comment">	--name-title-red: #fff;</span></span><br><span class="line"><span class="comment">&#125; */</span></span><br><span class="line"><span class="selector-pseudo">:root</span>&#123;</span><br><span class="line">    <span class="attr">--primary-color</span>: <span class="number">#5fbaa7</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 表示選擇頁面中所有元素（標籤）。萬用字元選擇器不需要呼叫，自動就給所有元素使用樣式。 */</span></span><br><span class="line">*&#123;</span><br><span class="line"><span class="comment">/* box-sizing 的作用是控制 width 與 height，Border-box 為寬高設定作用在邊框外緣的範圍內  */</span></span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f4f4f4</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: -apple-system, BlinkMacSystemFont, <span class="string">&#x27;Segoe UI&#x27;</span>, Roboto, Oxygen, Ubuntu, Cantarell, <span class="string">&#x27;Open Sans&#x27;</span>, <span class="string">&#x27;Helvetica Neue&#x27;</span>, sans-serif;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: column;</span><br><span class="line">    <span class="comment">/* 恢復置中及正常大小 */</span></span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*此處套用根目錄選取器之變數  */</span></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">var</span>(--primary-color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10228111">:root 根目錄選取器 - 叫你阿爸出來講</a><br><a target="_blank" rel="noopener" href="https://www.gushiciku.cn/pl/pG4d/zh-tw">CSS常見選擇器</a><br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10252827">Box-sizing - 金魚都能懂的CSS必學屬性</a></p>
+<h3 id="設置swap按鈕樣式及圖片寬度"><a href="#設置swap按鈕樣式及圖片寬度" class="headerlink" title="設置swap按鈕樣式及圖片寬度"></a>設置swap按鈕樣式及圖片寬度</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--primary-color);</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.money-img</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="設置貨幣選項及輸入框"><a href="#設置貨幣選項及輸入框" class="headerlink" title="設置貨幣選項及輸入框"></a>設置貨幣選項及輸入框</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.currency</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">40px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.currency</span> select &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">20px</span> <span class="number">10px</span> <span class="number">10px</span>;</span><br><span class="line"><span class="comment">/*將select預設樣式清除，進而重新設定，設定三個appearance是為了符合各家瀏覽器  */</span></span><br><span class="line">    -moz-appearance: none;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">    appearance: none;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#dedede</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line"><span class="comment">/*設定背景透明(預設也為透明)，差別在於希望顯示下面的元素  */</span></span><br><span class="line">    <span class="attribute">background</span>: transparent;</span><br><span class="line"><span class="comment">/* 黑色倒三角圖檔 */</span></span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%20000002%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E&#x27;</span>);</span><br><span class="line"><span class="comment">/*下面三個皆是為將圖片設定成倒三角  */</span></span><br><span class="line">    <span class="attribute">background-position</span>: right <span class="number">10px</span> top <span class="number">50%</span>, <span class="number">0</span>, <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">12px</span> auto, <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.currency</span> <span class="selector-tag">input</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line"><span class="comment">/* 輸入框的顏色為白色，設定為透明*/</span></span><br><span class="line">    <span class="attribute">background</span>: transparent;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="設定匯率顯示區樣式"><a href="#設定匯率顯示區樣式" class="headerlink" title="設定匯率顯示區樣式"></a>設定匯率顯示區樣式</h3><ul>
+<li>focus外框消除，按鈕、選單滑鼠滑過時有預設的藍或黑外框，這裡設定將它消除。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.swap-rate-container</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.rate</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">var</span>(--primary-color);</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 消除預設的focus外框(點擊時呈現藍色或黑色的border) */</span></span><br><span class="line">select<span class="selector-pseudo">:focus</span>,</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span>,</span><br><span class="line"><span class="selector-tag">button</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">    <span class="attribute">outline</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 在拉縮時畫面不會變形*/</span></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;</span><br><span class="line">    <span class="selector-class">.currency</span><span class="selector-class">.input</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+參考資料:<br><a target="_blank" rel="noopener" href="https://wcc723.github.io/css/2016/12/06/css-status/">CSS 的元件狀態</a><br><a target="_blank" rel="noopener" href="https://www.w3schools.com/css/css3_mediaqueries_ex.asp">CSS Media Queries</a></li>
+</ul>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="宣告"><a href="#宣告" class="headerlink" title="宣告"></a>宣告</h3><ul>
+<li>利用const宣告，因為匯率會改變<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基準的幣值(ex.TWD)</span></span><br><span class="line"><span class="keyword">const</span> currencyEl_one = <span class="variable language_">document</span>.<span class="property">getElementById</span> (<span class="string">&#x27;currency-one&#x27;</span>);</span><br><span class="line"><span class="comment">// 基準幣值的價格總數</span></span><br><span class="line"><span class="keyword">const</span> amountEl_one = <span class="variable language_">document</span>.<span class="property">getElementById</span> (<span class="string">&#x27;amount-one&#x27;</span>);</span><br><span class="line"><span class="comment">// 轉換的幣值(ex.USD)</span></span><br><span class="line"><span class="keyword">const</span> currencyEl_two = <span class="variable language_">document</span>.<span class="property">getElementById</span> (<span class="string">&#x27;currency-two&#x27;</span>);</span><br><span class="line"><span class="comment">// 轉換幣值的價格總數</span></span><br><span class="line"><span class="keyword">const</span> amountEl_two = <span class="variable language_">document</span>.<span class="property">getElementById</span> (<span class="string">&#x27;amount-two&#x27;</span>);</span><br><span class="line"><span class="comment">// 顯示的匯率</span></span><br><span class="line"><span class="keyword">const</span> rateEl = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;rate&#x27;</span>);</span><br><span class="line"><span class="comment">//  swap的按鈕</span></span><br><span class="line"><span class="keyword">const</span> swap = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;swap&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="取得匯率更新-fetch-amp-取得資料更新-DOM"><a href="#取得匯率更新-fetch-amp-取得資料更新-DOM" class="headerlink" title="取得匯率更新(fetch)&amp; 取得資料更新(DOM)"></a>取得匯率更新(fetch)&amp; 取得資料更新(DOM)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Fetch exchange rates and update the DOM</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">caclulate</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> currency_one = currencyEl_one.<span class="property">value</span>;</span><br><span class="line">    <span class="keyword">const</span> currency_two = currencyEl_two.<span class="property">value</span>;</span><br><span class="line"><span class="comment">// 取得此網址api</span></span><br><span class="line">    <span class="title function_">fetch</span>(<span class="string">`https://api.exchangerate-api.com/v4/latest/<span class="subst">$&#123;currency_one&#125;</span>`</span>)</span><br><span class="line">        <span class="comment">// 取得json檔案格式，以json()方法處理</span></span><br><span class="line">        .<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> res.<span class="title function_">json</span>())</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function"><span class="params">data</span> =&gt;</span>&#123;</span><br><span class="line">            <span class="comment">// console.log(data);</span></span><br><span class="line">            <span class="keyword">const</span> rate = data.<span class="property">rates</span>[currency_two];</span><br><span class="line"></span><br><span class="line">            rateEl.<span class="property">innerText</span> = <span class="string">`1<span class="subst">$&#123;currency_one&#125;</span> = <span class="subst">$&#123;rate&#125;</span> <span class="subst">$&#123;currency_two&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// toFixed 取第幾位四捨五入</span></span><br><span class="line">            amountEl_two.<span class="property">value</span> = (amountEl_one.<span class="property">value</span> * rate).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+參考資料:<br><a target="_blank" rel="noopener" href="https://www.oxxostudio.tw/articles/201908/js-fetch.html">JavaScript Fetch API 使用教學</a><br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/jsref_tofixed.asp">JavaScript toFixed() 方法</a></li>
+</ul>
+<h3 id="事件監聽"><a href="#事件監聽" class="headerlink" title="事件監聽"></a>事件監聽</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Event listeners</span></span><br><span class="line"><span class="comment">// 依據幣值的改變，匯率顯示也跟著改變，轉換的匯率輸入框也會改變</span></span><br><span class="line">currencyEl_one.<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>,caclulate);</span><br><span class="line"><span class="comment">// 基準幣值輸入框，在輸入之後或者利用滑鼠上下調整數字，也會影響轉換匯率輸入框的變化</span></span><br><span class="line">amountEl_one.<span class="title function_">addEventListener</span>(<span class="string">&#x27;input&#x27;</span>,caclulate);</span><br><span class="line"><span class="comment">// 幣值改變，匯率顯示改變，轉換匯率的輸入框也會改變</span></span><br><span class="line">currencyEl_two.<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>,caclulate);</span><br><span class="line">amountEl_two.<span class="title function_">addEventListener</span>(<span class="string">&#x27;input&#x27;</span>,caclulate);</span><br><span class="line"></span><br><span class="line"><span class="comment">// swap鍵交換匯率 &amp; 使用temp變數</span></span><br><span class="line">swap.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> temp = currencyEl_one.<span class="property">value</span>;</span><br><span class="line">    currencyEl_one.<span class="property">value</span> = currencyEl_two.<span class="property">value</span>;</span><br><span class="line">    currencyEl_two.<span class="property">value</span> = temp;</span><br><span class="line">    <span class="title function_">caclulate</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="title function_">caclulate</span>();</span><br></pre></td></tr></table></figure>
+<h4 id="匯率轉換-currency-amp-amout-示意圖"><a href="#匯率轉換-currency-amp-amout-示意圖" class="headerlink" title="匯率轉換(currency &amp; amout)示意圖"></a>匯率轉換(currency &amp; amout)示意圖</h4><p>用文字說明比較籠統，放上圖示比較清楚(以顏色及箭頭區隔與說明影響範圍)<br><img src="https://i.imgur.com/ZhDGOs0.png"></p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="http://test.domojyun.net/MEMO/JavaScript/7_event.html">事件處理</a><br><a target="_blank" rel="noopener" href="https://javascript.info/events-change-input">Events: change, input, cut, copy, paste</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/21/JS%E5%90%8C%E6%AD%A5%E8%88%87%E9%9D%9E%E5%90%8C%E6%AD%A5-%E5%A0%86%E7%96%8A-stack-%E8%88%87%E4%BD%87%E5%88%97-Queue/" rel="prev" title="JS同步與非同步 堆疊(stack)與佇列(Queue)">
+      <i class="fa fa-chevron-left"></i> JS同步與非同步 堆疊(stack)與佇列(Queue)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/01/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Expense-Tracker/" rel="next" title="作品練習- Expense Tracker">
+      作品練習- Expense Tracker <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#03%E5%AF%A6%E4%BD%9C%E7%B7%B4%E7%BF%92-Exchange-Rate-Calculator"><span class="nav-number">1.</span> <span class="nav-text">03實作練習 Exchange Rate Calculator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E5%9C%96%E7%89%87"><span class="nav-number">1.1.1.</span> <span class="nav-text">設定圖片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E5%9F%BA%E6%BA%96%E5%8C%AF%E7%8E%87%E4%B8%8B%E6%8B%89%E5%BC%8F%E8%A1%A8%E5%96%AE%E5%8F%8A%E5%9F%BA%E6%BA%96%E7%9A%84%E5%B9%A3%E5%80%BC%E8%BC%B8%E5%85%A5%E6%A1%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">製作基準匯率下拉式表單及基準的幣值輸入框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E8%BD%89%E6%8F%9B%E5%8C%AF%E7%8E%87%E6%8C%89%E9%88%95"><span class="nav-number">1.1.3.</span> <span class="nav-text">製作轉換匯率按鈕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E6%AF%94%E5%B0%8D%E7%9A%84%E5%8C%AF%E7%8E%87%E4%B8%8B%E6%8B%89%E5%BC%8F%E8%A1%A8%E5%96%AE%E5%8F%8A%E6%AF%94%E5%B0%8D%E7%9A%84%E5%B9%A3%E5%80%BC%E8%BC%B8%E5%85%A5-%E5%87%BA-%E6%A1%86"><span class="nav-number">1.1.4.</span> <span class="nav-text">製作比對的匯率下拉式表單及比對的幣值輸入(出)框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML%E5%AE%8C%E6%88%90%E5%9C%96"><span class="nav-number">1.1.5.</span> <span class="nav-text">HTML完成圖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">1.2.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8Ebody%E8%A8%AD%E5%AE%9A%E3%80%81%E8%90%AC%E7%94%A8%E5%AD%97%E6%BA%90%E9%81%B8%E5%8F%96%E5%99%A8-%E5%8F%8A%E6%A0%B9%E7%9B%AE%E9%8C%84%E9%81%B8%E5%8F%96%E5%99%A8-root"><span class="nav-number">1.2.1.</span> <span class="nav-text">基礎body設定、萬用字源選取器*及根目錄選取器:root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AEswap%E6%8C%89%E9%88%95%E6%A8%A3%E5%BC%8F%E5%8F%8A%E5%9C%96%E7%89%87%E5%AF%AC%E5%BA%A6"><span class="nav-number">1.2.2.</span> <span class="nav-text">設置swap按鈕樣式及圖片寬度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE%E8%B2%A8%E5%B9%A3%E9%81%B8%E9%A0%85%E5%8F%8A%E8%BC%B8%E5%85%A5%E6%A1%86"><span class="nav-number">1.2.3.</span> <span class="nav-text">設置貨幣選項及輸入框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E5%8C%AF%E7%8E%87%E9%A1%AF%E7%A4%BA%E5%8D%80%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">設定匯率顯示區樣式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.3.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A3%E5%91%8A"><span class="nav-number">1.3.1.</span> <span class="nav-text">宣告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E5%8C%AF%E7%8E%87%E6%9B%B4%E6%96%B0-fetch-amp-%E5%8F%96%E5%BE%97%E8%B3%87%E6%96%99%E6%9B%B4%E6%96%B0-DOM"><span class="nav-number">1.3.2.</span> <span class="nav-text">取得匯率更新(fetch)&amp; 取得資料更新(DOM)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9B%A3%E8%81%BD"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件監聽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8C%AF%E7%8E%87%E8%BD%89%E6%8F%9B-currency-amp-amout-%E7%A4%BA%E6%84%8F%E5%9C%96"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">匯率轉換(currency &amp; amout)示意圖</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

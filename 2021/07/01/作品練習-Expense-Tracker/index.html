@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="04實作練習:Expense Tracker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作品練習- Expense Tracker">
+<meta property="og:url" content="https://shawnliu1012.github.io/2021/07/01/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Expense-Tracker/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="04實作練習:Expense Tracker">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/T2dE6v9.png">
+<meta property="og:image" content="https://i.imgur.com/IApKLkB.png">
+<meta property="og:image" content="https://i.imgur.com/WjDj2mp.png">
+<meta property="og:image" content="https://i.imgur.com/DIueQoc.png">
+<meta property="og:image" content="https://i.imgur.com/LBKxPfx.png">
+<meta property="og:image" content="https://i.imgur.com/iNhV9GA.png">
+<meta property="article:published_time" content="2021-07-01T15:46:02.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:04.939Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/T2dE6v9.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2021/07/01/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Expense-Tracker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>作品練習- Expense Tracker | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2021/07/01/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Expense-Tracker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          作品練習- Expense Tracker
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-07-01 23:46:02" itemprop="dateCreated datePublished" datetime="2021-07-01T23:46:02+08:00">2021-07-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:04" itemprop="dateModified" datetime="2022-05-24T17:41:04+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="04實作練習-Expense-Tracker"><a href="#04實作練習-Expense-Tracker" class="headerlink" title="04實作練習:Expense Tracker"></a>04實作練習:Expense Tracker</h1><span id="more"></span>
+<h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><h3 id="製作收支平衡及收入及支出表格"><a href="#製作收支平衡及收入及支出表格" class="headerlink" title="製作收支平衡及收入及支出表格"></a>製作收支平衡及收入及支出表格</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Expense Tracker<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Your Balance<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">&quot;balance&quot;</span>&gt;</span>$0.00<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inc-exp-container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Income<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;money-plus&quot;</span> <span class="attr">class</span>=<span class="string">&quot;money plus&quot;</span>&gt;</span>+$0.00<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h4</span>&gt;</span>Expense<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;money-minus&quot;</span> <span class="attr">class</span>=<span class="string">&quot;money minus&quot;</span>&gt;</span>-$0.00<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="製作收支歷史紀錄"><a href="#製作收支歷史紀錄" class="headerlink" title="製作收支歷史紀錄"></a>製作收支歷史紀錄</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>History<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;list&quot;</span> <span class="attr">class</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- li 這裡先測試顯現的樣式，之後是採用JS輸入品項及價格後會顯現 --&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- &lt;li class=&quot;minus&quot;&gt;Cash &lt;span&gt;-$400&lt;/span&gt;&lt;button class=&quot;delete-btn&quot;&gt;x&lt;/button&gt;&lt;/li&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="製作收支品項及價格輸入格"><a href="#製作收支品項及價格輸入格" class="headerlink" title="製作收支品項及價格輸入格"></a>製作收支品項及價格輸入格</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Add new transaction<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;form&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;text&quot;</span>&gt;</span>Text<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- placholder 輸入提示訊息                 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter text...&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- br斷行 --&gt;</span> </span><br><span class="line">                <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;amount&quot;</span>&gt;</span>amount <span class="tag">&lt;<span class="name">br</span>&gt;</span> (negative - expense, positive - Income)<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">id</span>=<span class="string">&quot;amount&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Enter amount...&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span>&gt;</span>Add transaction<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Html成品"><a href="#Html成品" class="headerlink" title="Html成品"></a>Html成品</h3><p><img src="https://i.imgur.com/T2dE6v9.png"></p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="設定根目錄選擇器及整體CSS基礎樣式"><a href="#設定根目錄選擇器及整體CSS基礎樣式" class="headerlink" title="設定根目錄選擇器及整體CSS基礎樣式"></a>設定根目錄選擇器及整體CSS基礎樣式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> url(<span class="string">&#x27;https://fonts.googleapis.com/css?family=Lato&amp;display=swap&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*使用根目錄選取器，在之後css的設定中設定此值，此處設定為將其凸顯  */</span></span><br><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">3px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.12</span>), <span class="number">0</span> <span class="number">1px</span> <span class="number">2px</span> <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0.24</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">* &#123;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#f7f7f7</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: column;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="comment">/* min-height:設定最低高度限制; */</span></span><br><span class="line">    <span class="attribute">min-height</span>: <span class="number">100vh</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;Lato&#x27;</span>, sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>資料參考:<br><a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=CSS_min-height_%E5%B1%AC%E6%80%A7">CSS min-height 屬性
+</a></p>
+<h3 id="設定container區塊及各標題"><a href="#設定container區塊及各標題" class="headerlink" title="設定container區塊及各標題"></a>設定container區塊及各標題</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">30px</span> auto;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">350px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line"><span class="comment">/*letter-spacing:字元之間的距離  */</span></span><br><span class="line">    <span class="attribute">letter-spacing</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h3</span> &#123;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#bbb</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">40px</span> <span class="number">0</span> <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h4</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/* 控制字母大小寫: uppercase:皆大寫*/</span></span><br><span class="line">    <span class="attribute">text-transform</span>: uppercase;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考資料:<a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10244794">Letter-spacing - 金魚都能懂的CSS必學屬性</a></p>
+<h4 id="css-text-transform-控制字母大小寫"><a href="#css-text-transform-控制字母大小寫" class="headerlink" title="css text-transform 控制字母大小寫"></a>css text-transform 控制字母大小寫</h4><p>透過 text-transform 來控制文章中的文字字母大小寫，但指的是英文字母而不是中文字母。</p>
+<blockquote>
+<p>uppercase 大寫 &#x2F;&#x2F;GOOD MORNING<br>lowercase 小寫 &#x2F;&#x2F;good morning<br>capitalize 第一個字母大寫，其他字母小寫 &#x2F;&#x2F;Good Morning<br>參考資料:<br><a target="_blank" rel="noopener" href="https://www.wibibi.com/info.php?tid=174">CSS text-transform 控制文章字母的大小寫</a></p>
+</blockquote>
+<h3 id="設定收入及支出表格"><a href="#設定收入及支出表格" class="headerlink" title="設定收入及支出表格"></a>設定收入及支出表格</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.inc-exp-container</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="built_in">var</span>(--box-shadow);</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 此處 &quot;&gt;&quot; 為直屬選擇器，表示只會對inc-exp-container這個class下的直屬div有影響*/</span></span><br><span class="line"><span class="selector-class">.inc-exp-container</span> &gt; <span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="comment">/* flex:1 讓class下的直屬div平分空間，此處為income與expense評分*/</span></span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* :first-of-type選取對於父元素下的第1個子元素做設定*/</span></span><br><span class="line"><span class="selector-class">.inc-exp-container</span> &gt; <span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-of-type &#123;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="number">#dedede</span>;</span><br><span class="line">&#125;<span class="comment">/* 此處設定為選取到第一個income  div 設定gorder-right，讓其看起來像中間產生了框綫(於下方子標題進一步說明)*/</span></span><br><span class="line"><span class="selector-class">.money</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">letter-spacing</span>: <span class="number">1px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">5px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.money</span><span class="selector-class">.plus</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#2ecc71</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.money</span><span class="selector-class">.minus</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#c0392b</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/136223806">flex:1 到底代表什麼?</a></p>
+<h4 id="直屬選擇器"><a href="#直屬選擇器" class="headerlink" title="直屬選擇器"></a>直屬選擇器</h4><p><code>.box&gt;p</code> &#x2F; <code>.box p</code><br><img src="https://i.imgur.com/IApKLkB.png"><br>參考資料:<a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10214703">HTML&amp;CSS| 選擇器大於(&gt;)的用法</a></p>
+<h4 id="first-of-type選擇器"><a href="#first-of-type選擇器" class="headerlink" title=":first-of-type選擇器"></a>:first-of-type選擇器</h4><p>於上方程式碼中<code>.inc-exp-container &gt; div:first-of-type</code>我們進一步以圖示說明讓讀者更明白，<br>回頭看html讓我們更清楚知道程式碼想表示的:</p>
+<p><img src="https://i.imgur.com/WjDj2mp.png"></p>
+<blockquote>
+<p>從上圖我們看到紫色框與黃色框皆是<code>.inc-exp-container &gt; div</code>，我們選擇第一個子元素income，設定<code>border-right</code>，結果就會如下圖所示，看起來就是中間設了線，但其實是income div做了操作</p>
+</blockquote>
+<p><img src="https://i.imgur.com/DIueQoc.png"></p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://code.tutsplus.com/zh-hant/tutorials/the-30-css-selectors-you-must-memorize--net-16048">30個你必須記住的CSS選擇器</a></p>
+<h3 id="設置收支品項及價格輸入格及按鈕"><a href="#設置收支品項及價格輸入格及按鈕" class="headerlink" title="設置收支品項及價格輸入格及按鈕"></a>設置收支品項及價格輸入格及按鈕</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 設定成inline-block，同時擁有block可設定寬高的屬性，但其排版仍像inline屬性，並不會向右占滿整個容器。 */</span></span><br><span class="line"><span class="selector-tag">label</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* []=屬性選擇器，選取特定的屬性(值) */</span></span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&#x27;text&#x27;</span>]</span>,</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&#x27;number&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#dedede</span>;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">2px</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="selector-class">.btn</span> &#123;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#9c88ff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="built_in">var</span>(--box-shadow);</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">0</span> <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="設置歷史紀錄"><a href="#設置歷史紀錄" class="headerlink" title="設置歷史紀錄"></a>設置歷史紀錄</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.list</span> &#123;</span><br><span class="line"><span class="comment">/*去除li前面的&quot;˙&quot;  */</span></span><br><span class="line">    <span class="attribute">list-style-type</span>: none;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.list</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="built_in">var</span>(--box-shadow);</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">    <span class="comment">/* position注意 為了之後delete鍵設置 */</span></span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*設置右側色調(綠=收入/紅=支出)  */</span></span><br><span class="line"><span class="selector-class">.list</span> <span class="selector-tag">li</span><span class="selector-class">.plus</span> &#123;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">5px</span> solid <span class="number">#2ecc71</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.list</span> <span class="selector-tag">li</span><span class="selector-class">.minus</span> &#123;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">5px</span> solid <span class="number">#c0392b</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.delete-btn</span> &#123;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#e74c3c</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">2px</span> <span class="number">5px</span>;</span><br><span class="line"><span class="comment">/* 將原本於右側的X按鈕移動至左側*/</span></span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line"><span class="comment">/*  將delete按鍵些微調整制比較合適的位子 */</span></span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">100%</span>, -<span class="number">50%</span>);</span><br><span class="line">    <span class="comment">/* 將delete btn隱藏 */</span></span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line"><span class="comment">/*  設置顯現時間    */</span></span><br><span class="line">    <span class="attribute">transition</span>: opacity <span class="number">0.3s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* opacity 0透明 1不透明 0.6半透明 */</span></span><br><span class="line"><span class="comment">/* 滑鼠滑過顯現 */</span></span><br><span class="line"><span class="selector-class">.list</span> <span class="selector-tag">li</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.delete-btn</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="list-li-plus-x2F-list-li-minus示意圖"><a href="#list-li-plus-x2F-list-li-minus示意圖" class="headerlink" title=".list li.plus&#x2F; .list li.minus示意圖"></a>.list li.plus&#x2F; .list li.minus示意圖</h4><p><img src="https://i.imgur.com/LBKxPfx.png"></p>
+<h4 id="delete按鈕移動示意圖"><a href="#delete按鈕移動示意圖" class="headerlink" title="delete按鈕移動示意圖"></a>delete按鈕移動示意圖</h4><p><img src="https://i.imgur.com/iNhV9GA.png"></p>
+<h3 id="設置按鈕狀態"><a href="#設置按鈕狀態" class="headerlink" title="設置按鈕狀態"></a>設置按鈕狀態</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*去除預設外框線  */</span></span><br><span class="line"><span class="selector-class">.btn</span><span class="selector-pseudo">:focus</span>,</span><br><span class="line"><span class="selector-class">.delete-btn</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">    <span class="attribute">outline</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> balance = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;balance&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> money_plus = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;money-plus&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> money_minus = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;money-minus&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> list = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;list&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> form = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;form&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;text&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> amount = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;amount&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// const dummyTransactions = [</span></span><br><span class="line"><span class="comment">//     &#123;id: 1, text: &#x27;Flower&#x27;, amount: -20 &#125;,</span></span><br><span class="line"><span class="comment">//     &#123;id: 2, text: &#x27;Salary&#x27;, amount: 300 &#125;,</span></span><br><span class="line"><span class="comment">//     &#123;id: 3, text: &#x27;Book&#x27;, amount: -10 &#125;,</span></span><br><span class="line"><span class="comment">//     &#123;id: 4, text: &#x27;Camera&#x27;, amount: 150 &#125;</span></span><br><span class="line"><span class="comment">// ];</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> localStorageTransactions = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="variable language_">localStorage</span>.<span class="property">getItem</span></span><br><span class="line">    (<span class="string">&#x27;transactions&#x27;</span>));</span><br><span class="line"><span class="comment">// 從dummyTransactions改為: 目的為清零</span></span><br><span class="line"><span class="comment">// let transactions = dummyTransactions;</span></span><br><span class="line"><span class="keyword">let</span> transactions = </span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;transactions&#x27;</span>) !== <span class="literal">null</span> ?</span><br><span class="line">localStorageTransactions : [];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下方設定完事件監聽至此處撰寫function</span></span><br><span class="line"><span class="comment">// 3.設定下方花費或淨賺提交處</span></span><br><span class="line"><span class="comment">// Add transaction</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addTransaction</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (text.<span class="property">value</span>.<span class="title function_">trim</span>() === <span class="string">&#x27;&#x27;</span> || amount.<span class="property">value</span>.<span class="title function_">trim</span>() === <span class="string">&#x27;&#x27;</span>)&#123;</span><br><span class="line">        <span class="title function_">alert</span>(<span class="string">&#x27;Please add a text and amount&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> transaction =&#123;</span><br><span class="line">            <span class="attr">id</span>: <span class="title function_">generateID</span>(),</span><br><span class="line">            <span class="attr">text</span>: text.<span class="property">value</span>,</span><br><span class="line">            <span class="comment">// 影片提及此處須為數字</span></span><br><span class="line">            <span class="attr">amount</span>: +amount.<span class="property">value</span></span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// console.log(transaction);確定輸入text及amount有數值</span></span><br><span class="line">        transactions.<span class="title function_">push</span>(transaction);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">addTransactionDOM</span>(transaction);</span><br><span class="line"></span><br><span class="line">        <span class="title function_">updateValues</span>();</span><br><span class="line"><span class="comment">// 在設定下方Update local storage transactions Function後設置</span></span><br><span class="line">        <span class="title function_">updateLocalStorage</span>();</span><br><span class="line"></span><br><span class="line">        text.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        amount.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注意 生成ID 在後續刪除中見效</span></span><br><span class="line"><span class="comment">// Generate random ID</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">generateID</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add transactions to DOM list</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addTransactionDOM</span>(<span class="params">transaction</span>) &#123;</span><br><span class="line">    <span class="comment">// Get sign</span></span><br><span class="line">    <span class="keyword">const</span> sign = transaction.<span class="property">amount</span> &lt; <span class="number">0</span> ? <span class="string">&#x27;-&#x27;</span> : <span class="string">&#x27;+&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> item = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;li&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add class based on value</span></span><br><span class="line">   item.<span class="property">classList</span>.<span class="title function_">add</span>(transaction.<span class="property">amount</span> &lt; <span class="number">0</span> ? <span class="string">&#x27;minus&#x27;</span> : <span class="string">&#x27;plus&#x27;</span>);</span><br><span class="line">    <span class="comment">// Math.abs 將負數轉為正數</span></span><br><span class="line">    <span class="comment">// onclick=&quot;removeTransaction($&#123;transaction.id&#125;)&quot;注意</span></span><br><span class="line">    item.<span class="property">innerHTML</span> = <span class="string">`</span></span><br><span class="line"><span class="string">        <span class="subst">$&#123;transaction.text&#125;</span> &lt;span&gt;<span class="subst">$&#123;sign&#125;</span><span class="subst">$&#123;<span class="built_in">Math</span>.abs(</span></span></span><br><span class="line"><span class="subst"><span class="string">            transaction.amount</span></span></span><br><span class="line"><span class="subst"><span class="string">            )&#125;</span>&lt;/span&gt; &lt;button class=&quot;delete-btn&quot;  onclick=&quot;removeTransaction(<span class="subst">$&#123;transaction.id&#125;</span>)&quot;&gt;x&lt;/button&gt;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line"><span class="comment">// 注意</span></span><br><span class="line">    list.<span class="title function_">appendChild</span>(item);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2.設定總數值，淨賺及花費數值</span></span><br><span class="line"><span class="comment">// Upate the balance, income and expense</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updateValues</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> amounts = transactions.<span class="title function_">map</span>(<span class="function"><span class="params">transaction</span> =&gt;</span> transaction.<span class="property">amount</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> total = amounts.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, item</span>) =&gt;</span> (acc += item), <span class="number">0</span>)</span><br><span class="line">    .<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 注意</span></span><br><span class="line">    <span class="keyword">const</span> income = amounts</span><br><span class="line">        .<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">0</span>)</span><br><span class="line">        .<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, item</span>) =&gt;</span> (acc += item), <span class="number">0</span>)</span><br><span class="line">        .<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> expense = (</span><br><span class="line">        amounts.<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> item &lt; <span class="number">0</span>).<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, item</span>) =&gt;</span> (acc += item), <span class="number">0</span>) * -<span class="number">1</span></span><br><span class="line">    ).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    balance.<span class="property">innerHTML</span> = <span class="string">`$<span class="subst">$&#123;total&#125;</span>`</span>;</span><br><span class="line">    money_plus.<span class="property">innerHTML</span> = <span class="string">`$<span class="subst">$&#123;income&#125;</span>`</span>;</span><br><span class="line">    money_minus.<span class="property">innerHTML</span> = <span class="string">`$<span class="subst">$&#123;expense&#125;</span>`</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在設定完上方onclick後，接續此設定為讓history紀錄除去，以ID作為刪除的基礎</span></span><br><span class="line"><span class="comment">// Remove transaction by ID</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">removeTransaction</span>(<span class="params">id</span>) &#123;</span><br><span class="line">    transactions = transactions.<span class="title function_">filter</span>(<span class="function"><span class="params">transaction</span> =&gt;</span> transaction.<span class="property">id</span></span><br><span class="line">        !== id);</span><br><span class="line"><span class="comment">// 在設定Update local storage transactions 後設置</span></span><br><span class="line">        <span class="title function_">updateLocalStorage</span>();</span><br><span class="line"></span><br><span class="line">        <span class="title function_">init</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 4.設定本地存儲</span></span><br><span class="line"><span class="comment">// Update local storage transactions</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updateLocalStorage</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;transactions&#x27;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(transactions))</span><br><span class="line">    ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意</span></span><br><span class="line"><span class="comment">// Init app</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">init</span>(<span class="params"></span>) &#123;</span><br><span class="line">    list.<span class="property">innerHTML</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    transactions.<span class="title function_">forEach</span>(addTransactionDOM);</span><br><span class="line">    <span class="title function_">updateValues</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">init ();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 設定事件監聽後 至上方撰寫function</span></span><br><span class="line"><span class="comment">// not addTransactionDOM</span></span><br><span class="line">form.<span class="title function_">addEventListener</span>(<span class="string">&#x27;submit&#x27;</span>, addTransaction);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/25/%E4%BD%9C%E5%93%81%E7%B7%B4%E7%BF%92-Exchange-Rate-Calculator/" rel="prev" title="作品練習-Exchange Rate Calculator">
+      <i class="fa fa-chevron-left"></i> 作品練習-Exchange Rate Calculator
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/03/JS-JQueryAjax-%E3%80%81-Fetch-%E3%80%81-Axios-API-%E4%BB%8B%E7%B4%B9/" rel="next" title="JQueryAjax 、 Fetch 、 Axios API 介紹">
+      JQueryAjax 、 Fetch 、 Axios API 介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#04%E5%AF%A6%E4%BD%9C%E7%B7%B4%E7%BF%92-Expense-Tracker"><span class="nav-number">1.</span> <span class="nav-text">04實作練習:Expense Tracker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#html"><span class="nav-number">1.1.</span> <span class="nav-text">html</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E6%94%B6%E6%94%AF%E5%B9%B3%E8%A1%A1%E5%8F%8A%E6%94%B6%E5%85%A5%E5%8F%8A%E6%94%AF%E5%87%BA%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.1.1.</span> <span class="nav-text">製作收支平衡及收入及支出表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E6%94%B6%E6%94%AF%E6%AD%B7%E5%8F%B2%E7%B4%80%E9%8C%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">製作收支歷史紀錄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%BD%E4%BD%9C%E6%94%B6%E6%94%AF%E5%93%81%E9%A0%85%E5%8F%8A%E5%83%B9%E6%A0%BC%E8%BC%B8%E5%85%A5%E6%A0%BC"><span class="nav-number">1.1.3.</span> <span class="nav-text">製作收支品項及價格輸入格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Html%E6%88%90%E5%93%81"><span class="nav-number">1.1.4.</span> <span class="nav-text">Html成品</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">1.2.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E6%A0%B9%E7%9B%AE%E9%8C%84%E9%81%B8%E6%93%87%E5%99%A8%E5%8F%8A%E6%95%B4%E9%AB%94CSS%E5%9F%BA%E7%A4%8E%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">設定根目錄選擇器及整體CSS基礎樣式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9Acontainer%E5%8D%80%E5%A1%8A%E5%8F%8A%E5%90%84%E6%A8%99%E9%A1%8C"><span class="nav-number">1.2.2.</span> <span class="nav-text">設定container區塊及各標題</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#css-text-transform-%E6%8E%A7%E5%88%B6%E5%AD%97%E6%AF%8D%E5%A4%A7%E5%B0%8F%E5%AF%AB"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">css text-transform 控制字母大小寫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E6%94%B6%E5%85%A5%E5%8F%8A%E6%94%AF%E5%87%BA%E8%A1%A8%E6%A0%BC"><span class="nav-number">1.2.3.</span> <span class="nav-text">設定收入及支出表格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E5%B1%AC%E9%81%B8%E6%93%87%E5%99%A8"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">直屬選擇器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#first-of-type%E9%81%B8%E6%93%87%E5%99%A8"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">:first-of-type選擇器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE%E6%94%B6%E6%94%AF%E5%93%81%E9%A0%85%E5%8F%8A%E5%83%B9%E6%A0%BC%E8%BC%B8%E5%85%A5%E6%A0%BC%E5%8F%8A%E6%8C%89%E9%88%95"><span class="nav-number">1.2.4.</span> <span class="nav-text">設置收支品項及價格輸入格及按鈕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE%E6%AD%B7%E5%8F%B2%E7%B4%80%E9%8C%84"><span class="nav-number">1.2.5.</span> <span class="nav-text">設置歷史紀錄</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#list-li-plus-x2F-list-li-minus%E7%A4%BA%E6%84%8F%E5%9C%96"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">.list li.plus&#x2F; .list li.minus示意圖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete%E6%8C%89%E9%88%95%E7%A7%BB%E5%8B%95%E7%A4%BA%E6%84%8F%E5%9C%96"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">delete按鈕移動示意圖</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE%E6%8C%89%E9%88%95%E7%8B%80%E6%85%8B"><span class="nav-number">1.2.6.</span> <span class="nav-text">設置按鈕狀態</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript"><span class="nav-number">1.3.</span> <span class="nav-text">Javascript</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

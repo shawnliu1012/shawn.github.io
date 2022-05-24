@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用 Github Pages 上傳你的第一個網頁 理解git 與 github不同，並利用github上傳網頁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Github Pages 上傳你的第一個網頁">
+<meta property="og:url" content="https://shawnliu1012.github.io/2020/11/25/%E4%BD%BF%E7%94%A8-Github-Pages-%E4%B8%8A%E5%82%B3%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%80%8B%E7%B6%B2%E9%A0%81/index.html">
+<meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="使用 Github Pages 上傳你的第一個網頁 理解git 與 github不同，並利用github上傳網頁">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/0uyOKv0.png">
+<meta property="og:image" content="https://i.imgur.com/dIQE8TT.png">
+<meta property="og:image" content="https://i.imgur.com/fZeJbSE.png">
+<meta property="og:image" content="https://i.imgur.com/FwMfAxP.jpg">
+<meta property="og:image" content="https://i.imgur.com/UaFGrJT.jpg">
+<meta property="og:image" content="https://i.imgur.com/c9OZqlX.png">
+<meta property="og:image" content="https://i.imgur.com/Wwcbi6l.png">
+<meta property="og:image" content="https://i.imgur.com/8xwQK0t.png">
+<meta property="og:image" content="https://i.imgur.com/f5QLsmA.png">
+<meta property="og:image" content="https://i.imgur.com/W6xqfeC.png">
+<meta property="og:image" content="https://i.imgur.com/qMVXzhH.png">
+<meta property="og:image" content="https://i.imgur.com/IQSXu7L.png">
+<meta property="og:image" content="https://i.imgur.com/vFm6EKd.png">
+<meta property="og:image" content="https://i.imgur.com/T5qRqRn.png">
+<meta property="og:image" content="https://i.imgur.com/ohWpmBB.png">
+<meta property="og:image" content="https://i.imgur.com/yuJYXn6.png">
+<meta property="og:image" content="https://i.imgur.com/FfHWviP.png">
+<meta property="og:image" content="https://i.imgur.com/ofaDOvV.png">
+<meta property="og:image" content="https://i.imgur.com/ikHGG6L.png">
+<meta property="og:image" content="https://i.imgur.com/IB7eTwk.png">
+<meta property="og:image" content="https://i.imgur.com/QGTHGup.png">
+<meta property="og:image" content="https://i.imgur.com/U3UONSe.png">
+<meta property="og:image" content="https://i.imgur.com/0Jmn0YI.png">
+<meta property="og:image" content="https://i.imgur.com/KmRQMPD.png">
+<meta property="og:image" content="https://i.imgur.com/YC1YymO.png">
+<meta property="article:published_time" content="2020-11-25T14:38:54.000Z">
+<meta property="article:modified_time" content="2022-05-24T09:41:04.961Z">
+<meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/0uyOKv0.png">
+
+<link rel="canonical" href="https://shawnliu1012.github.io/2020/11/25/%E4%BD%BF%E7%94%A8-Github-Pages-%E4%B8%8A%E5%82%B3%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%80%8B%E7%B6%B2%E9%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>使用 Github Pages 上傳你的第一個網頁 | 自學日記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">自學日記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">學習程式相關知識及學習法</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2020/11/25/%E4%BD%BF%E7%94%A8-Github-Pages-%E4%B8%8A%E5%82%B3%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%80%8B%E7%B6%B2%E9%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用 Github Pages 上傳你的第一個網頁
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-11-25 22:38:54" itemprop="dateCreated datePublished" datetime="2020-11-25T22:38:54+08:00">2020-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-24 17:41:04" itemprop="dateModified" datetime="2022-05-24T17:41:04+08:00">2022-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="使用-Github-Pages-上傳你的第一個網頁"><a href="#使用-Github-Pages-上傳你的第一個網頁" class="headerlink" title="使用 Github Pages 上傳你的第一個網頁"></a>使用 Github Pages 上傳你的第一個網頁</h1><blockquote>
+<p>理解git 與 github不同，並利用github上傳網頁</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="別搞混-git-與-github-不同"><a href="#別搞混-git-與-github-不同" class="headerlink" title="別搞混!git 與 github 不同"></a>別搞混!git 與 github 不同</h2><p>簡單來說:Git是一個分散式版本控制系統，可讓您多處放置同一份程式碼、歷史紀錄追蹤與回朔，讓協同開發更容易。GitHub是基於遠端數據庫，可讓您管理Git存儲庫。如果您有使用Git開放的原始碼專案，那麼GitHub旨在幫助您更好地管理它們。<br><img src="https://i.imgur.com/0uyOKv0.png"><br>來源: <a target="_blank" rel="noopener" href="https://blog.devmountain.com/git-vs-github-whats-the-difference/">Git vs. GitHub: What’s the Difference?</a></p>
+<h2 id="使用putty-產生金鑰-ssh-key-上傳至你的github-windows版"><a href="#使用putty-產生金鑰-ssh-key-上傳至你的github-windows版" class="headerlink" title="使用putty 產生金鑰(ssh key)上傳至你的github(windows版)"></a>使用putty 產生金鑰(ssh key)上傳至你的github(windows版)</h2><p>1.下載putty (<a target="_blank" rel="noopener" href="https://www.putty.org/">https://www.putty.org/</a>)<br>至頁面點擊第一個 Download Putty<br><img src="https://i.imgur.com/dIQE8TT.png"><br>依電腦位元下載相應版本<br><img src="https://i.imgur.com/fZeJbSE.png"></p>
+<p>2.開啟Puttygen(可參考影片網址(前1:30) : <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kBB_iN4_Xsg">https://www.youtube.com/watch?v=kBB_iN4_Xsg</a>)</p>
+<p>3.先點擊generate，後於紅方框處搖動滑鼠標籤產生金鑰<br><img src="https://i.imgur.com/FwMfAxP.jpg"></p>
+<p>4.紅方框處產生即為公鑰，另外點擊save private key，儲存n私鑰ppk檔，之後如要再讀取可點選load 開啟ppk檔讀取公鑰。<br><img src="https://i.imgur.com/UaFGrJT.jpg"></p>
+<p>5.至github setting點選SSH and GPG keys:point_right:SSH Keys :point_right: New SSH key新增公鑰<br><img src="https://i.imgur.com/c9OZqlX.png"></p>
+<p>6.設定title 和公鑰(Key)<br><img src="https://i.imgur.com/Wwcbi6l.png"></p>
+<p>7.完成後呈現畫面<br><img src="https://i.imgur.com/8xwQK0t.png"></p>
+<h2 id="在github創新專案"><a href="#在github創新專案" class="headerlink" title="在github創新專案"></a>在github創新專案</h2><p>1.註冊github後，點選右上角+，增加新專案(new repository)<br><img src="https://i.imgur.com/f5QLsmA.png"><br>2.為您的專案取名字，可選擇public or private，然後按下面綠色按鈕創建專案(create repository)<br><img src="https://i.imgur.com/W6xqfeC.png"><br>3.如果您電腦本地端還未有git的資料夾，可照 or create..一欄建立，這裡我已在電腦本地端設立了git的資料夾，因此我採用第二個or push..一欄的指令，去作與本地端的連結，您可以採用https or SSH去做連結都可以。<br><img src="https://i.imgur.com/qMVXzhH.png"><br><img src="https://i.imgur.com/IQSXu7L.png"><br><strong>查詢本地端是否連結</strong>，可輸入command line 指令:git remote查詢顯示遠端數據庫清單，加上-v即可顯示遠端數據庫的詳細情況。<br>尚未連結情形:<br><img src="https://i.imgur.com/vFm6EKd.png"><br>連結後情形(通常遠端名稱會以origin為主):<br><img src="https://i.imgur.com/T5qRqRn.png"><br>補充:如果你因為某些原因想要移除一個遠端，你可以執行git remote rm</p>
+<h3 id="小知識"><a href="#小知識" class="headerlink" title="小知識:"></a>小知識:</h3><p><strong>git branch -M master指令</strong>，為響應黑人平權運動，GitHub宣布從10月1日起改變新Git儲存庫的預設命名，以main來取代原本的master。<br>連結參考:<a target="_blank" rel="noopener" href="https://www.ithome.com.tw/news/140094">https://www.ithome.com.tw/news/140094</a><br>4.輸入指令後，呈現如下，在回到github充新整理，即可見到本地端創建git資料夾的檔案<br><img src="https://i.imgur.com/ohWpmBB.png"><br><img src="https://i.imgur.com/yuJYXn6.png"></p>
+<h2 id="開始上傳靜態網頁到github"><a href="#開始上傳靜態網頁到github" class="headerlink" title="開始上傳靜態網頁到github"></a>開始上傳靜態網頁到github</h2><p>1.首先建立html檔案<br><img src="https://i.imgur.com/FfHWviP.png"><br>2.檢查html的git staus:point_right: git add (加進暫存<br>區):point_right:git commit -m “”(加進儲存庫)<br><img src="https://i.imgur.com/ofaDOvV.png"><br><img src="https://i.imgur.com/ikHGG6L.png"><br>ˇ3.git commit -m動作結束後，我們要建立新的branch gh-pages，因此輸入git branch gh-pages，<br><img src="https://i.imgur.com/IB7eTwk.png"><br>4.此時輸入git branch檢查會進入下面vim模式(輸入git log也會有同樣的情形)，必須輸入:wq儲存離開頁面。<br><img src="https://i.imgur.com/QGTHGup.png"><br>p.s若不要此編輯模式，我們輸入git config –global core.pager ‘’，來讓所有顯示皆出現在同一頁。<br><img src="https://i.imgur.com/U3UONSe.png"><br>5.轉到分支 branch gh-pages，然後輸入git push推到github上<br><img src="https://i.imgur.com/0Jmn0YI.png"><br>6.輸入上圖最後一行”git push –…”<br><img src="https://i.imgur.com/KmRQMPD.png"><br>7.這樣回到github頁面重新整理即完成上傳，<br>然後輸入您的[githubname].github.io&#x2F;[git專案名]</p>
+<p>我的部分為:shawnliu1012.github.io&#x2F;hello_git，<br>靜態頁面便完成上傳!<br><img src="https://i.imgur.com/YC1YymO.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/25/%E4%BD%BF%E7%94%A8%E8%B2%BB%E6%9B%BC%E5%AD%B8%E7%BF%92%E6%B3%95%E4%BE%86%E5%AD%B8%E7%BF%92-Git-%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8/" rel="prev" title="使用費曼學習法來學習 Git 怎麼使用">
+      <i class="fa fa-chevron-left"></i> 使用費曼學習法來學習 Git 怎麼使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/01/%E9%97%9C%E6%96%BCHTML-CSS%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/" rel="next" title="關於HTML CSS基本介紹">
+      關於HTML CSS基本介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Github-Pages-%E4%B8%8A%E5%82%B3%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%80%8B%E7%B6%B2%E9%A0%81"><span class="nav-number">1.</span> <span class="nav-text">使用 Github Pages 上傳你的第一個網頁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A5%E6%90%9E%E6%B7%B7-git-%E8%88%87-github-%E4%B8%8D%E5%90%8C"><span class="nav-number">1.1.</span> <span class="nav-text">別搞混!git 與 github 不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8putty-%E7%94%A2%E7%94%9F%E9%87%91%E9%91%B0-ssh-key-%E4%B8%8A%E5%82%B3%E8%87%B3%E4%BD%A0%E7%9A%84github-windows%E7%89%88"><span class="nav-number">1.2.</span> <span class="nav-text">使用putty 產生金鑰(ssh key)上傳至你的github(windows版)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8github%E5%89%B5%E6%96%B0%E5%B0%88%E6%A1%88"><span class="nav-number">1.3.</span> <span class="nav-text">在github創新專案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%9F%A5%E8%AD%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">小知識:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E4%B8%8A%E5%82%B3%E9%9D%9C%E6%85%8B%E7%B6%B2%E9%A0%81%E5%88%B0github"><span class="nav-number">1.4.</span> <span class="nav-text">開始上傳靜態網頁到github</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Shawn Liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shawn Liu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
