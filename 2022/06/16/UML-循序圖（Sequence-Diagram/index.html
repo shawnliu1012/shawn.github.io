@@ -20,15 +20,23 @@
     var CONFIG = {"hostname":"shawnliu1012.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="自學日記">
-<meta property="og:url" content="https://shawnliu1012.github.io/archives/2021/05/index.html">
+  <meta name="description" content="UML 循序圖(Sequence Diagram)由於公司專案需要，這邊學習說明什麼是UML語言中的循序圖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UML 循序圖（Sequence Diagram)">
+<meta property="og:url" content="https://shawnliu1012.github.io/2022/06/16/UML-%E5%BE%AA%E5%BA%8F%E5%9C%96%EF%BC%88Sequence-Diagram/index.html">
 <meta property="og:site_name" content="自學日記">
+<meta property="og:description" content="UML 循序圖(Sequence Diagram)由於公司專案需要，這邊學習說明什麼是UML語言中的循序圖">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Jrv2FZB.png">
+<meta property="og:image" content="https://i.imgur.com/kfjdiWb.png">
+<meta property="article:published_time" content="2022-06-16T06:03:56.000Z">
+<meta property="article:modified_time" content="2022-06-17T02:09:29.899Z">
 <meta property="article:author" content="Shawn Liu">
+<meta property="article:tag" content="技術社群">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Jrv2FZB.png">
 
-<link rel="canonical" href="https://shawnliu1012.github.io/archives/2021/05/">
+<link rel="canonical" href="https://shawnliu1012.github.io/2022/06/16/UML-%E5%BE%AA%E5%BA%8F%E5%9C%96%EF%BC%88Sequence-Diagram/">
 
 
 <script id="page-configurations">
@@ -36,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
 
-  <title>歸檔 | 自學日記</title>
+  <title>UML 循序圖（Sequence Diagram) | 自學日記</title>
   
 
 
@@ -145,111 +153,100 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">好! 目前共有 57 篇文章。 繼續努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shawnliu1012.github.io/2022/06/16/UML-%E5%BE%AA%E5%BA%8F%E5%9C%96%EF%BC%88Sequence-Diagram/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Shawn Liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="自學日記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UML 循序圖（Sequence Diagram)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-06-16 14:03:56" itemprop="dateCreated datePublished" datetime="2022-06-16T14:03:56+08:00">2022-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-17 10:09:29" itemprop="dateModified" datetime="2022-06-17T10:09:29+08:00">2022-06-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-05-24T19:42:24+08:00"
-              content="2021-05-24">
-          05-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/05/24/JS-%E4%BB%80%E9%BA%BC%E6%98%AF%E9%96%89%E5%8C%85-Closure/" itemprop="url">
-            <span itemprop="name">JS 什麼是閉包(Closure)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-05-20T19:48:14+08:00"
-              content="2021-05-20">
-          05-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/05/20/JS-%E8%AE%8A%E6%95%B8%E6%8F%90%E5%8D%87-Hoisting/" itemprop="url">
-            <span itemprop="name">JS 變數提升(Hoisting)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-05-14T19:22:37+08:00"
-              content="2021-05-14">
-          05-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/05/14/Pseodo-Code-%E8%99%9B%E6%93%AC%E7%A2%BC/" itemprop="url">
-            <span itemprop="name">Pseodo Code(虛擬碼)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-05-10T22:40:25+08:00"
-              content="2021-05-10">
-          05-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/05/10/JS-%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC/" itemprop="url">
-            <span itemprop="name">JS 樣板字面值</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="UML-循序圖-Sequence-Diagram"><a href="#UML-循序圖-Sequence-Diagram" class="headerlink" title="UML 循序圖(Sequence Diagram)"></a>UML 循序圖(Sequence Diagram)</h1><p>由於公司專案需要，這邊學習說明什麼是UML語言中的循序圖</p>
+<span id="more"></span>
+<h2 id="什麼是UML"><a href="#什麼是UML" class="headerlink" title="什麼是UML"></a>什麼是UML</h2><p>UML是統一建模語言的簡稱，是一種標準化建模語言，由一組集成的圖表組成，旨在幫助系統和軟體開發人員指定、可視化、構建和記錄軟體系統的偽影，以及商業建模和其他非軟體系統。</p>
+<h2 id="什麼是循序圖"><a href="#什麼是循序圖" class="headerlink" title="什麼是循序圖"></a>什麼是循序圖</h2><p>循序圖是普遍被開發者使用的工具，在單例使用者和物件的互動中做建模。它們說明系統不同的部分如何進行互動以及如何執行功能，以及執行特定案例中的發生的前後順序。<br>用簡單的話來說，循序圖可以表示系統不同部分上的作業順序，以完成某些工作。</p>
+<p>Squence Diagram 常用於程式功能製作前的規劃階段，可用來釐清</p>
+<ul>
+<li>操作流程</li>
+<li>程式邏輯間的順序</li>
+<li>各類情境中的資料流順序</li>
+<li>個物件間在當下時間的關係</li>
+</ul>
+<p>規劃時，先釐清上述4點，能讓邏輯更加清晰，發現規劃中的邏輯誤區，有點像是製作前的沙盤推演。<br>對於開發而言，因事前為推演過，所以製作上，能有效降續開發中的邏輯衝突，限縮操作上產生非預期狀況。<br>對於後續要接手的人來說，只要看了 Squence Diagram 圖，都可以明白大致的操作與程式走麼跑，也可避免腦捕的情況發生。<br>這也就是為什麼在許多技術串接文件、交接文件以及規格書中，你都可以看到 Squence Diagram 的身影。</p>
+<p><img src="https://i.imgur.com/Jrv2FZB.png"></p>
+<p><img src="https://i.imgur.com/kfjdiWb.png"></p>
+<p>參考資料:<br><a target="_blank" rel="noopener" href="https://seanacnet.com/website-related/sequence-diagrams/">循序圖 Sequence Diagram – 製作說明圖解</a></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%80%E8%A1%93%E7%A4%BE%E7%BE%A4/" rel="tag"># 技術社群</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/20/Vue%E5%B0%88%E6%A1%88-git-clone%E8%87%B3Mac-M1%E6%9C%AC%E5%9C%B0%E7%AB%AF%E9%9B%BB%E8%85%A6%E7%84%A1%E6%B3%95%E9%81%8B%E8%A1%8C%E4%B9%8B%E8%A7%A3%E6%B1%BA%E6%96%B9%E5%BC%8F/" rel="prev" title="Vue練習 git clone至Mac M1本地端電腦無法運行之解決方式">
+      <i class="fa fa-chevron-left"></i> Vue練習 git clone至Mac M1本地端電腦無法運行之解決方式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -302,6 +299,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E5%BE%AA%E5%BA%8F%E5%9C%96-Sequence-Diagram"><span class="nav-number">1.</span> <span class="nav-text">UML 循序圖(Sequence Diagram)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFUML"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是UML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E5%BE%AA%E5%BA%8F%E5%9C%96"><span class="nav-number">1.2.</span> <span class="nav-text">什麼是循序圖</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
